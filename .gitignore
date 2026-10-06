@@ -1,0 +1,15 @@
+# Official competition rasters are large (training_features.tif is 419 MB) and are fetched with
+# scripts/download_competition_data.sh, not committed.  See data/README.md.
+data/*.tif
+data/*.tiff
+data/external/*.tif
+
+# The submission itself IS committed: it is the deliverable and is ~1.6 MB.
+!docs/downloads/*.tif
+!docs/downloads/*.zip
+
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+*.egg-info/

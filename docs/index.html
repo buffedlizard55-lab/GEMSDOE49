@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Submission — DOE GEMS Prize</title>
+<meta name="description" content="Independently built, format-verified fault-potential submission for the
+DrivenData DOE GEMS Prize (competition 306).">
+<link rel="stylesheet" href="assets/site.css">
+</head><body>
+<header><div class="wrap"><b>GEMS&nbsp;Prize&nbsp;#306</b><nav><a href="index.html" aria-current=page>Overview</a><a href="executive-summary.html">How to submit</a><a href="hypotheses.html">Hypotheses</a><a href="evidence.html">Evidence</a><a href="research.html">Research</a></nav>
+<span class="small" style="margin-left:auto">built 2026-10-06 21:37Z</span></div></header>
+<main class="wrap">
+<h1>Fault-potential raster for the DOE GEMS Prize</h1>
+<p class="sub">One independently built submission, one click to download it, and the full evidence
+chain behind it — data pins, the exact metric, the measured reason the obvious approaches fail, and
+the cross-validation protocol that gates the release.</p>
+<div class="card dl"><h2>⬇ Download the submission</h2>
+<p class="small">GeoTIFF, 3292×3730, EPSG:32611, 100 m, float32,
+values in [0,1], NaN only outside the mapped footprint.</p>
+<a class="btn" href="downloads/gems49-gate_ortho_w0.25-40k-20261006T213721Z-nan.tif" download>Download gems49-gate_ortho_w0.25-40k-20261006T213721Z-nan.tif</a>
+<a class="btn sec" href="downloads/gems49-gate_ortho_w0.25-40k-20261006T213721Z-zeros.tif" download>zero-filled variant (same predictions)</a>
+<p class="small" style="margin-top:10px">sha256 of the primary file:
+<code>c58fe0551e120678fff190239146985d0b2f7255255535fb5fb637a05cb40af3</code><br>gems49-gate_ortho_w0.25-40k-20261006T213721Z — submit this file as-is. The second file
+carries identical predictions and differs only outside the mapped area, for forms that reject NaN.</p>
+</div>
+<h2>Status feed</h2>
+<p class="sub">Regenerate with <code>python3 scripts/build_site.py</code> after any script reruns;
+everything below reads from <code>docs/data/</code>.</p>
+<table><tr><th>check</th><th>what the repository currently reports</th><th>receipt</th></tr><tr><td><span class="pill ok">OK</span></td><td>Family selection (leave-one-fold-out): <code>gate_ortho_w0.25</code> 0.1074 vs best single layer <code>single:det_elev_slope</code> 0.0991 (+0.0083)</td><td class="small">4 spatially blocked folds over 3,118 catalogue segments removed whole; geometry chosen on three folds, scored on the fourth.</td></tr><tr><td><span class="pill ok">OK</span></td><td>Shipped placement, both arms re-measured under the same rule: <b>0.1131</b> vs <b>0.1029</b> collared (+0.0102); 0.1181 vs 0.1111 unrestricted (+0.0070)</td><td class="small">300 m catalogue buffer at 300 m dot separation. The buffer is a placement rule, so the baseline was given it too before the margin was believed.</td></tr><tr><td><span class="pill ok">OK</span></td><td>Relabel check: <b>UNIQUE</b> against 131 prior submission rasters</td><td class="small">max support Jaccard 0.0223, max top-25k Jaccard 0.0161 — far below the relabel thresholds.</td></tr><tr><td><span class="pill ok">OK</span></td><td>Format gate on the committed bytes: <b>11/11</b> required checks pass (both encodings)</td><td class="small">sha256 <code>c58fe0551e120678…</code>, 40,000 dots at 1.0 with 0.0 elsewhere, values in [0, 1], NaN only outside the footprint.</td></tr></table>
+<h2>What this repository claims</h2>
+<div class="grid">
+<div class="kpi"><div class="v">40,000</div><div class="k">positive pixels submitted</div></div>
+<div class="kpi"><div class="v">0.8%</div><div class="k">share of the mapped footprint</div></div>
+<div class="kpi"><div class="v">0.1131</div><div class="k">shipped placement, collared</div></div>
+<div class="kpi"><div class="v">131</div><div class="k">prior submissions compared against</div></div>
+</div>
+<p style="margin-top:14px">The claim that matters is a <b>measured comparison</b>, not an absolute
+number: on a spatially blocked cross-validation in which entire fault segments are removed and
+recovered, the released detector beats every single-layer gradient baseline supplied in the
+competition data. Absolute values here are <em>not</em> leaderboard scores — see
+<a href="evidence.html#instrument">the instrument warning</a>.</p>
+<h2>How it works in one paragraph</h2>
+<p>The supplied feature stack is mostly smooth at the multi-kilometre scale; measured integral scales
+are 2.7–10.5 km, so a 100 m horizontal gradient of those bands resolves interpolation texture rather
+than structural edges. The released detector therefore anchors on the one field that does carry
+grid-scale power — the detrended-elevation slope — turns it into a multi-scale ridge/edge response,
+weights it by local coherence, and then uses cross-gradient products of the independent geophysical
+layers as <em>confounder gates</em>: a candidate pixel survives only where the independent layers
+agree that a structure is there, and is down-weighted where their gradients are orthogonal. Emission
+is binary and sparse, placed by a greedy shadowed-coverage rule under the exact metric algebra.</p>
+<h2>Why not the cross-gradient itself?</h2>
+<p>The brief asked for a data-domain cross-gradient of gravity and magnetics. It was implemented,
+measured and <em>rejected as a detector</em>: at matched emission geometry it scores inside the
+no-information control range (cross-gradient 0.0715
+vs random 0.0718, uniform lattice
+0.0693). The measured reason is
+in <a href="evidence.html#native">native resolution</a>: both fields have integral scales of
+2.7–8.1 km. Its defensible role is the multiplicative gate it now plays.</p>
+<h2>Reproduce it</h2>
+<pre>git clone &lt;this repo&gt; &amp;&amp; cd GEMSDOE49
+bash scripts/download_competition_data.sh     # fetch + sha256-verify the official data
+python3 scripts/prepare_data.py               # audit grid, CRS, dtype, footprint, band tags
+python3 -m pytest tests -q                    # 39 tests: metric, gate, cross-gradient, holdout
+python3 scripts/build_submission.py           # writes the two GeoTIFFs + docs/data/submission.json
+python3 scripts/validate_submission.py docs/downloads/&lt;file&gt;.tif
+python3 scripts/uniqueness_check.py --prior-dir &lt;priors&gt;
+python3 scripts/build_site.py                 # this site</pre>
+</main>
+<footer class="wrap">
+<p>Everything on this site is generated by <code>scripts/build_site.py</code> from
+<code>docs/data/*.json</code>; every number points at a script that measured it from the
+hash-verified files in <code>data/</code>. Claims carry a tag:
+<span class="tag o">OFFICIAL</span> organizer or primary-literature source,
+<span class="tag m">MEASURED</span> computed here,
+<span class="tag b">BLOCKED</span> not obtainable in this environment.</p>
+<p>Not affiliated with DrivenData, the U.S. Department of Energy, or the U.S. Geological Survey.</p>
+</footer></body></html>

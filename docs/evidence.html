@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Evidence — DOE GEMS Prize</title>
+<meta name="description" content="Independently built, format-verified fault-potential submission for the
+DrivenData DOE GEMS Prize (competition 306).">
+<link rel="stylesheet" href="assets/site.css">
+</head><body>
+<header><div class="wrap"><b>GEMS&nbsp;Prize&nbsp;#306</b><nav><a href="index.html">Overview</a><a href="executive-summary.html">How to submit</a><a href="hypotheses.html">Hypotheses</a><a href="evidence.html" aria-current=page>Evidence</a><a href="research.html">Research</a></nav>
+<span class="small" style="margin-left:auto">built 2026-10-06 21:37Z</span></div></header>
+<main class="wrap">
+<h1>Evidence</h1>
+<p class="sub">Results, protocol, controls and the reason each number can be trusted — or cannot.</p>
+
+<h2>Headline comparison</h2>
+<table>
+<tr><th>family</th><th class="n">LOFO collared</th><th class="n">LOFO unrestricted</th></tr>
+<tr><td><code>gate_ortho_w0.25</code></td><td class="n">0.1074</td><td class="n">0.1172</td></tr><tr><td><code>topo_ms_coh</code></td><td class="n">0.1074</td><td class="n">0.1169</td></tr><tr><td><code>gate_ortho_w0.75</code></td><td class="n">0.1073</td><td class="n">0.1168</td></tr><tr><td><code>gate_ortho_w1</code></td><td class="n">0.1073</td><td class="n">0.1168</td></tr><tr><td><code>gate_ortho_w0.5</code></td><td class="n">0.1072</td><td class="n">0.1170</td></tr><tr><td><code>topo_ms_coh4</code></td><td class="n">0.1064</td><td class="n">0.1170</td></tr><tr><td><code>gate_align_w0.25</code></td><td class="n">0.1036</td><td class="n">0.1165</td></tr><tr><td><code>gate_align_w0.5</code></td><td class="n">0.1026</td><td class="n">0.1146</td></tr><tr><td><code>topo_ms_coh1</code></td><td class="n">0.1004</td><td class="n">0.1132</td></tr><tr><td><code>rankavg_base_triple</code></td><td class="n">0.1000</td><td class="n">0.1122</td></tr><tr><td><code>single:det_elev_slope</code></td><td class="n">0.0991</td><td class="n">0.1077</td></tr><tr><td><code>gate_align_w0.75</code></td><td class="n">0.0976</td><td class="n">0.1083</td></tr><tr><td><code>rankavg_base_cg</code></td><td class="n">0.0950</td><td class="n">0.1080</td></tr><tr><td><code>topo_ms</code></td><td class="n">0.0940</td><td class="n">0.1045</td></tr><tr><td><code>tg_g</code></td><td class="n">0.0855</td><td class="n">0.0971</td></tr><tr><td><code>triple</code></td><td class="n">0.0836</td><td class="n">0.0965</td></tr><tr><td><code>single:det_elev</code></td><td class="n">0.0726</td><td class="n">0.0787</td></tr><tr><td><code>single:geod_dilaterate</code></td><td class="n">0.0642</td><td class="n">0.0813</td></tr><tr><td><code>single:ieq_n100a15</code></td><td class="n">0.0629</td><td class="n">0.0772</td></tr><tr><td><code>cg_gxm</code></td><td class="n">0.0627</td><td class="n">0.0765</td></tr><tr><td><code>single:geod_2ndinv</code></td><td class="n">0.0609</td><td class="n">0.0752</td></tr><tr><td><code>single:iso_grav_anom</code></td><td class="n">0.0607</td><td class="n">0.0741</td></tr><tr><td><code>single:geod_shearrate</code></td><td class="n">0.0600</td><td class="n">0.0746</td></tr><tr><td><code>single:mag_anom</code></td><td class="n">0.0598</td><td class="n">0.0716</td></tr><tr><td><code>single:iso_grav_anom_slope</code></td><td class="n">0.0589</td><td class="n">0.0706</td></tr><tr><td><code>single:tmi</code></td><td class="n">0.0585</td><td class="n">0.0719</td></tr><tr><td><code>single:rtp</code></td><td class="n">0.0584</td><td class="n">0.0717</td></tr><tr><td><code>single:iso_grav_anom_hg</code></td><td class="n">0.0582</td><td class="n">0.0717</td></tr><tr><td><code>single:tc</code></td><td class="n">0.0581</td><td class="n">0.0652</td></tr><tr><td><code>single:tmi_hg</code></td><td class="n">0.0579</td><td class="n">0.0716</td></tr><tr><td><code>single:deq_n100a15</code></td><td class="n">0.0579</td><td class="n">0.0715</td></tr><tr><td><code>single:tmi_vg</code></td><td class="n">0.0579</td><td class="n">0.0709</td></tr><tr><td><code>single:iso_grav_anom_vg</code></td><td class="n">0.0563</td><td class="n">0.0688</td></tr><tr><td><code>control:random</code></td><td class="n">0.0549</td><td class="n">0.0670</td></tr><tr><td><code>single:cond_surf</code></td><td class="n">0.0511</td><td class="n">0.0641</td></tr><tr><td><code>single:depth_to_base_surf</code></td><td class="n">0.0464</td><td class="n">0.0592</td></tr><tr><td><code>control:uniform_lattice4</code></td><td class="n">0.0431</td><td class="n">0.0497</td></tr>
+</table>
+<p class="small"><b>LOFO</b> (leave-one-fold-out) is the honest protocol: the free geometry parameters
+(support size, minimum separation) are chosen using three folds and the reported value comes from the
+fourth only. Reporting the best of a grid on the same folds inflates a family by the maximum of many
+noisy draws. Gate: best candidate gate_ortho_w0.25 0.1074
+vs best single layer single:det_elev_slope 0.0991 —
+margin +0.0083,
+PASSED.</p>
+
+<h2>Field screen with random and lattice controls</h2>
+<table>
+<tr><th>family</th><th class="n">N</th><th class="n">sep px</th><th class="n">emitted</th>
+<th class="n">collared</th><th class="n">unrestricted</th></tr>
+<tr><td><code>topo_ms_coh</code></td><td class="n">40,000</td><td class="n">3</td><td class="n">40,000</td><td class="n">0.1074</td><td class="n">0.1134</td></tr><tr><td><code>single:det_elev_slope</code></td><td class="n">60,000</td><td class="n">3</td><td class="n">60,000</td><td class="n">0.0991</td><td class="n">0.1077</td></tr><tr><td><code>topo_ms</code></td><td class="n">90,000</td><td class="n">4</td><td class="n">90,000</td><td class="n">0.0943</td><td class="n">0.1108</td></tr><tr><td><code>rankavg_topo_triple_gxm</code></td><td class="n">90,000</td><td class="n">4</td><td class="n">90,000</td><td class="n">0.0913</td><td class="n">0.1087</td></tr><tr><td><code>rankavg_topo_triple</code></td><td class="n">90,000</td><td class="n">4</td><td class="n">90,000</td><td class="n">0.0900</td><td class="n">0.1073</td></tr><tr><td><code>tg_g</code></td><td class="n">90,000</td><td class="n">4</td><td class="n">90,000</td><td class="n">0.0884</td><td class="n">0.1055</td></tr><tr><td><code>triple_s1</code></td><td class="n">140,000</td><td class="n">4</td><td class="n">140,000</td><td class="n">0.0859</td><td class="n">0.1093</td></tr><tr><td><code>triple</code></td><td class="n">90,000</td><td class="n">4</td><td class="n">90,000</td><td class="n">0.0855</td><td class="n">0.1036</td></tr><tr><td><code>triple_s4</code></td><td class="n">90,000</td><td class="n">4</td><td class="n">90,000</td><td class="n">0.0846</td><td class="n">0.1023</td></tr><tr><td><code>tg_m</code></td><td class="n">140,000</td><td class="n">4</td><td class="n">140,000</td><td class="n">0.0820</td><td class="n">0.1061</td></tr><tr><td><code>control:random</code></td><td class="n">140,000</td><td class="n">4</td><td class="n">140,000</td><td class="n">0.0718</td><td class="n">0.0936</td></tr><tr><td><code>cg_gxm</code></td><td class="n">140,000</td><td class="n">4</td><td class="n">140,000</td><td class="n">0.0715</td><td class="n">0.0936</td></tr><tr><td><code>control:uniform_lattice4</code></td><td class="n">140,000</td><td class="n">4</td><td class="n">140,000</td><td class="n">0.0693</td><td class="n">0.0903</td></tr><tr><td><code>control:raster_order</code></td><td class="n">140,000</td><td class="n">4</td><td class="n">140,000</td><td class="n">0.0558</td><td class="n">0.0692</td></tr>
+</table>
+<p class="small">Four controls calibrate the floor: random emission, a uniform lattice, and two
+ablations. Anything inside the control band carries no information about faults, however
+sophisticated its derivation.</p>
+
+<h2 id="native">Native resolution — why the naive cross-gradient fails</h2>
+<p>Measured from <code>data/training_features.tif</code> in this checkout
+(<code>scripts/measure_native_resolution.py</code>). ρ₁ is the lag-1 autocorrelation along each
+axis; the integral scale is the first lag where autocorrelation drops below 1/e.</p>
+<table>
+<tr><th>field</th><th class="n">ρ₁ rows</th><th class="n">ρ₁ cols</th><th class="n">L rows (m)</th>
+<th class="n">L cols (m)</th></tr>
+<tr><td><code>det_elev_slope</code></td><td class="n">0.814</td><td class="n">0.810</td><td class="n">2,700</td><td class="n">4,000</td></tr><tr><td><code>rtp</code></td><td class="n">0.934</td><td class="n">0.919</td><td class="n">2,700</td><td class="n">2,800</td></tr><tr><td><code>tmi</code></td><td class="n">0.935</td><td class="n">0.919</td><td class="n">2,900</td><td class="n">2,800</td></tr><tr><td><code>det_elev</code></td><td class="n">0.940</td><td class="n">0.923</td><td class="n">5,400</td><td class="n">7,400</td></tr><tr><td><code>iso_grav_anom_slope</code></td><td class="n">0.941</td><td class="n">0.923</td><td class="n">2,800</td><td class="n">3,800</td></tr><tr><td><code>depth_to_base_surf</code></td><td class="n">0.942</td><td class="n">0.925</td><td class="n">4,800</td><td class="n">6,600</td></tr><tr><td><code>cond_surf</code></td><td class="n">0.942</td><td class="n">0.923</td><td class="n">10,500</td><td class="n">10,400</td></tr><tr><td><code>iso_grav_anom</code></td><td class="n">0.942</td><td class="n">0.924</td><td class="n">5,800</td><td class="n">8,100</td></tr>
+</table>
+<p>A 100 m horizontal gradient of a field whose integral scale is 2.7–8.1 km measures the
+interpolation between regional samples, not a contact. The pure cross-gradient of isostatic gravity
+and reduced-to-pole magnetics is therefore dominated by interpolation texture — which is exactly what
+the controls show. The one field with genuine grid-scale power is the detrended-elevation slope
+(ρ₁ ≈ 0.81), and it is the strongest single-layer baseline. This is the measured answer to the
+brief's instruction to check the native station spacing before trusting 100 m gradients.</p>
+
+<h2>The gate, measured against the carrier it gates</h2>
+<p>The shipped family is the coherence-weighted multi-scale topographic carrier multiplied by an
+orthogonality gate built from the gravity and reduced-to-pole magnetic gradients. Rebuilding both
+supports at identical geometry and comparing them pixel by pixel:</p>
+<table>
+<tr><th>quantity</th><th class="n">value</th></tr>
+<tr><td>dots in each variant</td><td class="n">40,000</td></tr>
+<tr><td>dots identical between gated and ungated</td><td class="n">36,602</td></tr>
+<tr><td>dots present only with the gate / only without it</td><td class="n">3,398 / 3,398</td></tr>
+<tr><td>support Jaccard</td><td class="n">0.8434</td></tr>
+<tr><td>change in held-out score</td><td class="n">+0.00003</td></tr>
+</table>
+<p class="small">Reading: the gate re-ranks a minority of the dots (8.5% of them) and is score-neutral.
+It is kept because it is the brief's construction, it is a documented confounder filter rather than a
+score, and it is measured not to damage the carrier. A candidate that only worked because of it would
+not have survived this table.</p>
+
+<h2>The catalogue buffer, and the margin after handing the same rule to both arms</h2>
+<p>The highest-scoring artifact in the sibling cohort prunes every dot within 200 m of the catalogue.
+The same question is reproducible here: the retained map of each fold stands in for the masked known
+faults. Sweeping the exclusion radius (<code>scripts/prune_experiment.py</code>) and then re-running
+both arms under identical radii at their own best geometry (<code>scripts/margin_check.py</code>):</p>
+<table>
+<tr><th class="n">buffer</th><th class="n">candidate collared</th><th class="n">candidate unrestricted</th>
+<th class="n">baseline collared</th><th class="n">baseline unrestricted</th><th class="n">margin c / u</th></tr>
+<tr><td class="n">none</td><td class="n">0.1074</td><td class="n">0.1134</td><td class="n">0.0991</td><td class="n">0.1077</td><td class="n">+0.0083 / +0.0056</td></tr><tr><td class="n">none</td><td class="n">0.1074</td><td class="n">0.1134</td><td class="n">0.0980</td><td class="n">0.1068</td><td class="n">+0.0083 / +0.0056</td></tr><tr><td class="n">0 px (exact pixels)</td><td class="n">0.1064</td><td class="n">0.1127</td><td class="n">0.1010</td><td class="n">0.1105</td><td class="n">+0.0083 / +0.0059</td></tr><tr><td class="n">200 m</td><td class="n">0.1100</td><td class="n">0.1166</td><td class="n">0.1029</td><td class="n">0.1111</td><td class="n">+0.0090 / +0.0062</td></tr><tr><td class="n">300 m (shipped)</td><td class="n">0.1131</td><td class="n">0.1181</td><td class="n">0.1047</td><td class="n">0.1086</td><td class="n">+0.0102 / +0.0070</td></tr>
+</table>
+<p class="small">Beyond 300 m both arms lose <em>unrestricted</em> score: the buffer starts deleting
+the dots that would have earned credit where a new fault is mapped against a known one. 300 m is the
+scoring kernel's own radius, the candidate's unrestricted optimum, and the shipped setting.</p>
+
+<h2 id="instrument">Instrument warning — a holdout win is not a leaderboard win</h2>
+<p>Rank correlation between candidates' holdout scores and the ~12 live leaderboard scores available
+locally is positive but weak (≈ 0.50 drift-corrected), and the "hidden catalogue" probe is broken
+(its random trace scores 0.97, so it is aborted above 0.25). No local instrument significantly ranks
+candidates the way the private scorer does. Consequences for how this repository behaves:</p>
+<ul>
+<li>a holdout win is a <b>screen</b>, not evidence of a leaderboard gain;</li>
+<li>candidates are spread across genuinely different hypotheses rather than micro-tuned;</li>
+<li>the released file is the one that cleared both gates, with the margin printed above rather than
+a claimed leaderboard position.</li>
+</ul>
+
+<h2>Format gate</h2>
+<p><code>scripts/validate_submission.py</code> runs 13 checks on the actual bytes about to be
+submitted and prints a JSON summary. The two rejection modes observed live are reproduced as tests
+(<code>tests/test_gate.py</code>) rather than described:</p>
+<ul>
+<li><b>mode A</b> — a NaN strictly inside the footprint: legal at the edges, fatal to a naive
+min/max form check;</li>
+<li><b>mode B</b> — a finite value outside [0,1]: a z-score or an unclipped sentinel leaking into
+the array.</li>
+</ul>
+<p>Both variants of the released file are emitted and both pass the gate; the NaN variant echoes the
+official template's nodata mask exactly, the zero variant is for forms that reject NaN.</p>
+
+<h2>Format gate on the committed bytes: 11
+of 11 required checks</h2>
+<table><tr><th>check</th><th class="n">result</th><th>detail</th></tr><tr><td>driver is GTiff</td><td class="n">PASS</td><td class="small">GTiff</td></tr><tr><td>single band</td><td class="n">PASS</td><td class="small">count=1</td></tr><tr><td>dtype float32</td><td class="n">PASS</td><td class="small">float32</td></tr><tr><td>CRS EPSG:32611</td><td class="n">PASS</td><td class="small">EPSG:32611</td></tr><tr><td>resolution 100 m</td><td class="n">PASS</td><td class="small">(100.0, 100.0)</td></tr><tr><td>shape 3730x3292</td><td class="n">PASS</td><td class="small">3730x3292</td></tr><tr><td>geotransform matches template</td><td class="n">PASS</td><td class="small">(100.0, 0.0, 243350.0, 0.0, -100.0, 4508550.0)</td></tr><tr><td>bounds match template</td><td class="n">PASS</td><td class="small">(243350.0, 4135550.0, 572550.0, 4508550.0)</td></tr><tr><td>no NaN/Inf INSIDE the footprint (rejection mode A)</td><td class="n">PASS</td><td class="small">0 bad pixels of 5167373</td></tr><tr><td>values inside footprint within [0, 1] (rejection mode B)</td><td class="n">PASS</td><td class="small">min=0.000000 max=1.000000</td></tr><tr><td>whole-array min/max are finite and in [0,1] (informational: a naive form check)</td><td class="n">info</td><td class="small">min=nan max=nan. A NaN outside the footprint fails this naive check; use the 0.0-outside variant if a form rejects the file on it.</td></tr><tr><td>no positive values outside the footprint</td><td class="n">PASS</td><td class="small">max outside = 0.0</td></tr><tr><td>echoes the official NaN mask exactly (informational)</td><td class="n">PASS</td><td class="small">nan pixels 7111787 vs template 7111787</td></tr></table>
+<p class="small">The zero-filled variant passes the same gate; its one difference is that it echoes
+no NaN mask, which is informational rather than required
+(<code>docs/data/submission_gate_zeros.json</code>). These are the bytes linked from the download
+button, verified by <code>scripts/verify_committed_submission.py</code> in CI.</p>
+
+<h2>Relabel check</h2>
+<p>Verdict <b>UNIQUE</b> over 0 prior submission
+rasters. Full table in <code>docs/data/uniqueness.json</code>.</p>
+
+</main>
+<footer class="wrap">
+<p>Everything on this site is generated by <code>scripts/build_site.py</code> from
+<code>docs/data/*.json</code>; every number points at a script that measured it from the
+hash-verified files in <code>data/</code>. Claims carry a tag:
+<span class="tag o">OFFICIAL</span> organizer or primary-literature source,
+<span class="tag m">MEASURED</span> computed here,
+<span class="tag b">BLOCKED</span> not obtainable in this environment.</p>
+<p>Not affiliated with DrivenData, the U.S. Department of Energy, or the U.S. Geological Survey.</p>
+</footer></body></html>

@@ -1,0 +1,16 @@
+{
+ "generated_utc": "2026-10-06T21:17:24Z",
+ "w": 0.25,
+ "sigma": 2.0,
+ "n_target": 40000,
+ "min_sep_px": 3,
+ "support_jaccard_gated_vs_ungated": 0.8434029217936311,
+ "n_shared": 36602,
+ "n_only_ungated": 3398,
+ "n_only_gated": 3398,
+ "n_ungated": 40000,
+ "n_gated": 40000,
+ "field_finite_share": 0.0,
+ "note": "The gate leaves the emitted dot set almost untouched. Its value is therefore not in re-ranking the carrier; it survives only because it does not damage it, and it belongs in the file as a documented, measured no-op rather than as a claim of gain.",
+ "runtime_s": 21.5
+}

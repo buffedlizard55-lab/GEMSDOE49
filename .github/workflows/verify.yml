@@ -1,0 +1,76 @@
+name: verify
+# The point of this workflow is that nobody has to check anything by hand: the committed submission
+# is hashed and re-tested on every push and once a day, and the current status feed is written into
+# the run summary (and uploaded as an artifact), so the state of the project is always visible
+# without a login.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 6 * * *"
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install the dependencies the checks need
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install numpy scipy rasterio pytest
+
+      - name: Unit tests (they skip the official-data tests when data/ is not fetched)
+        run: python -m pytest tests -q
+
+      - name: Hash and re-contract the committed submission artifact
+        run: python scripts/verify_committed_submission.py
+
+      - name: Regenerate the site from docs/data and fail if it is stale
+        run: |
+          cp docs/index.html /tmp/index.before
+          python scripts/build_site.py
+          if ! diff -q /tmp/index.before docs/index.html >/dev/null; then
+            echo "::error title=Site is stale::docs/index.html changed when regenerated. Run 'python3 scripts/build_site.py' and commit the result."
+            exit 1
+          fi
+
+      - name: Publish the status feed into the run summary
+        if: always()
+        run: |
+          python - <<'PY'
+          import json, os, pathlib
+          f = pathlib.Path("docs/feed.json")
+          if not f.exists():
+              print("no feed.json yet")
+              raise SystemExit(0)
+          d = json.loads(f.read_text())
+          lines = [f"## Status feed ({d['generated_utc']})", ""]
+          lines.append(f"Submission: `{d['slug']}`  sha256 `{d['sha256'][:32]}…`")
+          lines.append("")
+          lines.append("| severity | check | detail |")
+          lines.append("| --- | --- | --- |")
+          for c in d["checks"]:
+              h = c["headline"].replace("|", "\\|")
+              dd = c["detail"].replace("|", "\\|")
+              lines.append(f"| {c['severity']} | {h} | {dd} |")
+          with open(os.environ["GITHUB_STEP_SUMMARY"], "a") as fh:
+              fh.write("\n".join(lines) + "\n")
+          PY
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: status-feed
+          path: docs/feed.json
+          if-no-files-found: warn
