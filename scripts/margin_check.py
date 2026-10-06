@@ -96,9 +96,18 @@ def main() -> int:
     for k in KS:
         a = next(r for r in out["candidate:gate_ortho_w0.25"]["rows"] if r["exclusion_px"] == k)
         b = next(r for r in out["baseline:single:det_elev_slope"]["rows"] if r["exclusion_px"] == k)
-        margins.append({"exclusion_px": k,
-                        "collared_margin": a["collared_mean"] - b["collared_mean"],
-                        "unrestricted_margin": a["unrestricted_mean"] - b["unrestricted_mean"]})
+        entry = {"exclusion_px": k,
+                 "collared_margin": a["collared_mean"] - b["collared_mean"],
+                 "unrestricted_margin": a["unrestricted_mean"] - b["unrestricted_mean"]}
+        # the preregistered stability floor from the earlier merged session: no held-out block may
+        # fall below -0.01, and record how many blocks the candidate wins outright
+        for key in ("collared", "unrestricted"):
+            d = [x - y for x, y in zip(a[f"{key}_folds"], b[f"{key}_folds"])]
+            entry[f"{key}_per_block_delta"] = [round(v, 6) for v in d]
+            entry[f"{key}_min_block_delta"] = min(d)
+            entry[f"{key}_blocks_won"] = sum(1 for v in d if v > 0)
+            entry[f"{key}_stability_floor_ok"] = min(d) >= -0.01
+        margins.append(entry)
     payload = {
         "generated_utc": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "protocol": ("both arms re-selected under identical exclusion radii, each at its own "

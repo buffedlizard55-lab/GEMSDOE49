@@ -1,0 +1,47 @@
+{
+ "zeros": {
+  "path": "/home/user/GEMSDOE49/docs/downloads/gemsdoe49-xgrad-coupled-20261006T203447Z-zeros.tif",
+  "sha256": "154003d9b7220c43a96052364a4380ce8b602a9f7e45c549354b1f73353ef867",
+  "size_bytes": 258447,
+  "emitted_positive_pixels": 40000,
+  "in_footprint_min": 0.0,
+  "in_footprint_max": 1.0,
+  "checks": {
+   "single_band": true,
+   "dtype_float32": true,
+   "dimensions_3730x3292": true,
+   "crs_epsg_32611": true,
+   "resolution_100m": true,
+   "origin_matches_template": true,
+   "nodata_tag_absent_or_nan": true,
+   "in_footprint_all_finite": true,
+   "in_footprint_range_0_1": true,
+   "outside_footprint_only_0_or_nan": true,
+   "no_sentinel_values": true
+  },
+  "all_checks_passed": true
+ },
+ "nan": {
+  "path": "/home/user/GEMSDOE49/docs/downloads/gemsdoe49-xgrad-coupled-20261006T203447Z-nan.tif",
+  "sha256": "bef0881aadc8366f1a08e13aac119cfa71492750e93426105b9e5745c7d701bf",
+  "size_bytes": 419609,
+  "emitted_positive_pixels": 40000,
+  "in_footprint_min": 0.0,
+  "in_footprint_max": 1.0,
+  "checks": {
+   "single_band": true,
+   "dtype_float32": true,
+   "dimensions_3730x3292": true,
+   "crs_epsg_32611": true,
+   "resolution_100m": true,
+   "origin_matches_template": true,
+   "nodata_tag_absent_or_nan": true,
+   "in_footprint_all_finite": true,
+   "in_footprint_range_0_1": true,
+   "outside_footprint_only_0_or_nan": true,
+   "no_sentinel_values": true
+  },
+  "all_checks_passed": true
+ },
+ "slug": "gemsdoe49-xgrad-coupled-20261006T203447Z"
+}

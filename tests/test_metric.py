@@ -1,3 +1,4 @@
+
 """Line-by-line verification of the official metric.
 
 Every assertion here corresponds to a sentence on the competition problem-description page

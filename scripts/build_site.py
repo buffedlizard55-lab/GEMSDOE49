@@ -180,6 +180,30 @@ hash-verified files in <code>data/</code>. Claims carry a tag:
 """
 
 
+def artifacts_section() -> str:
+    """List every submission raster in docs/downloads, including ones built by other sessions.
+
+    Nothing here is curated by hand: the index is read off the directory, so an artifact added by a
+    different session cannot be silently dropped from the site (and the repository's own CI checks
+    that the earlier session's file stays linked).
+    """
+    import hashlib
+
+    rows = []
+    for p in sorted((OUT / "downloads").glob("*.tif")):
+        b = p.read_bytes()
+        rows.append((p.name, len(b), hashlib.sha256(b).hexdigest()))
+    body = "".join(
+        f'<tr><td><a href="downloads/{esc(n)}"><code>{esc(n)}</code></a></td>'
+        f'<td class="n">{sz/1e6:.2f} MB</td><td class="small"><code>{h[:24]}…</code></td></tr>'
+        for n, sz, h in rows)
+    return f"""<h2>Every submission raster in this repository</h2>
+<p class="sub">Auto-listed from <code>docs/downloads/</code> at build time. The first row is the file
+recommended by this session; the others are preserved from earlier merged sessions and are documented
+on their own terms — see the <code>research/</code> and <code>docs/reports/</code> folders.</p>
+<table><tr><th>file</th><th class="n">size</th><th>sha256</th></tr>{body}</table>"""
+
+
 def kpi(v: str, k: str) -> str:
     return f'<div class="kpi"><div class="v">{v}</div><div class="k">{esc(k)}</div></div>'
 
@@ -212,6 +236,7 @@ values in [0,1], NaN only outside the mapped footprint.</p>
 <code>{esc(sub['sha256'])}</code><br>{esc(sub['slug'])} — submit this file as-is. The second file
 carries identical predictions and differs only outside the mapped area, for forms that reject NaN.</p>
 </div>""",
+        artifacts_section(),
         f"""<h2>Status feed</h2>
 <p class="sub">Regenerate with <code>python3 scripts/build_site.py</code> after any script reruns;
 everything below reads from <code>docs/data/</code>.</p>
@@ -428,14 +453,15 @@ def evidence_page(sub, val, fin, scr, nat, met, uni, gate_a, gate_b) -> str:
     cand = mg["arms"]["candidate:gate_ortho_w0.25"]["rows"]
     base = mg["arms"]["baseline:single:det_elev_slope"]["rows"]
     mm = {m["exclusion_px"]: m for m in mg["margins"]}
-    cand = [{"exclusion_px": -1, "collared_mean": scr["results"]["topo_ms_coh"]["best"]["collared_mean"],
-             "unrestricted_mean": scr["results"]["topo_ms_coh"]["best"]["unrestricted_mean"]}] + cand
     label = {-1: "none", 0: "0 px (exact pixels)", 2: "200 m", 3: "300 m (shipped)", 4: "400 m"}
+    assert len(cand) == len(base), (len(cand), len(base))
     margin_rows = "".join(
         f'<tr><td class="n">{label.get(a["exclusion_px"], str(a["exclusion_px"]) + " px")}</td>'
         f'<td class="n">{a["collared_mean"]:.4f}</td><td class="n">{a["unrestricted_mean"]:.4f}</td>'
         f'<td class="n">{b["collared_mean"]:.4f}</td><td class="n">{b["unrestricted_mean"]:.4f}</td>'
-        f'<td class="n">{mm[a["exclusion_px"]]["collared_margin"]:+.4f} / {mm[a["exclusion_px"]]["unrestricted_margin"]:+.4f}</td></tr>'
+        f'<td class="n">{mm[a["exclusion_px"]]["collared_margin"]:+.4f} / {mm[a["exclusion_px"]]["unrestricted_margin"]:+.4f}</td>'
+        f'<td class="n">{mm[a["exclusion_px"]]["collared_blocks_won"]}/4, {mm[a["exclusion_px"]]["unrestricted_blocks_won"]}/4</td>'
+        f'<td class="n">{mm[a["exclusion_px"]]["collared_min_block_delta"]:+.5f} / {mm[a["exclusion_px"]]["unrestricted_min_block_delta"]:+.5f}</td></tr>'
         for a, b in zip(cand, base))
     gat = "".join(
         f'<tr><td>{esc(c["check"])}</td><td class="n">{"PASS" if c["ok"] else ("info" if not c.get("required", True) else "FAIL")}</td>'
@@ -506,7 +532,8 @@ faults. Sweeping the exclusion radius (<code>scripts/prune_experiment.py</code>)
 both arms under identical radii at their own best geometry (<code>scripts/margin_check.py</code>):</p>
 <table>
 <tr><th class="n">buffer</th><th class="n">candidate collared</th><th class="n">candidate unrestricted</th>
-<th class="n">baseline collared</th><th class="n">baseline unrestricted</th><th class="n">margin c / u</th></tr>
+<th class="n">baseline collared</th><th class="n">baseline unrestricted</th><th class="n">margin c / u</th>
+<th class="n">blocks won (c / u)</th><th class="n">worst block delta (c / u)</th></tr>
 {margin_rows}
 </table>
 <p class="small">Beyond 300 m both arms lose <em>unrestricted</em> score: the buffer starts deleting

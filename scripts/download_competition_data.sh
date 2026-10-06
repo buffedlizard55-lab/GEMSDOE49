@@ -1,4 +1,3 @@
-#!/usr/bin/env bash
 # Fetch the official DOE GEMS Prize (DrivenData #306) rasters into data/ and verify every byte.
 #
 # Source 1 (preferred): the official mirrors published on the competition data tab
@@ -157,3 +156,11 @@ if [[ $fail -ne 0 ]]; then
        https://www.drivendata.org/competitions/306/competition-doe-gems/data/ and re-run."
 fi
 log "all required rasters present and hash-verified. Next: python scripts/prepare_data.py"
+
+# Fallback kept from the earlier merged session: scripts/restore_data.py restores the same named
+# inputs from owner-hosted mirrors at pinned commits and verifies byte counts and digests.  It is
+# used only when the primary path above cannot fetch them.
+if [[ ! -f "$(dirname "$0")/../data/training_features.tif" ]]; then
+  echo "primary fetch did not place the rasters; delegating to scripts/restore_data.py" >&2
+  exec python3 "$(dirname "$0")/restore_data.py" "$@"
+fi

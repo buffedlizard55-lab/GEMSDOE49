@@ -1,0 +1,14 @@
+{
+ "fold0": {
+  "n_hidden": 7336
+ },
+ "fold1": {
+  "n_hidden": 3159
+ },
+ "fold2": {
+  "n_hidden": 2427
+ },
+ "fold3": {
+  "n_hidden": 2452
+ }
+}

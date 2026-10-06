@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hypotheses — GEMSDOE49</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site">
+  <a class="brand" href="index.html">GEMSDOE49</a>
+  <nav>
+    <a href="index.html">Overview</a>
+    <a href="executive-summary.html">Executive summary</a>
+    <a href="holdout.html">Holdout &amp; metric</a>
+    <a href="sources.html">Sources</a>
+  </nav>
+</header>
+<main>
+<h1>Hypothesis backlog and evidence status</h1>
+<p class="lead">The ranks below are qualitative priors for expected gain per implementation cost, not score predictions. Every geological explanation is a falsifiable hypothesis. No listed candidate is currently cleared for a DrivenData slot.</p>
+
+<div class="note small"><b>Evidence boundary.</b> Official competition text says the public catalogue is incomplete and the test contains newly identified faults; staff confirms the catalogue mask is pixel-exact. The local label raster is not the private expert truth. A leaderboard/proxy score cannot prove that a geological hypothesis identifies a new fault.</div>
+
+<h2>1. H49-XG — scale-matched gravity × RTP × topography gradient alignment</h2>
+<div class="card">
+<ul>
+<li><b>Layers:</b> owner-mirror band 13 `iso_grav_anom`, band 2 `rtp`, and band 12 `det_elev`; tags were read from the local 19-band mirror.</li>
+<li><b>Physical hypothesis:</b> a structure that juxtaposes density and susceptibility contrasts may express co-located gradient directions in gravity and magnetics, with topography as corroboration. Lithologic contacts, interpolation artifacts, and unrelated edges are competing explanations.</li>
+<li><b>Operator actually implemented in the separate PR #1 code:</b> pairwise axial `cos²` alignment, median across the three pairs, multiplied by the minimum robustly scaled gradient magnitude. It is not a direct score from the standard cross-product magnitude. The separate orthogonality diagnostic currently computes `sin²(theta)` without a magnitude weight; it is excluded from evidence and needs correction.</li>
+<li><b>Scale caveat:</b> the PR #1 artifact uses Gaussian σ=300 m. The official associated USGS regional grid README describes `GB_iso_grav_anom.tif` at 1 km, but the exact mapping to competition band 13 is unverified. Do not treat 300 m as supported native gravity resolution.</li>
+<li><b>Measured status:</b> PR #1's final artifact reproduces four component-sampled catalogue-proxy folds at DTI 0.02026648, higher than its three single-layer baselines on that protocol. The protocol is not a true spatially held-out block test and masks held-out truth cells during NMS. Separately, the task-branch five-block primary at σ=500 m and mass 37,654 failed its preregistered gate because one paired fold was −0.01180243 (limit −0.01). <span class="pill warn">NO SUBMISSION CLEARANCE</span></li>
+</ul>
+</div>
+
+<h2>2. H49-B — radiometric alteration halo × coupled edge</h2>
+<div class="card">
+<ul>
+<li><b>Layers proposed:</b> GeoDAWN radiometric K/Th channels and a gravity/magnetic/topographic edge score. Public USGS metadata links the GeoDAWN survey; the local external raster payload is not present in this checkout.</li>
+<li><b>Physical hypothesis:</b> hydrothermal alteration may change K/Th response and be spatially associated with fluid pathways. Mineralogy, lithology, survey footprint, weathering and calibration are strong confounders; K mobility/Th immobility is not a universal diagnostic.</li>
+<li><b>Prior receipt:</b> PR #1's `h49b_validation.json` reports gated scores below its coupled-only baseline on its own component-sampled folds. The input payload and method have not been independently rerun in this audit; do not treat those figures as a validated spatial-block result.</li>
+<li><b>Status:</b> <span class="pill warn">EXPLORATORY / NOT CLEARED</span>. A future run needs locally verified inputs, a preregistered block test, and an alteration/lithology control.</li>
+</ul>
+</div>
+
+<h2>3. H49-D — en-echelon scarp-pair stepovers</h2>
+<div class="card">
+<ul>
+<li><b>Layers proposed:</b> 1 m lidar-derived scarp evidence plus independently constructed local orientation/structure measurements.</li>
+<li><b>Physical hypothesis:</b> paired subparallel scarps may bound transfer structures in stepovers; the connector may be unmapped. A morphology-only detector can also confuse drainage, lithologic boundaries, roads, or erosional scarps with faults.</li>
+<li><b>Status:</b> <span class="pill info">UNTESTED</span>. The lidar product is not restored in this checkout and no pair detector or blocked holdout has been run. Prior project summaries are not a substitute for source/coverage verification.</li>
+</ul>
+</div>
+
+<h2>4. H49-E — MT conductance corridors across basin floors</h2>
+<div class="card">
+<ul>
+<li><b>Layers proposed:</b> band 17 surface conductivity, band 15 depth to basement, band 2 RTP as a possible veto.</li>
+<li><b>Physical hypothesis:</b> a conductive lineament beneath basin fill might trace a blind fluid-bearing structure. Conductive clays, basin geometry and data smoothing are major alternative explanations.</li>
+<li><b>Status:</b> <span class="pill info">UNTESTED</span>. The band descriptions exist in the local feature mirror, but no detector, source-resolution audit or spatial holdout has been run.</li>
+</ul>
+</div>
+
+<h2>5. H49-C — strain-rate ridge coherence</h2>
+<div class="card">
+<ul>
+<li><b>Layers proposed:</b> band 4 second strain invariant and band 7 geodetic shear rate.</li>
+<li><b>Physical hypothesis:</b> coherent geodetic gradients offset from mapped traces may indicate deformation on unmapped strands. The supplied strain fields may be too smooth to localize individual faults.</li>
+<li><b>Status:</b> <span class="pill info">UNTESTED / HIGH RISK</span>. The input tags can be checked locally; exact native support and localization have not been validated here.</li>
+</ul>
+</div>
+
+<h2>Qualitative ranking (not measured uplift)</h2>
+<table>
+<tr><th>Rank</th><th>Hypothesis</th><th>Prior upside / cost</th><th>Next evidence needed</th></tr>
+<tr><td>1</td><td>H49-XG scale-matched alignment</td><td>Medium / medium; high uncertainty</td><td>Resolve gravity-band lineage; new spatial blocks; fixed budget and stable NMS tie-break</td></tr>
+<tr><td>2</td><td>H49-D stepovers</td><td>Medium / medium</td><td>Restore official/traceable lidar product; verify footprint; implement detector and holdout</td></tr>
+<tr><td>3</td><td>H49-E basin conductance</td><td>Low–medium / low–medium</td><td>Verify layer resolution/coverage; control for basin/lithology; test on blocked folds</td></tr>
+<tr><td>4</td><td>H49-B alteration</td><td>Low–medium / high</td><td>Restore radiometry; validate the K/Th interpretation against lithology and independent blocks</td></tr>
+<tr><td>5</td><td>H49-C strain ridges</td><td>Low / low–medium</td><td>Measure support/smoothness and show spatial localization above nulls</td></tr>
+</table>
+<p class="small">The ordering is an engineering triage, not evidence that the first-ranked idea improves public or private DTI. See the <a href="reports/hypotheses.md">text hypothesis register</a> and <a href="reports/pr1_candidate_audit_20261006.md">candidate review</a>.</p>
+
+<footer>GEMSDOE49 · 2026-10-06 · hypotheses are not results · no candidate cleared</footer>
+</main>
+</body>
+</html>
