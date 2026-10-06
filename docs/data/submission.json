@@ -90,5 +90,7 @@
   "note": "both arms re-selected under identical exclusion radii at their own best geometry; the buffer is a placement rule and was therefore given to the baseline too before the margin was believed",
   "k_px": 3
  },
- "runtime_s": 31.0
+ "runtime_s": 31.0,
+ "comment_short": "Cross-gradient-coupled topographic structural detector (GEMSDOE49); 40000 binary dots, 300 m catalogue buffer, hide-and-recover gate PASS 0.1131 vs 0.1029.",
+ "comment_note": "comment is the full note; comment_short is provided in case the form truncates or rejects a long note.  The form limit is not published on the problem page, so this is a convenience rather than a documented constraint."
 }

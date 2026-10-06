@@ -353,7 +353,11 @@ explicitly out of bounds here. <code>scripts/uniqueness_check.py</code> compares
 every prior raster this repository could obtain and refuses a relabel.</p>
 
 <h2 id="comment">The comment to paste</h2>
+<p class="small">Full note ({len(sub['comment'])} characters):</p>
 <pre>{esc(sub['comment'])}</pre>
+<p class="small">Shorter version ({len(sub.get('comment_short',''))} characters), in case the form
+truncates or rejects a long note:</p>
+<pre>{esc(sub.get('comment_short',''))}</pre>
 
 <h2>What the score is</h2>
 <p>The competition uses a distance-weighted Tversky index, not accuracy. With 100 m pixels and a
