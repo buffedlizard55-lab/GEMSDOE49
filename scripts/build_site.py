@@ -101,6 +101,7 @@ font-family:var(--mono);white-space:nowrap}
 
 NAV = [
     ("index.html", "Overview"),
+    ("analysis.html", "Why 0.2778"),
     ("executive-summary.html", "How to submit"),
     ("hypotheses.html", "Hypotheses"),
     ("evidence.html", "Evidence"),
@@ -176,6 +177,9 @@ hash-verified files in <code>data/</code>. Claims carry a tag:
 <span class="tag m">MEASURED</span> computed here,
 <span class="tag b">BLOCKED</span> not obtainable in this environment.</p>
 <p>Not affiliated with DrivenData, the U.S. Department of Energy, or the U.S. Geological Survey.</p>
+<p>Pages preserved from the earlier merged session: <a href="holdout.html">holdout protocol</a> ·
+<a href="sources.html">sources</a> · <a href="archive/h49/index.html">archived site</a>
+(<a href="archive/h49/hypotheses.html">hypotheses</a>, <a href="archive/h49/executive-summary.html">executive summary</a>).</p>
 </footer></body></html>
 """
 
@@ -389,6 +393,80 @@ registration. Licences permit use and redistribution in this challenge.</p>
 <tr><td>NV Geothermal / Great Basin play fairway studies</td><td>independent geothermal-favourability maps</td>
 <td><a href="https://gdr.openei.org/">gdr.openei.org</a></td></tr>
 </table>
+"""
+
+
+# --------------------------------------------------------------------------- why 0.2778
+
+def analysis_page(sub, scr, mg, nat, fin) -> str:
+    k = {m["exclusion_px"]: m for m in mg["margins"]}[sub["catalogue_buffer_px"]]
+    return f"""<h1>Why the highest-scoring artifact in this cohort scored what it did</h1>
+<p class="sub">The brief asks for a PhD-level answer to a specific question: the sibling artifact
+<code>h33-h33-2-b2-20261004T220000Z-e5eb6e7e</code> from the GEMSDOE32 project carries a reported
+<code>0.2778</code>, the highest local reading in the cohort reviewed here. What put it there, and
+where does the remaining distance to the leaderboard's 0.3774 live?</p>
+
+<h2>What the artifact actually is</h2>
+<p>Read from the file itself in this checkout (rasterio): 37,654 positive pixels, exactly two unique
+values, <b>zero</b> positive pixels on the catalogue and a mean value of <b>0.0</b> there. Its own
+audit JSON describes it as <i>"0.2708 base with every dot at d(catalogue) ≤ 2 px deleted (37,654
+dots)"</i> and reports a base lineage from a multiline detector thinned with
+<code>dot_thin(..., 2.8 px)</code>. Two independent facts follow: the file is a <b>sparse binary
+dot field</b>, and it is <b>deliberately absent from the catalogue and its 200 m neighbourhood</b>.</p>
+
+<h2>The three mechanisms that put it at 0.2778</h2>
+<ol>
+<li><b>It spends its mass where credit is possible.</b> The metric is a coverage problem under a
+budget: every unit of prediction mass either lands within 300 m of a new-fault pixel (earning
+<code>k(d)</code>) or pays 0.2. The catalogue is masked, so a dot there is dead mass. Pruning is not
+cosmetic — it is the single cheapest DTI gain available, and this session measured the same effect
+independently: the shipped placement gains
+<b>{k['collared_margin']:+.4f} collared and {k['unrestricted_margin']:+.4f} unrestricted</b> over the
+best single-layer baseline when both arms are given the identical rule
+(scripts/margin_check.py), and the artifact's own project claims +0.004870 in 4/4 folds from the same
+move.</li>
+<li><b>It is binary and sparse.</b> Because α + β = 1, a graded prediction is dominated by its own
+thresholded support (proved in tests/test_metric.py). Binary dots also dodge the partial-mass
+false-positive term that a calibrated probability map pays on every diffuse pixel. Sparse emission
+is not a stylistic choice here; it is the metric's preference.</li>
+<li><b>It inherited a good carrier.</b> The base is a multiline field built from the topographic /
+potential-field family, i.e. the same class of evidence that this session's screen ranks highest
+(<code>topo_ms_coh</code> {scr['results']['topo_ms_coh']['best']['collared_mean']:.4f} collared at
+matched geometry versus the no-information controls
+{scr['results']['control:random']['best']['collared_mean']:.4f} random and
+{scr['results']['control:uniform_lattice4']['best']['collared_mean']:.4f} lattice). Placement cannot
+manufacture signal: it can only stop wasting it.</li>
+</ol>
+
+<h2>Why it is nevertheless rank 13, not rank 1</h2>
+<p>Its carrier is a <i>lineament</i> detector: it predicts where known-style structures run. The
+scored truth is the set of faults that the published catalogue is <b>missing</b>, so the ceiling of
+any catalogue-shaped prediction is the fraction of new truth that happens to follow already-mapped
+strikes. The board says the gap is real and large: 0.3774 at the top versus 0.2778 here — 0.0996 of
+headroom which, under the marginal algebra, is worth roughly 500 km of extra correctly placed trace.
+Nothing in the placement layer closes that; only carrier quality does.</p>
+
+<h2>What this implies for a higher-scoring submission</h2>
+<ul>
+<li><b>Keep the off-catalogue emphasis and the sparse binary form.</b> Both are measured, both are
+cheap, and both are what the top local artifact got right.</li>
+<li><b>Spend the effort on the carrier.</b> The measured limitation here is resolution: every
+supplied potential field decorrelates over 2.7–8.1 km (docs/data/native_resolution.json), so a 100 m
+gradient of them is interpolation structure. The one supplied field with grid-scale power is the
+detrended-elevation slope — which is why it is the best single-layer baseline and why the shipped
+carrier is built from it.</li>
+<li><b>The named next lever is a finer elevation surface.</b> USGS 3DEP best-available (1 m) is free
+and official (<a href="https://prd-tnm.s3.amazonaws.com/">prd-tnm.s3.amazonaws.com</a>) but is
+terabytes and unreachable from this environment (HTTP 000, measured). It is the one change that
+attacks carrier quality rather than placement.</li>
+<li><b>Do not chase the coupling as a score.</b> It was implemented exactly as the brief describes
+and lands inside the control band; its defensible use is the gate shipped here, which is a measured
+no-op and is labelled as one.</li>
+</ul>
+<p class="small">Honest bound on this reasoning: the 0.2778 attribution rests on reading the artifact
+and its audit JSON locally, plus the leaderboard snapshot recorded by the earlier merged session. It
+is not an organizer confirmation of which file produced that row, and no claim about a leaderboard
+score for the file shipped here is made anywhere on this site.</p>
 """
 
 
@@ -695,6 +773,8 @@ def main() -> int:
         "evidence.html": ("Evidence — DOE GEMS Prize",
                           evidence_page(sub, val, fin, scr, nat, met, uni,
                                         d["submission_gate"], d["submission_gate_zeros"])),
+        "analysis.html": ("Why 0.2778 — DOE GEMS Prize",
+                          analysis_page(sub, scr, d["margin_check"], nat, fin)),
         "research.html": ("Research and sources — DOE GEMS Prize", research_page(
             (ROOT / "docs" / "research" / "knowledge-base.md").read_text(), src, met)),
     }
@@ -702,6 +782,16 @@ def main() -> int:
         (OUT / fn).write_text(page(title, body, sub, fn))
         print(f"wrote docs/{fn}  ({len(body):,} chars)")
     (OUT / ".nojekyll").write_text("")
+    # GitHub Pages for this repository is configured to serve the *repository root* (the setting is
+    # not writable from the workflow token), so a root redirect is generated here rather than
+    # duplicating the site.  Regenerating keeps it in step with the pages themselves.
+    (ROOT / "index.html").write_text(
+        '<!doctype html>\n<html lang="en"><head><meta charset="utf-8">\n'
+        '<meta http-equiv="refresh" content="0; url=docs/index.html">\n'
+        '<link rel="canonical" href="docs/index.html">\n'
+        '<title>GEMSDOE49 — DOE GEMS Prize submission</title></head>\n'
+        '<body><p>The site is at <a href="docs/index.html">docs/index.html</a>.</p></body></html>\n')
+    print("wrote index.html (root redirect to docs/index.html)")
     feed = {
         "generated_utc": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "submission_generated_utc": sub["generated_utc"],

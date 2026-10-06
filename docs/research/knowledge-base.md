@@ -81,10 +81,20 @@ the score. This is why the placement rule imposes a minimum separation rather th
   catalogue differ enormously (mean 0.95 vs 0.11 on catalogue pixels) reported the identical
   leaderboard score 0.1563. That can only happen if those pixels are excluded pixel-exactly.
 
+* **[OFFICIAL]** DrivenData staff, forum 11516 **post 4**, in more specific wording than the headline
+  answer: the live catalogue mask is **pixel-exact and identical to the provided training labels**;
+  predictions on unmasked pixels that are far from *new-fault* truth remain **fully penalized**; and
+  **new-fault truth can occur within 300 m of a known trace**.
+  [forum 11516, post 4](https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516/4)
+
 **Consequences.** (a) Re-drawing the existing catalogue earns nothing. (b) Any local holdout whose
 truth *is* the catalogue is an inverted instrument — it rewards exactly what the scorer ignores.
 (c) Prediction mass on masked pixels neither earns nor radiates credit, so it must be removed
-before scoring, not merely unpenalised.
+before scoring, not merely unpenalised. (d) Because new truth can sit within 300 m of a known trace,
+a buffer around the catalogue is a **bet**, not a free win: it trades the chance of credit at the
+mapped margin for a lower false-positive density everywhere else. This repository measures that bet
+rather than assuming it (`scripts/prune_experiment.py`, `scripts/margin_check.py`) and reports the
+per-block stability of the result.
 
 ## 4. Data inventory — pins re-verified byte-for-byte in this checkout
 
@@ -184,9 +194,10 @@ novelty argument and cost. The headline results:
    (−3.4028235e38, 0 px of it inside the footprint but it defines the outside), the label raster's
    −1, and the template's NaN. This repository uses the template's, because that is what the
    submission format describes.
-3. **[BLOCKED]** The exact geometry of the organizer's known-fault mask is not published — only
-   the statement that known faults are excluded. Pixel-exact masking of the catalogue is the
-   reading supported by the strongest available empirical evidence.
+3. **[OFFICIAL]** The geometry of the organizer's known-fault mask *is* stated in the staff reply's
+   post 4: pixel-exact, identical to the provided training labels. The earlier reading on this page
+   ("not published") was superseded by that post and is corrected here. What remains unpublished is
+   the **new**-fault truth itself, which is the private label set.
 4. **[BLOCKED]** No leaderboard feedback. `https://www.drivendata.org/competitions/306/competition-doe-gems/data/`
    redirects unauthenticated requests to `/accounts/login/`, and the terms forbid automated
    monitoring. Every number in this repository is a proxy.
