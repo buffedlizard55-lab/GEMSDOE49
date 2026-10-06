@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "provenance_note": "All competition portal files below are owner-hosted public mirrors because the official DrivenData data tab redirects to login. SHA-256 pins verify mirror consistency only; they do not authenticate bytes against the organizer. The competition's public page is the authoritative source for the official format and feature names.",
+  "files": [
+    {
+      "id": "training_features",
+      "repo": "buffedlizard55-lab/GEMSDOE",
+      "ref": "c0c06ac82178f26b94fce3397036ef8f12a2f3a0",
+      "parts": [
+        "data/bridge/gems-geodawn-numerical-features.tif.part-000",
+        "data/bridge/gems-geodawn-numerical-features.tif.part-001",
+        "data/bridge/gems-geodawn-numerical-features.tif.part-002",
+        "data/bridge/gems-geodawn-numerical-features.tif.part-003",
+        "data/bridge/gems-geodawn-numerical-features.tif.part-004"
+      ],
+      "dest": "training_features.tif",
+      "bytes": 418912844,
+      "sha256": "4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5",
+      "role": "19-band competition feature mirror; source metadata must be inspected before band use"
+    },
+    {
+      "id": "labels",
+      "repo": "buffedlizard55-lab/GEMSDOE24",
+      "ref": "07345ea0604953d7efb858d9cfbc21e20c7aca0b",
+      "path": "data/bridge/labels.tif",
+      "dest": "labels.tif",
+      "bytes": 425830,
+      "sha256": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093",
+      "role": "Existing-fault label mirror for holdout screening; not private test labels"
+    },
+    {
+      "id": "existing_faults",
+      "repo": "buffedlizard55-lab/GEMSDOE24",
+      "ref": "07345ea0604953d7efb858d9cfbc21e20c7aca0b",
+      "path": "data/bridge/existing_faults.tif",
+      "dest": "existing_faults.tif",
+      "bytes": 425830,
+      "sha256": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093",
+      "role": "Existing-fault mirror; prior owner manifests report byte identity with labels.tif, which this workflow rechecks"
+    },
+    {
+      "id": "sample_submission",
+      "repo": "buffedlizard55-lab/GEMSDOE24",
+      "ref": "07345ea0604953d7efb858d9cfbc21e20c7aca0b",
+      "path": "data/bridge/sample_submission.tif",
+      "dest": "sample_submission.tif",
+      "bytes": 1599597,
+      "sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+      "role": "Grid and footprint template only; never used as predictions"
+    }
+  ]
+}

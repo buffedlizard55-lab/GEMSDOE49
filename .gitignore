@@ -1,0 +1,17 @@
+# Local competition inputs and reproducibility cache (never commit these)
+.cache/
+data/raw/
+data/prepared/
+*.partial
+*.assembling
+
+# Python
+.venv/
+__pycache__/
+.pytest_cache/
+*.py[cod]
+
+# Editor / OS
+.DS_Store
+.vscode/
+.idea/
