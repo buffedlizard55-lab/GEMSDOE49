@@ -1,11 +1,15 @@
+name: verify
 # The point of this workflow is that nobody has to check anything by hand: the committed submission
-# is hashed and re-tested on every push and once a day, and the current status feed is written into
-# the run summary (and uploaded as an artifact), so the state of the project is always visible
-# without a login.
+# is hashed and re-tested on every push and once a day, every raster in docs/downloads stays linked
+# from the site, and the current status feed is written into the run summary (and uploaded as an
+# artifact), so the state of the project is always visible without a login.
+#
+# Job "verify" is this session's check; job "tests" is the check contributed by the earlier merged
+# session and is kept intact so its artifact cannot be dropped from the site by a later change.
 
 on:
   push:
-    branches: [main]
+    branches: ["**"]
   pull_request:
   workflow_dispatch:
   schedule:
@@ -15,6 +19,27 @@ permissions:
   contents: read
 
 jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install numpy scipy rasterio pytest
+      - name: Run the full test suite (metric, emission, placement, holdout, gate, cross-gradient)
+        run: python -m pytest tests -q
+      - name: Every committed raster must stay linked from the site
+        run: |
+          for f in docs/downloads/*.tif; do
+            name="$(basename "$f")"
+            grep -q "$name" docs/index.html || {
+              echo "::error title=Unlinked artifact::$name is committed but not linked from docs/index.html"
+              exit 1
+            }
+          done
+
   verify:
     runs-on: ubuntu-latest
     steps:
@@ -29,10 +54,7 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install numpy scipy rasterio pytest
 
-      - name: Unit tests (they skip the official-data tests when data/ is not fetched)
-        run: python -m pytest tests -q
-
-      - name: Hash and re-contract the committed submission artifact
+      - name: Hash and re-contract every committed submission artifact
         run: python scripts/verify_committed_submission.py
 
       - name: Regenerate the site from docs/data and fail if it is stale
@@ -73,25 +95,3 @@ jobs:
           name: status-feed
           path: docs/feed.json
           if-no-files-found: warn
-
-on:
-  push:
-    branches: [ "**" ]
-  pull_request:
-
-jobs:
-  tests:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-      - name: Install dependencies
-        run: pip install numpy scipy rasterio pytest
-      - name: Run metric and emission tests
-        run: python -m pytest tests -q
-      - name: Check the format-compliant research download is linked
-        run: |
-          test -f docs/downloads/gemsdoe49-xgrad-coupled-20261006T203447Z-nan.tif
-          grep -q "gemsdoe49-xgrad-coupled-20261006T203447Z-nan.tif" docs/index.html
