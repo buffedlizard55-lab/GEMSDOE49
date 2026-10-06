@@ -1,11 +1,22 @@
-# Large competition rasters are recovered via the sha256-pinned bridge —
-# keep them out of git (repo policy: no generated artifacts / large datasets).
+# Local inputs, generated caches, and temporary raster writes — never commit.
+.cache/
 data/**
+!data/
+!data/README.md
+!data/manifest.json
 !data/bridge/
 data/bridge/**
 !data/bridge/*.json
+*.partial
+*.assembling
 
 # Python
+.venv/
 __pycache__/
-*.pyc
+*.py[cod]
 .pytest_cache/
+
+# Editor / OS
+.DS_Store
+.vscode/
+.idea/

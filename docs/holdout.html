@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Holdout, metric &amp; uniqueness audit · GEMSDOE49</title>
+<title>Holdout, metric &amp; artifact audit · GEMSDOE49</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -17,104 +17,53 @@
   </nav>
 </header>
 <main>
-<h1>Metric, hide-and-recover holdout, and uniqueness audit</h1>
+<h1>Metric, holdout protocols, and candidate-artifact audit</h1>
 
-<h2>The metric (exact re-implementation)</h2>
+<h2>Official metric and catalogue mask</h2>
 <div class="card">
-<p>Distance-weighted Tversky index per the
-<a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">official spec</a>:
-triangular kernel R = 300 m (3 px), α = 0.2, β = 0.8. With the α/β values the denominator
-collapses to <code>0.2·(T+S−M) + 0.8·|G|</code> — prediction mass that does not cover truth
-costs 0.2 per unit. Our implementation (<code>src/gems49/metric.py</code>) is pinned by 14
-tests: hand-computed cases, a brute-force oracle on random grids, masking semantics
-(catalogue pixels removed from all three sums; a masked prediction can neither earn TP by
-proximity nor pay FP), and the published identity. Masking semantics follow the organiser's
-staff (forum 11516 post 4): pixel-exact mask, identical to the training labels; perfect
-catalogue reproduction scores zero; near-trace predictions far from new truth are fully
-penalised.</p>
+<p>The official <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">DrivenData metric page</a> specifies a distance-weighted Tversky index with a triangular 300 m kernel, α=0.2, and β=0.8. The PR #1 implementation's TP/FP/FN arithmetic, distance transform and mask application reproduce the published definitions. Mask semantics are independently confirmed by <a href="https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516/4">DrivenData staff, forum 11516 post 4</a>: only training-label pixels themselves are masked; nearby pixels remain penalized if far from new-fault truth; new-fault labels can be within 300 m of a known trace.</p>
+<p class="small">A local score against public known-fault labels is an instrument reading, not a leaderboard score and not validation against private expert labels.</p>
 </div>
 
-<h2>Hide-and-recover holdout (preregistered protocol)</h2>
+<h2>Separate PR #1 candidate: four-fold component holdout</h2>
 <div class="card">
-<ol>
-<li>The only labels we possess are the public catalogue — which live scoring masks. So each
-fold <b>hides whole 8-connected catalogue components</b> (≥25 % of the fold's catalogue
-pixels, selected by quadrant with seed 49) and scores emissions against the hidden pixels,
-masking the residual catalogue.</li>
-<li>Four spatial blocks: NW / NE / SW / SE quadrants (hidden pixels 7,336 / 3,159 / 2,427 / 2,452).</li>
-<li>A candidate may go near a submission only if it beats the single-layer gradient baseline
-(gravity, magnetics, topography — same smoothing scale, same dot budget) on the fold mean.</li>
-</ol>
-<p class="flag"><b>Stated limitation:</b> hidden truth is catalogue geometry, so this
-instrument ranks placement rules, not genuinely new fault families (IR-32-PROXY-01). Numbers
-are instrument readings, never organiser scores.</p>
-</div>
-
-<h2>Coupled candidate vs baselines (sigma sweep × budget sweep)</h2>
+<p>PR #1's reported setup hides about 25% of 8-connected catalogue components within each of four quadrant strata. The same full-domain 40,000-dot prediction is scored once per fold, against each fold's hidden truth while residual catalogue pixels are masked. The final artifact's DTI was independently recomputed exactly: <b>0.02026648</b>, with fold DTI <b>0.03650436 / 0.01260255 / 0.01601234 / 0.01594669</b>.</p>
+<p><b>Why this does not pass the spatial-block gate:</b> components are sampled within quadrants, not held out as whole geographic blocks; off-label false-positive mass outside a quadrant is scored in each fold; and NMS receives the full catalogue, so even the components treated as held-out truth are suppressed at prediction time. The truth pixels are subsequently unmasked for scoring. This is a component-sampled catalogue proxy—not the specified independent spatial hide-and-recover test.</p>
 <table>
-<tr><th>config</th><th>coupled DTI</th><th>grav baseline</th><th>mag baseline</th><th>topo baseline</th></tr>
-<tr><td>σ=300 m, 10k dots</td><td><b>0.0155</b></td><td>0.0114</td><td>0.0080</td><td>0.0084</td></tr>
-<tr><td>σ=300 m, 20k dots</td><td><b>0.0180</b></td><td>0.0140</td><td>0.0131</td><td>0.0114</td></tr>
-<tr><td>σ=300 m, 30k dots</td><td><b>0.0197</b></td><td>0.0147</td><td>0.0144</td><td>0.0131</td></tr>
-<tr><td><b>σ=300 m, 40k dots (adopted)</b></td><td><b>0.0203</b></td><td>0.0156</td><td>0.0145</td><td>0.0145</td></tr>
-<tr><td>σ=500 m, 40k dots</td><td>0.0195</td><td>0.0158</td><td>0.0139</td><td>0.0160</td></tr>
-<tr><td>σ=700 m, 40k dots</td><td>0.0186</td><td>0.0160</td><td>0.0131</td><td>0.0164</td></tr>
-<tr><td>σ=1000 m, 40k dots</td><td>0.0176</td><td>0.0155</td><td>0.0120</td><td>0.0145</td></tr>
+<tr><th>Arm / output</th><th>PR #1 receipt</th><th>Independent replay</th></tr>
+<tr><td>Coupled artifact</td><td>0.0202665 final; 0.0203026 raw-score sweep</td><td>0.02026648455187942 on the actual NaN-outside raster</td></tr>
+<tr><td>Gravity single layer</td><td>0.0156134</td><td>0.0157704</td></tr>
+<tr><td>RTP single layer</td><td>0.0144858</td><td>0.0144270</td></tr>
+<tr><td>Elevation single layer</td><td>0.0145133</td><td>0.0145704</td></tr>
 </table>
-<p class="small">Coupled beats every baseline at every one of the 16 tested (σ, budget)
-combinations. Adopted config margins: +0.0047 / +0.0058 / +0.0058 (≈ +30 %). Fold scores of
-the adopted emission: 0.0365 / 0.0126 / 0.0160 / 0.0159 — positive in all four quadrants.
-Full tables: <code>evidence/scale_and_holdout_results.json</code>.</p>
-
-<h2>Gravity support check (before trusting 100 m gradients)</h2>
-<div class="card">
-<p>Measured on band 13 (<code>evidence/gravity_support_diagnostics.json</code>): only 34.7 % of
-the raw 100 m gradient variance survives 300 m smoothing (28.8 % at 500 m, 21.3 % at 1 km), and
-the along-row semivariogram is still rising at 55 px (5.5 km) — the field is trend-dominated,
-consistent with a grid interpolated from stations spaced at kilometres. We therefore compute
-gradients of the field smoothed to the adopted σ = 300 m rather than of the raw 100 m grid.
-<span class="pill warn">Manual verification item:</span> the official station inventory sits in
-the INGENIOUS compilation (<a href="https://gdr.openei.org/submissions/1391">GDR 1391, DOI
-10.15121/1881483</a>); sandbox egress cannot fetch it, so the spacing claim is left as
-“station-scale ≥ several hundred metres, empirical” rather than a quoted number.</p>
+<p class="small">The independent baseline replay used Python 3.11.2 / NumPy 2.4.6 / SciPy 1.17.1 / Rasterio 1.4.4. Small differences remain from the checked-in sweep receipt; NMS uses `np.argpartition` without stable tie-breaking and runtime versions are not pinned. Candidate is higher than the three baselines on this same protocol, but the protocol is insufficient for promotion. Quantile clipping before final NMS changes some ties: the raw-score and shipped masks intersect in 36,424 of 40,000 pixels.</p>
 </div>
 
-<h2 id="uniqueness">Uniqueness audit vs every prior submission (57 files)</h2>
+<h2>Task-branch H49-XG: five spatial blocks, gate failed</h2>
 <div class="card">
-<p>Corpus: every submission TIF archived across the GEMSDOE1–47 family repos that corresponds
-to a score listed on the family sites, plus all recent research candidates
-(<code>data/prior/manifest.json</code> records file-level sha256 provenance). Three earliest
-submissions are not preserved in any family repo (flagged irregularity): the audit substitutes
-<code>GEMSDOE data/evidence/baseline/submission.tif</code>,
-<code>GEMSDOE4 data/evidence/combined/submission.tif</code> and
-<code>5GEMSDOE candidate_s5f_flagship.tif</code>.</p>
-<p>Preregistered relabel rule: REJECT if byte-identical, or if BOTH Spearman ρ &gt; 0.90 AND
-top-k overlap &gt; 0.50 against any prior. Result for our file:</p>
-<table>
-<tr><th>closest prior</th><th>top-k overlap (smaller set)</th><th>Spearman ρ</th></tr>
-<tr><td>gemsdoe40-h8-asa-spi-depthkde (unscored research)</td><td>0.290</td><td>−0.266</td></tr>
-<tr><td>18GEMSDOE H19-C (0.0297)</td><td>0.234</td><td>−0.867</td></tr>
-<tr><td>gems22-h23-b-dti-optimal-emission-10pct (0.0748)</td><td>0.188</td><td>−0.895</td></tr>
-<tr><td>gems22-h23-a-dti-optimal-emission-6pct (0.1002)</td><td>0.144</td><td>−0.917</td></tr>
-<tr><td>gems10-h16-continuation (0.0461)</td><td>0.132</td><td>−0.923</td></tr>
-<tr><td>11GEMSDOE structural-area06-v1 (0.0202)</td><td>0.131</td><td>−0.925</td></tr>
-</table>
-<p class="small">Negative ρ is expected and informative: our 40,000 unit-valued dots sit where
-the older graded/dense fields are low. Verdict <span class="pill ok">UNIQUE</span>.
-Full table: <code>evidence/uniqueness_audit.json</code>.</p>
+<p>The separate task-branch H49-XG primary used five buffered east–west blocks, fixed 37,654 mass, and a preregistered −0.01 maximum negative paired-fold delta. It scored pooled DTI <b>0.10041455</b> versus <b>0.08193976</b> for the strongest single-layer baseline. Four blocks won, but one paired difference was <b>−0.01180243</b>; therefore the preregistered gate failed. The 2 km-FWHM sensitivity cannot be selected on the same locked labels. This experiment generated no TIFF.</p>
+<p>Whole geological segment IDs were unavailable. A post-run connectivity check found 21 raster components spanning two scored block cores (850 positive pixels); raster connectivity is not authoritative geological segmentation. See the <a href="reports/h49_xg_result_20261006.md">result memo</a> and <a href="receipts/h49_xg_holdout_20261006.json">primary receipt</a>.</p>
 </div>
 
-<h2>H49-B validation (top next hypothesis — preregistered gate applied)</h2>
+<h2>Gravity-support warning</h2>
 <div class="card">
-<p>Alteration gate (Th/K z-score × coupled score) was tested at three thresholds on the same
-folds, matched 40k budget (<code>evidence/h49b_validation.json</code>):
-coupled-only 0.0203 · z≥1.0 → 0.0179 · z≥1.5 → 0.0139 · z≥2.0 → 0.0102 · radiometric-only 0.0089.
-Every gated variant loses, so <b>no submission slot will be spent on H49-B v1</b>. The gate
-remains a live idea for a <i>strike-extended</i> v2 and for Final-Round expert review, where
-catalogue-shaped holdout truth underweights genuinely hidden altered systems.</p>
+<p>The official USGS regional geophysics release linked from <a href="https://gdr.openei.org/submissions/1391">INGENIOUS GDR 1391</a> says its `GB_iso_grav_anom.tif` has 1 km cells. The competition mirror's band 13 has a matching name, but the exact lineage is unverified. Thus, 100 m raster spacing is not evidence of 100 m independent gravity observations, and the PR #1 candidate's 300 m σ requires revalidation at a conservative scale. The local autocorrelation/variance diagnostics measure mirror smoothness only, not native station spacing.</p>
 </div>
 
-<footer>GEMSDOE49 · 2026-10-06</footer>
+<h2 id="uniqueness">Uniqueness review: partial, not a final clearance</h2>
+<div class="card">
+<p>PR #1's JSON receipt reports 57 archived prior files, max smaller-set overlap <b>0.290125</b>, and max signed Spearman <b>−0.26557</b>. The maximum absolute Spearman is about <b>0.98880</b> and is negative; “maximum signed” must not be read as “maximum absolute.” Three original artifacts were not available and the corpus/manifest is not tracked in this checkout.</p>
+<p>The most relevant direct pair was rechecked independently against the pinned H33-2-B2 Git blob: H33 hash `c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9`; 792 shared pixels; overlap of smaller emission 0.021034; union Jaccard 0.010304; Spearman −0.979583. That pair is clearly different. This does not prove uniqueness against every prior file.</p>
+<p>Detailed audit and exact source links: <a href="reports/pr1_candidate_audit_20261006.md">review memo</a> · <a href="receipts/pr1_candidate_audit_20261006.json">machine-readable receipt</a> · <code>evidence/uniqueness_audit.json</code> (PR #1 reported corpus).</p>
+</div>
+
+<h2>NaN-outside artifact format receipt</h2>
+<div class="card">
+<p>The existing research file `gemsdoe49-xgrad-coupled-20261006T203447Z-nan.tif` is single-band float32, EPSG:32611, 100 m, 3,730 × 3,292, with `nodata=None`; its 5,167,373 in-footprint cells are finite in [0,1], and all 7,111,787 outside cells are NaN. It has 40,000 positive cells and no catalogue intersection. SHA-256: `bef0881aadc8366f1a08e13aac119cfa71492750e93426105b9e5745c7d701bf`.</p>
+<p>The companion zeros file is not the preferred output: official instructions say outside bounds must be null/NaN, while that file contains zeros outside. Neither file is cleared for upload pending the holdout, scale, and full uniqueness gates.</p>
+</div>
+
+<footer>GEMSDOE49 · 2026-10-06 · local proxy scores only · no submission authorized</footer>
 </main>
 </body>
 </html>

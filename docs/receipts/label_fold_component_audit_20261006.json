@@ -1,0 +1,82 @@
+{
+  "audit_id": "GEMSDOE49-label-fold-component-audit",
+  "components": [
+    {
+      "component_count": 25092,
+      "components_gt_one_pixel": 15460,
+      "components_with_pixels_in_multiple_scored_fold_cores": 0,
+      "connectivity": "4-connected",
+      "fold_membership_counts": {
+        "0": 195,
+        "1": 24897,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0
+      },
+      "largest_component_pixels": 62,
+      "p99_component_pixels": 13.0,
+      "pixels_from_crossing_components_inside_scored_cores": 0
+    },
+    {
+      "component_count": 3199,
+      "components_gt_one_pixel": 3191,
+      "components_with_pixels_in_multiple_scored_fold_cores": 21,
+      "connectivity": "8-connected",
+      "fold_membership_counts": {
+        "0": 15,
+        "1": 3163,
+        "2": 21,
+        "3": 0,
+        "4": 0,
+        "5": 0
+      },
+      "largest_component_pixels": 360,
+      "p99_component_pixels": 128.0,
+      "pixels_from_crossing_components_inside_scored_cores": 850
+    }
+  ],
+  "created_utc": "2026-10-06T20:42:06.156549Z",
+  "fold_core_bounds": [
+    {
+      "col_end": 655,
+      "col_start": 0,
+      "fold_id": 0,
+      "row_end": 3727,
+      "row_start": 3
+    },
+    {
+      "col_end": 1313,
+      "col_start": 661,
+      "fold_id": 1,
+      "row_end": 3727,
+      "row_start": 3
+    },
+    {
+      "col_end": 1972,
+      "col_start": 1319,
+      "fold_id": 2,
+      "row_end": 3727,
+      "row_start": 3
+    },
+    {
+      "col_end": 2630,
+      "col_start": 1978,
+      "fold_id": 3,
+      "row_end": 3727,
+      "row_start": 3
+    },
+    {
+      "col_end": 3292,
+      "col_start": 2636,
+      "fold_id": 4,
+      "row_end": 3727,
+      "row_start": 3
+    }
+  ],
+  "fold_protocol": "five equal-width east-west cores; three-pixel guard between adjacent cores; three-pixel north/south edge trim",
+  "interpretation_limit": "Raster connected components are a diagnostic approximation, not geological fault-segment identifiers. Rasterization can split one mapped line or merge crossing/nearby lines.",
+  "label_positive_pixels": 60988,
+  "label_sha256": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093",
+  "metric_note": "Component pixels are counted only inside scored fold cores; the excluded 300 m boundaries are not assigned to a fold."
+}

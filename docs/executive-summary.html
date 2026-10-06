@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Executive summary — how to submit · GEMSDOE49</title>
+<title>Executive summary — GEMSDOE49</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -17,74 +17,58 @@
   </nav>
 </header>
 <main>
-<h1>Executive summary — exactly how to make a submission</h1>
-<p class="lead">Everything needed to place a submission into the GEMS Prize, from download to receipt.</p>
+<h1>Executive summary — candidate status and next submission steps</h1>
+<p class="lead">Current decision: keep the weekly slot. The task-branch fixed H49-XG primary failed its preregistered stability gate; a separate PR #1 artifact passes the file-format check but not the complete validation gate.</p>
+
+<div class="flag"><b>Do not upload the current candidate.</b> No local holdout is a leaderboard score, no file is mapped to the 0.2778 leaderboard row, and no candidate is authorized to consume a weekly slot.</div>
 
 <div class="hero">
-  <h2>⬇ Step 0 — download the file</h2>
-  <a class="btn" href="downloads/gemsdoe49-xgrad-coupled-20261006T203447Z-zeros.tif">Download submission .tif (primary, all-finite)</a>
-  <a class="btn alt" href="downloads/gemsdoe49-xgrad-coupled-20261006T203447Z-nan.tif">NaN-outside twin</a>
+  <h2>Existing research artifact — format-valid, not submission-cleared</h2>
+  <a class="btn" href="downloads/gemsdoe49-xgrad-coupled-20261006T203447Z-nan.tif">Download the NaN-outside research GeoTIFF (410 KB)</a>
+  <p class="small" style="margin-bottom:0"><b>SHA-256:</b> <code style="background:#ffffff22;color:#fff">bef0881aadc8366f1a08e13aac119cfa71492750e93426105b9e5745c7d701bf</code><br>
+  Single band · float32 · EPSG:32611 · 100 m · 3,730 × 3,292 · no nodata tag · all footprint values finite in [0,1] · NaN only outside.</p>
 </div>
 
-<h2>Step-by-step submission</h2>
+<h2>Why it is not cleared</h2>
 <div class="card">
 <ol>
-<li><b>Download</b> the primary file above:
-<code>gemsdoe49-xgrad-coupled-20261006T203447Z-zeros.tif</code> (253 KB). Either file is
-acceptable; the all-finite one is the safest against validator changes.</li>
-<li>Go to the competition page:
-<a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">https://www.drivendata.org/competitions/306/competition-doe-gems/</a>
-and log in with the enrolled account.</li>
-<li>In the sidebar click <b>Submit</b>, then <b>“Make new submission”</b>.</li>
-<li><b>File to submit:</b> choose the downloaded <code>.tif</code>. (A <code>.zip</code>
-containing a single GeoTIFF is also accepted by the portal; not needed here.)</li>
-<li><b>Note (optional)</b> — paste this (163/200 characters):
-<pre>GEMSDOE49 xgrad | grav×rtp×topo cross-gradient alignment σ=300m, 40k NMS dots, holdout DTI 0.0203 beats all single-layer baselines +30%, UNIQUE vs 57 priors; UNSCORED</pre></li>
-<li>Unique submission name for our own tracking: <code>GEMSDOE49-XGRAD-ALIGN</code>.</li>
-<li>Click <b>Submit</b>. The public leaderboard score appears after the scoring queue runs.</li>
+<li><b>Spatial holdout:</b> PR #1 selects random catalogue components inside four quadrants rather than holding out whole geographic blocks. Its NMS mask also excludes the complete catalogue, including the fold components later scored as held-out truth. It is not the preregistered spatially isolated test required for promotion.</li>
+<li><b>Gravity scale:</b> PR #1 uses Gaussian σ=300 m. The official USGS regional product associated with INGENIOUS describes its `GB_iso_grav_anom.tif` grid at 1 km; the exact lineage of competition band 13 is not confirmed. The 300 m gradient scale is therefore not justified by verified native support.</li>
+<li><b>Uniqueness:</b> the candidate is directly different from the H33-2-B2 file (2.10% smaller-set overlap), but the full 57-file prior corpus is absent from Git, with three original artifacts unavailable in the PR #1 audit.</li>
+</ol>
+<p>Full findings: <a href="reports/pr1_candidate_audit_20261006.md">PR #1 candidate audit</a> and <a href="reports/h49_xg_result_20261006.md">fixed H49-XG result memo</a>.</p>
+</div>
+
+<h2>Task-branch H49-XG: the promotion test that failed</h2>
+<div class="card">
+<ul>
+<li>Primary DTI: <b>0.10041455</b> vs <b>0.08193976</b> for `single_det_elev` (a public-catalogue proxy, not a live score).</li>
+<li>Four of five blocks beat the strongest single-layer result, but one paired delta was <b>−0.01180243</b>, below the preregistered −0.01 floor.</li>
+<li>The 2 km-FWHM variant is sensitivity-only; the same locked labels cannot be used to promote it after the primary failed.</li>
+<li>This run made no TIFF and used no submission slot.</li>
+</ul>
+</div>
+
+<h2>What is known about the 0.2778 score</h2>
+<div class="card">
+<p>On the 2026-10-06 public leaderboard snapshot, `extradr19` had 0.2778 (rank 13; 10 submissions); the top entry was `xiaofanhu` at 0.3774. The public page does not identify the submitted file. The H33-2-B2 file in GEMSDOE32 is labelled <b>UNSCORED</b>, and its approximately 0.2747 value is a project projection, not an organizer score. Its attribution to the public 0.2778 row is not established.</p>
+<p>Accordingly, there is no measured evidence that the current research artifact scores above 0.2778. Do not upload it as if this were known.</p>
+</div>
+
+<h2>When a candidate is eventually cleared: submission checklist</h2>
+<div class="card">
+<ol>
+<li>Use only the one-click NaN-outside GeoTIFF linked above after its status has changed to <b>SUBMISSION-CLEARED</b> and its hash is rechecked. The current file is not cleared.</li>
+<li>Open the official <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">DrivenData GEMS Prize (#306)</a> page, sign in with the enrolled account, and follow the live submission workflow. The portal's logged-in controls and current weekly-slot availability cannot be inspected in this environment.</li>
+<li>Upload one single-band float32 GeoTIFF with EPSG:32611, 100 m resolution, matching bounds, values in [0,1] inside, and null/NaN outside. This is the official format wording on <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">the problem page</a>.</li>
+<li>Use a distinct, truthful submission name and note. Proposed tracking label only: <code>GEMSDOE49-XGRAD-ALIGN</code>. Proposed note (not for use until cleared): <pre>GEMSDOE49 XGRAD | research candidate; public-catalogue proxy only; spatial validation and gravity-scale review pending; UNSCORED</pre></li>
+<li>Record the portal receipt and score without claiming a private/final score before it is available. Disclose AI assistance in the narrative as required by the official rules.</li>
 </ol>
 </div>
 
-<h2>Why this file will not trigger the portal's range error</h2>
-<div class="card">
-<p>The portal error <code>“Predicted values must be in range [0, 1]”</code> has two known causes,
-both eliminated here (mechanisms measured by GEMSDOE32):</p>
-<ul>
-<li><b>Values outside [0,1]</b> — every one of the 12,279,160 cells of this raster was re-read
-from disk after writing: footprint cells min 0.0 / max 1.0; outside-footprint cells 0.0 (zeros
-file) or NaN (twin).</li>
-<li><b>A nodata sentinel tag</b> such as −3.4028234663852886e+38 — this file is written with
-<b>no nodata tag at all</b>; every cell is finite in the primary file.</li>
-</ul>
-<p>Independent re-read receipts: <code>evidence/format_receipts.json</code> (sha256, geometry,
-range, checks) — all checks <span class="pill ok">PASS</span>.</p>
-</div>
+<div class="note"><b>Do not treat the all-zero-outside twin as the preferred upload.</b> The official submission page says data outside bounds should be null or NaN. The matching `-zeros.tif` is retained as a research twin but does not meet that stated condition.</div>
 
-<h2>What the file predicts</h2>
-<table>
-<tr><td>Method</td><td>Cross-gradient coupling (Gallardo &amp; Meju 2004; Fregoso &amp; Gallardo 2009; ASEG 2012 data-domain variant): horizontal gradients of isostatic gravity anomaly, RTP magnetics and detrended elevation at a common 300 m scale; 2-of-3 pairwise alignment conjunction × magnitude conjunction.</td></tr>
-<tr><td>Emission</td><td>40,000 NMS-spaced dots (200 m spacing), zero on catalogue, budget calibrated on the holdout.</td></tr>
-<tr><td>Gate passed</td><td>Holdout DTI 0.0203 vs best single-layer baseline 0.0156 (+30 %) across 4 spatially-blocked hide-and-recover folds.</td></tr>
-<tr><td>Uniqueness</td><td>Audited against all 57 archived prior submissions — max rank correlation −0.27, max top-k overlap 0.29. Not a relabel of anything.</td></tr>
-<tr><td>Status</td><td><span class="pill warn">UNSCORED</span> — no organiser score exists yet; submitting it spends one of the 3 weekly slots.</td></tr>
-</table>
-
-<h2>Decision guidance (Maximize P(Win))</h2>
-<div class="card">
-<ul>
-<li><b>If a weekly slot is available and the goal is a new live anchor:</b> submit the primary
-zeros file. It is the first multi-physics cross-gradient emission the family has ever scored;
-even a modest live number calibrates the instrument against reality (the family's 0.2708 →
-0.2778 jump was learned exactly this way).</li>
-<li><b>If protecting the slot for a fused candidate:</b> first run
-<code>python3 scripts/validate_h49b_alteration.py</code> (radiometric alteration gate);
-submit the fusion only if it beats the coupled-only holdout DTI of 0.0203.</li>
-<li>Never resubmit an earlier family file as if it were new — the uniqueness audit in
-<code>scripts/uniqueness_audit.py</code> exists to catch that; run it on any future candidate.</li>
-</ul>
-</div>
-
-<footer>GEMSDOE49 · 2026-10-06 · receipts in <code>evidence/</code></footer>
+<footer>GEMSDOE49 · 2026-10-06 · research only · no upload authorized</footer>
 </main>
 </body>
 </html>

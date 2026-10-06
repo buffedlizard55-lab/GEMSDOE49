@@ -1,0 +1,427 @@
+{
+  "audit_id": "GEMSDOE49-input-spacing-audit",
+  "bands": {
+    "det_elev": {
+      "band_index_1_based": 12,
+      "description": "det_elev - Detrended elevation - topography with regional trends removed",
+      "lag_correlations": [
+        {
+          "direction": "east_west",
+          "lag_m": 100,
+          "lag_pixels": 1,
+          "pearson_r": 0.9982345671312021,
+          "sample_pairs": 1290571
+        },
+        {
+          "direction": "north_south",
+          "lag_m": 100,
+          "lag_pixels": 1,
+          "pearson_r": 0.9984160515307735,
+          "sample_pairs": 1290058
+        },
+        {
+          "direction": "east_west",
+          "lag_m": 200,
+          "lag_pixels": 2,
+          "pearson_r": 0.9944406710330246,
+          "sample_pairs": 1289762
+        },
+        {
+          "direction": "north_south",
+          "lag_m": 200,
+          "lag_pixels": 2,
+          "pearson_r": 0.9951936084610878,
+          "sample_pairs": 1289294
+        },
+        {
+          "direction": "east_west",
+          "lag_m": 300,
+          "lag_pixels": 3,
+          "pearson_r": 0.9896459185300261,
+          "sample_pairs": 1288569
+        },
+        {
+          "direction": "north_south",
+          "lag_m": 300,
+          "lag_pixels": 3,
+          "pearson_r": 0.9913860151767387,
+          "sample_pairs": 1287591
+        },
+        {
+          "direction": "east_west",
+          "lag_m": 500,
+          "lag_pixels": 5,
+          "pearson_r": 0.9781308262076929,
+          "sample_pairs": 1286569
+        },
+        {
+          "direction": "north_south",
+          "lag_m": 500,
+          "lag_pixels": 5,
+          "pearson_r": 0.9830244469864606,
+          "sample_pairs": 1285125
+        },
+        {
+          "direction": "east_west",
+          "lag_m": 1000,
+          "lag_pixels": 10,
+          "pearson_r": 0.9415486309664056,
+          "sample_pairs": 1281791
+        },
+        {
+          "direction": "north_south",
+          "lag_m": 1000,
+          "lag_pixels": 10,
+          "pearson_r": 0.9597906180752327,
+          "sample_pairs": 1279451
+        },
+        {
+          "direction": "east_west",
+          "lag_m": 2000,
+          "lag_pixels": 20,
+          "pearson_r": 0.8461323175224661,
+          "sample_pairs": 1271876
+        },
+        {
+          "direction": "north_south",
+          "lag_m": 2000,
+          "lag_pixels": 20,
+          "pearson_r": 0.9041695996864023,
+          "sample_pairs": 1267258
+        },
+        {
+          "direction": "east_west",
+          "lag_m": 3000,
+          "lag_pixels": 30,
+          "pearson_r": 0.7343222143690411,
+          "sample_pairs": 1261996
+        },
+        {
+          "direction": "north_south",
+          "lag_m": 3000,
+          "lag_pixels": 30,
+          "pearson_r": 0.8389250741003008,
+          "sample_pairs": 1255125
+        }
+      ],
+      "max": 1469.9127197265625,
+      "median": -75.57621002197266,
+      "min": -589.9837036132812,
+      "nodata_pixels_in_footprint": 3061,
+      "p01": -466.8299865722656,
+      "p99": 707.4249267578125,
+      "tags": {
+        "band_name": "det_elev",
+        "data_category": "topographic",
+        "data_type": "numeric",
+        "description": "Detrended elevation - topography with regional trends removed"
+      },
+      "valid_pixels": 5164312
+    },
+    "iso_grav_anom": {
+      "band_index_1_based": 13,
+      "description": "iso_grav_anom - Isostatic gravity anomaly - gravity after compensating for topographic mass",
+      "lag_correlations": [
+        {
+          "direction": "east_west",
+          "lag_m": 100,
+          "lag_pixels": 1,
+          "pearson_r": 0.9997943743450116,
+          "sample_pairs": 1290571
+        },
+        {
+          "direction": "north_south",
+          "lag_m": 100,
+          "lag_pixels": 1,
+          "pearson_r": 0.9998618584056139,
+          "sample_pairs": 1290058
+        },
+        {
+          "direction": "east_west",
+          "lag_m": 200,
+          "lag_pixels": 2,
+          "pearson_r": 0.9991818960509284,
+          "sample_pairs": 1289762
+        },
+        {
+          "direction": "north_south",
+          "lag_m": 200,
+          "lag_pixels": 2,
+          "pearson_r": 0.9994513473988677,
+          "sample_pairs": 1289294
+        },
+        {
+          "direction": "east_west",
+          "lag_m": 300,
+          "lag_pixels": 3,
+          "pearson_r": 0.9981689786665212,
+          "sample_pairs": 1288569
+        },
+        {
+          "direction": "north_south",
+          "lag_m": 300,
+          "lag_pixels": 3,
+          "pearson_r": 0.9987736901832555,
+          "sample_pairs": 1287591
+        },
+        {
+          "direction": "east_west",
+          "lag_m": 500,
+          "lag_pixels": 5,
+          "pearson_r": 0.9949705401768533,
+          "sample_pairs": 1286569
+        },
+        {
+          "direction": "north_south",
+          "lag_m": 500,
+          "lag_pixels": 5,
+          "pearson_r": 0.9966406667455926,
+          "sample_pairs": 1285125
+        },
+        {
+          "direction": "east_west",
+          "lag_m": 1000,
+          "lag_pixels": 10,
+          "pearson_r": 0.980457536804158,
+          "sample_pairs": 1281791
+        },
+        {
+          "direction": "north_south",
+          "lag_m": 1000,
+          "lag_pixels": 10,
+          "pearson_r": 0.9870337797199505,
+          "sample_pairs": 1279451
+        },
+        {
+          "direction": "east_west",
+          "lag_m": 2000,
+          "lag_pixels": 20,
+          "pearson_r": 0.9271998586510298,
+          "sample_pairs": 1271876
+        },
+        {
+          "direction": "north_south",
+          "lag_m": 2000,
+          "lag_pixels": 20,
+          "pearson_r": 0.9522607761350702,
+          "sample_pairs": 1267258
+        },
+        {
+          "direction": "east_west",
+          "lag_m": 3000,
+          "lag_pixels": 30,
+          "pearson_r": 0.8508543227525641,
+          "sample_pairs": 1261996
+        },
+        {
+          "direction": "north_south",
+          "lag_m": 3000,
+          "lag_pixels": 30,
+          "pearson_r": 0.9030132623437127,
+          "sample_pairs": 1255125
+        }
+      ],
+      "max": 24.232954025268555,
+      "median": -7.26103401184082,
+      "min": -45.75756072998047,
+      "nodata_pixels_in_footprint": 3061,
+      "p01": -32.76560974121094,
+      "p99": 12.89549732208252,
+      "tags": {
+        "band_name": "iso_grav_anom",
+        "data_category": "gravity_data",
+        "data_type": "numeric",
+        "description": "Isostatic gravity anomaly - gravity after compensating for topographic mass"
+      },
+      "valid_pixels": 5164312
+    },
+    "rtp": {
+      "band_index_1_based": 2,
+      "description": "rtp - Reduced to pole magnetic data - magnetic anomaly corrected for latitude effects",
+      "lag_correlations": [
+        {
+          "direction": "east_west",
+          "lag_m": 100,
+          "lag_pixels": 1,
+          "pearson_r": 0.9913544236381006,
+          "sample_pairs": 1290571
+        },
+        {
+          "direction": "north_south",
+          "lag_m": 100,
+          "lag_pixels": 1,
+          "pearson_r": 0.9941799367971657,
+          "sample_pairs": 1290058
+        },
+        {
+          "direction": "east_west",
+          "lag_m": 200,
+          "lag_pixels": 2,
+          "pearson_r": 0.967876166186376,
+          "sample_pairs": 1289762
+        },
+        {
+          "direction": "north_south",
+          "lag_m": 200,
+          "lag_pixels": 2,
+          "pearson_r": 0.9786496153657849,
+          "sample_pairs": 1289294
+        },
+        {
+          "direction": "east_west",
+          "lag_m": 300,
+          "lag_pixels": 3,
+          "pearson_r": 0.9352583863544554,
+          "sample_pairs": 1288569
+        },
+        {
+          "direction": "north_south",
+          "lag_m": 300,
+          "lag_pixels": 3,
+          "pearson_r": 0.9547752883647735,
+          "sample_pairs": 1287591
+        },
+        {
+          "direction": "east_west",
+          "lag_m": 500,
+          "lag_pixels": 5,
+          "pearson_r": 0.8617098941598139,
+          "sample_pairs": 1286569
+        },
+        {
+          "direction": "north_south",
+          "lag_m": 500,
+          "lag_pixels": 5,
+          "pearson_r": 0.8936520580604996,
+          "sample_pairs": 1285125
+        },
+        {
+          "direction": "east_west",
+          "lag_m": 1000,
+          "lag_pixels": 10,
+          "pearson_r": 0.7015354654830717,
+          "sample_pairs": 1281791
+        },
+        {
+          "direction": "north_south",
+          "lag_m": 1000,
+          "lag_pixels": 10,
+          "pearson_r": 0.7319452072915082,
+          "sample_pairs": 1279451
+        },
+        {
+          "direction": "east_west",
+          "lag_m": 2000,
+          "lag_pixels": 20,
+          "pearson_r": 0.4942165613053423,
+          "sample_pairs": 1271876
+        },
+        {
+          "direction": "north_south",
+          "lag_m": 2000,
+          "lag_pixels": 20,
+          "pearson_r": 0.5090382361049444,
+          "sample_pairs": 1267258
+        },
+        {
+          "direction": "east_west",
+          "lag_m": 3000,
+          "lag_pixels": 30,
+          "pearson_r": 0.37436987864321414,
+          "sample_pairs": 1261996
+        },
+        {
+          "direction": "north_south",
+          "lag_m": 3000,
+          "lag_pixels": 30,
+          "pearson_r": 0.3770957072516544,
+          "sample_pairs": 1255125
+        }
+      ],
+      "max": 4508.76025390625,
+      "median": -137.22166442871094,
+      "min": -2786.299560546875,
+      "nodata_pixels_in_footprint": 3061,
+      "p01": -458.7529602050781,
+      "p99": 395.7310485839844,
+      "tags": {
+        "band_name": "rtp",
+        "data_category": "magnetic_data",
+        "data_type": "numeric",
+        "description": "Reduced to pole magnetic data - magnetic anomaly corrected for latitude effects"
+      },
+      "valid_pixels": 5164312
+    }
+  },
+  "created_utc": "2026-10-06T20:30:11.187144Z",
+  "external_source_context": {
+    "official_usgs_bouguer_page": "https://pubs.usgs.gov/ds/2006/234/nv_boug.htm",
+    "official_usgs_data_directory": "https://pubs.usgs.gov/ds/2006/234/data/",
+    "official_usgs_isostatic_page": "https://pubs.usgs.gov/ds/2006/234/nv_iso.htm",
+    "verified_statement": "USGS DS 234 says Nevada isostatic gravity was derived from complete Bouguer data; the companion complete-Bouguer page states 71,055 station measurements and a 1-km grid. The competition mirror does not identify the precise source/version of its iso_grav_anom band, so this is a cautionary comparator, not a provenance match."
+  },
+  "feature_file_sha256": "4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5",
+  "grid": {
+    "crs": "EPSG:32611",
+    "footprint_pixels": 5167373,
+    "height": 3730,
+    "pixel_size_m": [
+      100.0,
+      100.0
+    ],
+    "sample_sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+    "width": 3292
+  },
+  "interpretation_limit": "Raster autocorrelation and observed lag structure measure the resampled competition grid's smoothness, not native station spacing or independent spatial resolution.",
+  "provenance": "Pinned owner-hosted public mirror; byte hash establishes mirror consistency only and is not organizer authentication.",
+  "related_derivative_band_descriptions": {
+    "11": {
+      "description": "iso_grav_anom_vg - Isostatic gravity anomaly vertical gradient - vertical rate of change",
+      "tags": {
+        "band_name": "iso_grav_anom_vg",
+        "data_category": "gravity_data",
+        "data_type": "numeric",
+        "description": "Isostatic gravity anomaly vertical gradient - vertical rate of change"
+      }
+    },
+    "18": {
+      "description": "iso_grav_anom_hg - Isostatic gravity anomaly horizontal gradient - horizontal rate of change",
+      "tags": {
+        "band_name": "iso_grav_anom_hg",
+        "data_category": "gravity_data",
+        "data_type": "numeric",
+        "description": "Isostatic gravity anomaly horizontal gradient - horizontal rate of change"
+      }
+    },
+    "19": {
+      "description": "det_elev_slope - Detrended elevation slope - gradient of elevation after detrending",
+      "tags": {
+        "band_name": "det_elev_slope",
+        "data_category": "topographic",
+        "data_type": "numeric",
+        "description": "Detrended elevation slope - gradient of elevation after detrending"
+      }
+    },
+    "5": {
+      "description": "iso_grav_anom_slope - Isostatic gravity anomaly slope - gradient of gravity after isostatic correction",
+      "tags": {
+        "band_name": "iso_grav_anom_slope",
+        "data_category": "gravity_data",
+        "data_type": "numeric",
+        "description": "Isostatic gravity anomaly slope - gradient of gravity after isostatic correction"
+      }
+    }
+  },
+  "sampling": {
+    "lags_px": [
+      1,
+      2,
+      3,
+      5,
+      10,
+      20,
+      30
+    ],
+    "systematic_stride_px": 2
+  }
+}

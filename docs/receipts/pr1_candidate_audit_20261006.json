@@ -1,0 +1,105 @@
+{
+  "audit_id": "GEMSDOE49-PR1-candidate-review-20261006",
+  "audited_utc": "2026-10-06",
+  "candidate_origin": {
+    "pull_request": 1,
+    "merged_commit": "2e22802",
+    "candidate_name": "GEMSDOE49-XGRAD-ALIGN",
+    "separate_from_current_branch_h49_xg_experiment": true
+  },
+  "artifact": {
+    "path": "docs/downloads/gemsdoe49-xgrad-coupled-20261006T203447Z-nan.tif",
+    "sha256": "bef0881aadc8366f1a08e13aac119cfa71492750e93426105b9e5745c7d701bf",
+    "size_bytes": 419609,
+    "shape_hw": [3730, 3292],
+    "count": 1,
+    "dtype": "float32",
+    "crs": "EPSG:32611",
+    "transform": [100.0, 0.0, 243350.0, 0.0, -100.0, 4508550.0],
+    "nodata_tag": null,
+    "footprint_cells": 5167373,
+    "outside_footprint_cells": 7111787,
+    "inside_all_finite": true,
+    "inside_min": 0.0,
+    "inside_max": 1.0,
+    "inside_positive_cells": 40000,
+    "outside_all_nan": true,
+    "positive_catalogue_overlap": 0,
+    "official_format_status": "PASS_FOR_NAN_TWIN"
+  },
+  "zero_outside_twin": {
+    "path": "docs/downloads/gemsdoe49-xgrad-coupled-20261006T203447Z-zeros.tif",
+    "sha256": "154003d9b7220c43a96052364a4380ce8b602a9f7e45c549354b1f73353ef867",
+    "size_bytes": 258447,
+    "outside_value": 0.0,
+    "official_format_status": "NOT_COMPLIANT_WITH_NULL_OR_NAN_OUTSIDE_REQUIREMENT"
+  },
+  "holdout_replay": {
+    "protocol_as_implemented": "four quadrant strata; about 25 percent of connected catalogue components hidden per quadrant; one full-domain prediction raster scored in each fold",
+    "candidate_final_artifact_dti_mean": 0.02026648455187942,
+    "candidate_final_artifact_dti_per_fold": [
+      0.036504362325797846,
+      0.012602545366713533,
+      0.016012338026837405,
+      0.015946692488168893
+    ],
+    "reproduces_committed_final_holdout_receipt_exactly": true,
+    "best_config_raw_score_dti_mean": 0.020302617885093063,
+    "current_environment_baseline_replay": {
+      "runtime": "Python 3.11.2; NumPy 2.4.6; SciPy 1.17.1; Rasterio 1.4.4",
+      "iso_grav_anom": 0.015770418904146623,
+      "rtp": 0.014426973841181155,
+      "det_elev": 0.014570449108930458,
+      "margin_candidate_minus_each_baseline": {
+        "iso_grav_anom": 0.004496065647732795,
+        "rtp": 0.005839510710698263,
+        "det_elev": 0.005696035442948961
+      },
+      "note": "All are below candidate on this non-spatial component-sampled proxy; exact margins differ slightly from PR1 receipt. NMS argpartition tie-breaking is not stable/pinned, cause of runtime discrepancy not isolated."
+    },
+    "submission_gate_status": "NOT_CLEARED_SPATIAL_HOLDOUT_MISMATCH_AND_SCALE_UNRESOLVED"
+  },
+  "holdout_review_findings": [
+    "Selected components are random within quadrants; the folds are not whole held-out geographic blocks.",
+    "NMS receives the full catalogue and suppresses all catalogue cells, including components later treated as held-out truth; candidate construction therefore knows the held-out pixel geometry.",
+    "Each fold scores the same full-domain prediction, so off-label false-positive mass outside the quadrant contributes in each fold.",
+    "Quantile clipping before final NMS changes the ranking through ties; the shipped final mask shares 36424 of 40000 cells with the reconstructed raw-score mask."
+  ],
+  "gravity_resolution_review": {
+    "official_source": "https://doi.org/10.5066/P9Z6SA1Z",
+    "official_readme_statement": "GB_iso_grav_anom.tif has a 1 km cell size",
+    "competition_mirror_band": "band 13 iso_grav_anom",
+    "exact_lineage_confirmed": false,
+    "pr1_sigma_m": 300.0,
+    "status": "SCALE_CAUTION_UNRESOLVED"
+  },
+  "uniqueness_review": {
+    "pr1_receipt_priors_compared": 57,
+    "pr1_receipt_verdict": "UNIQUE",
+    "max_smaller_set_overlap_in_receipt": 0.290125,
+    "max_signed_spearman_in_receipt": -0.26557019886794064,
+    "max_absolute_spearman_in_receipt": 0.9887987055007706,
+    "prior_corpus_tracked_in_git": false,
+    "known_original_priors_unavailable": 3,
+    "direct_h33_comparison": {
+      "prior_file": "GEMSDOE32/docs/downloads/gemsdoe32-h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros.tif",
+      "prior_commit": "b983924b57781edd29b8e249c4923bf33d9902f6",
+      "prior_sha256": "c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9",
+      "prior_positive_cells": 37654,
+      "intersection_cells": 792,
+      "overlap_smaller_set": 0.0210336219259574,
+      "jaccard_union": 0.01030418152012698,
+      "spearman_over_positive_union": -0.9795829948443248,
+      "directly_reproduced": true
+    },
+    "all_prior_clearance": "NOT_ESTABLISHED"
+  },
+  "official_sources_checked": {
+    "submission_and_metric": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
+    "pixel_exact_mask": "https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516/4",
+    "ingenious_gdr": "https://gdr.openei.org/submissions/1391",
+    "regional_gravity_product": "https://doi.org/10.5066/P9Z6SA1Z"
+  },
+  "organizer_score": null,
+  "recommendation": "Do not submit or claim improvement over the 0.2778 public row. Preserve as a research artifact; run a newly frozen whole-block validation at a gravity-aware scale and complete the prior corpus audit before generating a new TIF."
+}
