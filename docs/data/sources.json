@@ -1,0 +1,111 @@
+{
+ "generated_utc": "2026-10-06T21:10:00Z",
+ "note": "Every row is a claim the site makes. class: OFFICIAL (organizer or primary literature, read from the linked page), MEASURED (computed in this checkout from hash-verified bytes by a named script), BLOCKED (cannot be obtained in this environment, with the reason). Nothing here is asserted from memory.",
+ "sources": [
+  {
+   "topic": "Competition problem statement, metric, submission contract",
+   "claim": "Distance-weighted Tversky index with a 300 m triangular kernel, 100 m pixels, alpha 0.2 / beta 0.8; EPSG:32611, float32, values in [0,1], NaN outside the mapped area only; the public USGS fault database is incomplete and an expert panel labelled the new faults that form the test set; initial and final rounds with an expanded label set for the final.",
+   "class": "OFFICIAL",
+   "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
+   "url_label": "drivendata.org/competitions/306/competition-doe-gems/page/967"
+  },
+  {
+   "topic": "Masking of known faults",
+   "claim": "Pixels corresponding to known USGS/INGENIOUS faults are masked out of evaluation and do not count towards the penalty terms; confirmed to apply to the final round as well.",
+   "class": "OFFICIAL",
+   "url": "https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516",
+   "url_label": "community.drivendata.org/t/…/11516"
+  },
+  {
+   "topic": "Definition of a new fault",
+   "claim": "Any fault pixel not already captured by USGS/INGENIOUS counts as new, and can include newly mapped geometry of an existing fault system.",
+   "class": "OFFICIAL",
+   "url": "https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516",
+   "url_label": "community.drivendata.org/t/…/11516"
+  },
+  {
+   "topic": "Rules and submission allowance",
+   "claim": "Three scored submissions per rolling week; a single submission is selected for scoring across both rounds.",
+   "class": "OFFICIAL",
+   "url": "https://docs.nlr.gov/docs/fy26osti/96647.pdf",
+   "url_label": "docs.nlr.gov/docs/fy26osti/96647.pdf"
+  },
+  {
+   "topic": "Competition data release",
+   "claim": "The feature stack, existing-fault raster and example submission used here come from the GeoDAWN / DOE GEMS data release.",
+   "class": "OFFICIAL",
+   "url": "https://doi.org/10.5066/P93LGLVQ",
+   "url_label": "doi:10.5066/P93LGLVQ"
+  },
+  {
+   "topic": "Cross-gradient joint inversion (theory)",
+   "claim": "Defines t(x) = grad m1 x grad m2, shows it vanishes where the two models change in the same direction, requires no petrophysical relationship between the properties, and measures shared structure rather than shared amplitude.",
+   "class": "OFFICIAL",
+   "url": "https://doi.org/10.1029/2003JB002716",
+   "url_label": "doi:10.1029/2003JB002716 (Gallardo & Meju 2004)"
+  },
+  {
+   "topic": "Cross-gradient applied to gravity and magnetics",
+   "claim": "Extends cross-gradient coupling to potential-field pairs; the reference the brief cites for gravity+magnetics.",
+   "class": "OFFICIAL",
+   "url": "https://doi.org/10.1190/1.3119263",
+   "url_label": "doi:10.1190/1.3119263 (Fregoso & Gallardo 2009, Geophysics 74(4) L31-L42)"
+  },
+  {
+   "topic": "Data-domain horizontal-gradient angle and cross product",
+   "claim": "The angle and cross product of the horizontal gradients of gravity and reduced-to-pole magnetics used directly in the data domain, without inversion. This is the construction implemented in src/gems49/crossgrad.py.",
+   "class": "OFFICIAL",
+   "url": "https://doi.org/10.1071/ASEG2012ab273",
+   "url_label": "doi:10.1071/ASEG2012ab273 (ASEG 2012 extended abstract)"
+  },
+  {
+   "topic": "USGS 3DEP staged DEM (best-available 1 m elevation)",
+   "claim": "Free, public-domain U.S. Government elevation products; the named source for a higher-resolution elevation surface than the supplied detrended elevation. Obtainable in principle, but this environment gets HTTP 000 from the S3 endpoint and the region is terabytes at 1 m.",
+   "class": "BLOCKED",
+   "url": "https://prd-tnm.s3.amazonaws.com/",
+   "url_label": "prd-tnm.s3.amazonaws.com"
+  },
+  {
+   "topic": "The National Map products API",
+   "claim": "Programmatic lookup of 3DEP tile lists; documented and free, not reachable from this sandbox.",
+   "class": "BLOCKED",
+   "url": "https://tnmaccess.nationalmap.gov/api/v1/products",
+   "url_label": "tnmaccess.nationalmap.gov/api/v1/products"
+  },
+  {
+   "topic": "ANSS/ComCat earthquake catalogue",
+   "claim": "Free, public-domain seismicity for independent structural corroboration; not reachable from this sandbox (all non-GitHub/non-PyPI hosts return HTTP 000 through the available transport).",
+   "class": "BLOCKED",
+   "url": "https://earthquake.usgs.gov/fdsnws/event/1/",
+   "url_label": "earthquake.usgs.gov/fdsnws/event/1"
+  },
+  {
+   "topic": "USGS Quaternary Fault and Fold Database",
+   "claim": "Public-domain mapped Quaternary faults, useful as context but explicitly not a label source: predicting these would be a relabel of what the scorer masks out.",
+   "class": "OFFICIAL",
+   "url": "https://earthquake.usgs.gov/hazards/qfaults/",
+   "url_label": "earthquake.usgs.gov/hazards/qfaults"
+  },
+  {
+   "topic": "Geothermal Data Repository",
+   "claim": "Free DOE-hosted geothermal data and play-fairway studies for the Great Basin; used as context only.",
+   "class": "OFFICIAL",
+   "url": "https://gdr.openei.org/",
+   "url_label": "gdr.openei.org"
+  },
+  {
+   "topic": "Leaderboard state at build time",
+   "claim": "Top public scores observed on 2026-10-06: 0.3774, 0.3345, 0.3262, 0.3222, 0.3220; the reference artifact studied from a sibling repository sits at 0.2778.",
+   "class": "OFFICIAL",
+   "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
+   "url_label": "drivendata.org/…/leaderboard"
+  },
+  {
+   "topic": "Live submission feedback",
+   "claim": "The submission page and leaderboard require an authenticated session; /data/ redirects unauthenticated requests to /accounts/login/ and the terms forbid automated monitoring, so no leaderboard score for the file released here is available. Every number on this site is a proxy computed from the public data.",
+   "class": "BLOCKED",
+   "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/data/",
+   "url_label": "drivendata.org/…/data (login-gated)"
+  }
+ ]
+}

@@ -1,0 +1,118 @@
+{
+ "ok": true,
+ "checks": [
+  {
+   "check": "driver is GTiff",
+   "ok": true,
+   "detail": "GTiff",
+   "required": true
+  },
+  {
+   "check": "single band",
+   "ok": true,
+   "detail": "count=1",
+   "required": true
+  },
+  {
+   "check": "dtype float32",
+   "ok": true,
+   "detail": "float32",
+   "required": true
+  },
+  {
+   "check": "CRS EPSG:32611",
+   "ok": true,
+   "detail": "EPSG:32611",
+   "required": true
+  },
+  {
+   "check": "resolution 100 m",
+   "ok": true,
+   "detail": "(100.0, 100.0)",
+   "required": true
+  },
+  {
+   "check": "shape 3730x3292",
+   "ok": true,
+   "detail": "3730x3292",
+   "required": true
+  },
+  {
+   "check": "geotransform matches template",
+   "ok": true,
+   "detail": "(100.0, 0.0, 243350.0, 0.0, -100.0, 4508550.0)",
+   "required": true
+  },
+  {
+   "check": "bounds match template",
+   "ok": true,
+   "detail": "(243350.0, 4135550.0, 572550.0, 4508550.0)",
+   "required": true
+  },
+  {
+   "check": "no NaN/Inf INSIDE the footprint (rejection mode A)",
+   "ok": true,
+   "detail": "0 bad pixels of 5167373",
+   "required": true
+  },
+  {
+   "check": "values inside footprint within [0, 1] (rejection mode B)",
+   "ok": true,
+   "detail": "min=0.000000 max=1.000000",
+   "required": true
+  },
+  {
+   "check": "whole-array min/max are finite and in [0,1] (informational: a naive form check)",
+   "ok": true,
+   "detail": "min=0.0 max=1.0. A NaN outside the footprint fails this naive check; use the 0.0-outside variant if a form rejects the file on it.",
+   "required": false
+  },
+  {
+   "check": "no positive values outside the footprint",
+   "ok": true,
+   "detail": "max outside = 0.0",
+   "required": true
+  },
+  {
+   "check": "echoes the official NaN mask exactly (informational)",
+   "ok": false,
+   "detail": "nan pixels 0 vs template 7111787",
+   "required": false
+  }
+ ],
+ "summary": {
+  "path": "docs/downloads/gems49-gate_ortho_w0.25-40k-20261006T213721Z-zeros.tif",
+  "bytes": 230827,
+  "sha256": "3722e26fbf9129874be1fb8c687825803952c57ef1154ed0a21029596bc412f1",
+  "n_positive": 40000,
+  "unique_finite_values": [
+   0.0,
+   1.0
+  ],
+  "n_unique_finite_values": 2,
+  "fraction_of_footprint_emitted": 0.007741,
+  "meta": {
+   "driver": "GTiff",
+   "count": 1,
+   "dtype": "float32",
+   "shape": [
+    3730,
+    3292
+   ],
+   "crs": "EPSG:32611",
+   "res": [
+    100.0,
+    100.0
+   ],
+   "transform": [
+    100.0,
+    0.0,
+    243350.0,
+    0.0,
+    -100.0,
+    4508550.0
+   ],
+   "nodata": null
+  }
+ }
+}

@@ -1,0 +1,306 @@
+{
+ "generated_utc": "2026-10-06T21:46:13Z",
+ "protocol": "both arms re-selected under identical exclusion radii, each at its own best geometry; collared = held-out truth at least 600 m from the retained map, unrestricted = all held-out truth",
+ "arms": {
+  "candidate:gate_ortho_w0.25": {
+   "n_target": 40000,
+   "min_sep_px": 3,
+   "rows": [
+    {
+     "exclusion_px": -1,
+     "collared_mean": 0.10739412262062617,
+     "unrestricted_mean": 0.11336165953870833,
+     "collared_folds": [
+      0.106758,
+      0.116832,
+      0.108789,
+      0.097198
+     ],
+     "unrestricted_folds": [
+      0.112857,
+      0.121604,
+      0.112029,
+      0.106956
+     ]
+    },
+    {
+     "exclusion_px": 0,
+     "collared_mean": 0.10635311078920776,
+     "unrestricted_mean": 0.11274980132339715,
+     "collared_folds": [
+      0.105353,
+      0.11564,
+      0.108116,
+      0.096303
+     ],
+     "unrestricted_folds": [
+      0.112052,
+      0.120411,
+      0.111892,
+      0.106644
+     ]
+    },
+    {
+     "exclusion_px": 2,
+     "collared_mean": 0.1099586307213686,
+     "unrestricted_mean": 0.11662180873199242,
+     "collared_folds": [
+      0.108662,
+      0.118675,
+      0.111741,
+      0.100757
+     ],
+     "unrestricted_folds": [
+      0.11573,
+      0.123825,
+      0.116,
+      0.110932
+     ]
+    },
+    {
+     "exclusion_px": 3,
+     "collared_mean": 0.11307926243792737,
+     "unrestricted_mean": 0.11808831526566366,
+     "collared_folds": [
+      0.111284,
+      0.121349,
+      0.114828,
+      0.104856
+     ],
+     "unrestricted_folds": [
+      0.11708,
+      0.124978,
+      0.117422,
+      0.112873
+     ]
+    },
+    {
+     "exclusion_px": 4,
+     "collared_mean": 0.115557852563979,
+     "unrestricted_mean": 0.11636031748823268,
+     "collared_folds": [
+      0.114561,
+      0.12265,
+      0.11716,
+      0.107861
+     ],
+     "unrestricted_folds": [
+      0.115367,
+      0.122436,
+      0.115583,
+      0.112054
+     ]
+    }
+   ]
+  },
+  "baseline:single:det_elev_slope": {
+   "n_target": 60000,
+   "min_sep_px": 3,
+   "rows": [
+    {
+     "exclusion_px": -1,
+     "collared_mean": 0.09912422816441681,
+     "unrestricted_mean": 0.10774910757715093,
+     "collared_folds": [
+      0.093563,
+      0.104216,
+      0.101183,
+      0.097535
+     ],
+     "unrestricted_folds": [
+      0.1031,
+      0.111329,
+      0.108164,
+      0.108403
+     ]
+    },
+    {
+     "exclusion_px": 0,
+     "collared_mean": 0.09802329896968212,
+     "unrestricted_mean": 0.10680181359870194,
+     "collared_folds": [
+      0.092537,
+      0.102977,
+      0.10029,
+      0.09629
+     ],
+     "unrestricted_folds": [
+      0.102495,
+      0.110504,
+      0.107205,
+      0.107004
+     ]
+    },
+    {
+     "exclusion_px": 2,
+     "collared_mean": 0.10095251673707034,
+     "unrestricted_mean": 0.1104554778794581,
+     "collared_folds": [
+      0.095609,
+      0.105198,
+      0.103247,
+      0.099756
+     ],
+     "unrestricted_folds": [
+      0.106298,
+      0.11356,
+      0.111429,
+      0.110534
+     ]
+    },
+    {
+     "exclusion_px": 3,
+     "collared_mean": 0.10292712454911146,
+     "unrestricted_mean": 0.11105325204003622,
+     "collared_folds": [
+      0.097925,
+      0.107514,
+      0.104764,
+      0.101505
+     ],
+     "unrestricted_folds": [
+      0.107209,
+      0.114236,
+      0.111436,
+      0.111332
+     ]
+    },
+    {
+     "exclusion_px": 4,
+     "collared_mean": 0.10474216863346622,
+     "unrestricted_mean": 0.10860086181524259,
+     "collared_folds": [
+      0.099952,
+      0.108379,
+      0.107087,
+      0.10355
+     ],
+     "unrestricted_folds": [
+      0.104706,
+      0.111569,
+      0.108853,
+      0.109275
+     ]
+    }
+   ]
+  }
+ },
+ "margins": [
+  {
+   "exclusion_px": -1,
+   "collared_margin": 0.008269894456209362,
+   "unrestricted_margin": 0.0056125519615573966,
+   "collared_per_block_delta": [
+    0.013195,
+    0.012616,
+    0.007606,
+    -0.000337
+   ],
+   "collared_min_block_delta": -0.0003369999999999901,
+   "collared_blocks_won": 3,
+   "collared_stability_floor_ok": true,
+   "unrestricted_per_block_delta": [
+    0.009757,
+    0.010275,
+    0.003865,
+    -0.001447
+   ],
+   "unrestricted_min_block_delta": -0.0014470000000000038,
+   "unrestricted_blocks_won": 3,
+   "unrestricted_stability_floor_ok": true
+  },
+  {
+   "exclusion_px": 0,
+   "collared_margin": 0.008329811819525634,
+   "unrestricted_margin": 0.005947987724695208,
+   "collared_per_block_delta": [
+    0.012816,
+    0.012663,
+    0.007826,
+    1.3e-05
+   ],
+   "collared_min_block_delta": 1.2999999999999123e-05,
+   "collared_blocks_won": 4,
+   "collared_stability_floor_ok": true,
+   "unrestricted_per_block_delta": [
+    0.009557,
+    0.009907,
+    0.004687,
+    -0.00036
+   ],
+   "unrestricted_min_block_delta": -0.0003599999999999992,
+   "unrestricted_blocks_won": 3,
+   "unrestricted_stability_floor_ok": true
+  },
+  {
+   "exclusion_px": 2,
+   "collared_margin": 0.009006113984298264,
+   "unrestricted_margin": 0.0061663308525343186,
+   "collared_per_block_delta": [
+    0.013053,
+    0.013477,
+    0.008494,
+    0.001001
+   ],
+   "collared_min_block_delta": 0.0010010000000000019,
+   "collared_blocks_won": 4,
+   "collared_stability_floor_ok": true,
+   "unrestricted_per_block_delta": [
+    0.009432,
+    0.010265,
+    0.004571,
+    0.000398
+   ],
+   "unrestricted_min_block_delta": 0.00039800000000000946,
+   "unrestricted_blocks_won": 4,
+   "unrestricted_stability_floor_ok": true
+  },
+  {
+   "exclusion_px": 3,
+   "collared_margin": 0.010152137888815915,
+   "unrestricted_margin": 0.0070350632256274415,
+   "collared_per_block_delta": [
+    0.013359,
+    0.013835,
+    0.010064,
+    0.003351
+   ],
+   "collared_min_block_delta": 0.0033510000000000068,
+   "collared_blocks_won": 4,
+   "collared_stability_floor_ok": true,
+   "unrestricted_per_block_delta": [
+    0.009871,
+    0.010742,
+    0.005986,
+    0.001541
+   ],
+   "unrestricted_min_block_delta": 0.0015410000000000007,
+   "unrestricted_blocks_won": 4,
+   "unrestricted_stability_floor_ok": true
+  },
+  {
+   "exclusion_px": 4,
+   "collared_margin": 0.010815683930512784,
+   "unrestricted_margin": 0.007759455672990093,
+   "collared_per_block_delta": [
+    0.014609,
+    0.014271,
+    0.010073,
+    0.004311
+   ],
+   "collared_min_block_delta": 0.004310999999999995,
+   "collared_blocks_won": 4,
+   "collared_stability_floor_ok": true,
+   "unrestricted_per_block_delta": [
+    0.010661,
+    0.010867,
+    0.00673,
+    0.002779
+   ],
+   "unrestricted_min_block_delta": 0.0027790000000000037,
+   "unrestricted_blocks_won": 4,
+   "unrestricted_stability_floor_ok": true
+  }
+ ],
+ "runtime_s": 98.9
+}

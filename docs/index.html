@@ -1,70 +1,81 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>GEMSDOE49 — GEMS research review</title>
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
-<header class="site">
-  <a class="brand" href="index.html">GEMSDOE49</a>
-  <nav>
-    <a href="executive-summary.html">Executive summary</a>
-    <a href="holdout.html">Holdout &amp; metric</a>
-    <a href="hypotheses.html">Hypotheses</a>
-    <a href="sources.html">Sources</a>
-  </nav>
-</header>
-<main>
-<h1>GEMS fault-mapping research — submission gate closed</h1>
-<p class="lead">Maximize P(Win) by protecting the weekly submission slot. The fixed five-block H49-XG primary failed its preregistered stability gate. A separate, previously merged candidate has a format-valid research TIFF, but its holdout and scale review are insufficient to authorize an upload.</p>
-
-<div class="flag">
-  <b>Decision: DO NOT SUBMIT EITHER RESULT.</b> No DrivenData slot has been used and no organizer score exists for either H49-XG artifact. The file below is an existing PR #1 research artifact, not a cleared submission and not a measured improvement over the public 0.2778 row.
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Submission — DOE GEMS Prize</title>
+<meta name="description" content="Independently built, format-verified fault-potential submission for the
+DrivenData DOE GEMS Prize (competition 306).">
+<link rel="stylesheet" href="assets/site.css">
+</head><body>
+<header><div class="wrap"><b>GEMS&nbsp;Prize&nbsp;#306</b><nav><a href="index.html" aria-current=page>Overview</a><a href="executive-summary.html">How to submit</a><a href="hypotheses.html">Hypotheses</a><a href="evidence.html">Evidence</a><a href="research.html">Research</a></nav>
+<span class="small" style="margin-left:auto">built 2026-10-06 21:37Z</span></div></header>
+<main class="wrap">
+<h1>Fault-potential raster for the DOE GEMS Prize</h1>
+<p class="sub">One independently built submission, one click to download it, and the full evidence
+chain behind it — data pins, the exact metric, the measured reason the obvious approaches fail, and
+the cross-validation protocol that gates the release.</p>
+<div class="card dl"><h2>⬇ Download the submission</h2>
+<p class="small">GeoTIFF, 3292×3730, EPSG:32611, 100 m, float32,
+values in [0,1], NaN only outside the mapped footprint.</p>
+<a class="btn" href="downloads/gems49-gate_ortho_w0.25-40k-20261006T213721Z-nan.tif" download>Download gems49-gate_ortho_w0.25-40k-20261006T213721Z-nan.tif</a>
+<a class="btn sec" href="downloads/gems49-gate_ortho_w0.25-40k-20261006T213721Z-zeros.tif" download>zero-filled variant (same predictions)</a>
+<p class="small" style="margin-top:10px">sha256 of the primary file:
+<code>c58fe0551e120678fff190239146985d0b2f7255255535fb5fb637a05cb40af3</code><br>gems49-gate_ortho_w0.25-40k-20261006T213721Z — submit this file as-is. The second file
+carries identical predictions and differs only outside the mapped area, for forms that reject NaN.</p>
 </div>
-
-<div class="hero">
-  <h2>Research artifact (NaN outside; not cleared for upload)</h2>
-  <p>This pre-existing 40,000-dot file independently passes the official GeoTIFF geometry/range/outside-footprint checks. It does <b>not</b> pass the required spatial-holdout, gravity-scale, or exhaustive uniqueness review.</p>
-  <a class="btn" href="downloads/gemsdoe49-xgrad-coupled-20261006T203447Z-nan.tif">Download research GeoTIFF — NaN outside (410 KB)</a>
-  <p class="small" style="margin-bottom:0"><b>SHA-256:</b> <code style="background:#ffffff22;color:#fff">bef0881aadc8366f1a08e13aac119cfa71492750e93426105b9e5745c7d701bf</code><br>
-  <b>Proposed tracking label only:</b> <code style="background:#ffffff22;color:#fff">GEMSDOE49-XGRAD-ALIGN</code>. Do not paste an upload note or consume a weekly slot until a new validation clears the gate.</p>
+<h2>Every submission raster in this repository</h2>
+<p class="sub">Auto-listed from <code>docs/downloads/</code> at build time. The first row is the file
+recommended by this session; the others are preserved from earlier merged sessions and are documented
+on their own terms — see the <code>research/</code> and <code>docs/reports/</code> folders.</p>
+<table><tr><th>file</th><th class="n">size</th><th>sha256</th></tr><tr><td><a href="downloads/gems49-gate_ortho_w0.25-40k-20261006T213721Z-nan.tif"><code>gems49-gate_ortho_w0.25-40k-20261006T213721Z-nan.tif</code></a></td><td class="n">0.38 MB</td><td class="small"><code>c58fe0551e120678fff19023…</code></td></tr><tr><td><a href="downloads/gems49-gate_ortho_w0.25-40k-20261006T213721Z-zeros.tif"><code>gems49-gate_ortho_w0.25-40k-20261006T213721Z-zeros.tif</code></a></td><td class="n">0.23 MB</td><td class="small"><code>3722e26fbf9129874be1fb8c…</code></td></tr><tr><td><a href="downloads/gemsdoe49-xgrad-coupled-20261006T203447Z-nan.tif"><code>gemsdoe49-xgrad-coupled-20261006T203447Z-nan.tif</code></a></td><td class="n">0.42 MB</td><td class="small"><code>bef0881aadc8366f1a08e13a…</code></td></tr><tr><td><a href="downloads/gemsdoe49-xgrad-coupled-20261006T203447Z-zeros.tif"><code>gemsdoe49-xgrad-coupled-20261006T203447Z-zeros.tif</code></a></td><td class="n">0.26 MB</td><td class="small"><code>154003d9b7220c43a9605236…</code></td></tr></table>
+<h2>Status feed</h2>
+<p class="sub">Regenerate with <code>python3 scripts/build_site.py</code> after any script reruns;
+everything below reads from <code>docs/data/</code>.</p>
+<table><tr><th>check</th><th>what the repository currently reports</th><th>receipt</th></tr><tr><td><span class="pill ok">OK</span></td><td>Family selection (leave-one-fold-out): <code>gate_ortho_w0.25</code> 0.1074 vs best single layer <code>single:det_elev_slope</code> 0.0991 (+0.0083)</td><td class="small">4 spatially blocked folds over 3,118 catalogue segments removed whole; geometry chosen on three folds, scored on the fourth.</td></tr><tr><td><span class="pill ok">OK</span></td><td>Shipped placement, both arms re-measured under the same rule: <b>0.1131</b> vs <b>0.1029</b> collared (+0.0102); 0.1181 vs 0.1111 unrestricted (+0.0070)</td><td class="small">300 m catalogue buffer at 300 m dot separation. The buffer is a placement rule, so the baseline was given it too before the margin was believed.</td></tr><tr><td><span class="pill ok">OK</span></td><td>Relabel check: <b>UNIQUE</b> against 131 prior submission rasters</td><td class="small">max support Jaccard 0.0223, max top-25k Jaccard 0.0161 — far below the relabel thresholds.</td></tr><tr><td><span class="pill ok">OK</span></td><td>Format gate on the committed bytes: <b>11/11</b> required checks pass (both encodings)</td><td class="small">sha256 <code>c58fe0551e120678…</code>, 40,000 dots at 1.0 with 0.0 elsewhere, values in [0, 1], NaN only outside the footprint.</td></tr></table>
+<h2>What this repository claims</h2>
+<div class="grid">
+<div class="kpi"><div class="v">40,000</div><div class="k">positive pixels submitted</div></div>
+<div class="kpi"><div class="v">0.8%</div><div class="k">share of the mapped footprint</div></div>
+<div class="kpi"><div class="v">0.1131</div><div class="k">shipped placement, collared</div></div>
+<div class="kpi"><div class="v">131</div><div class="k">prior submissions compared against</div></div>
 </div>
-
-<div class="note"><b>Submission steps (only after a future candidate is cleared):</b> open the official <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">GEMS Prize (#306)</a> page, use its submission workflow, upload the validated single-band float32 GeoTIFF, and use a distinct name/comment that accurately identifies that file. The portal is login-gated here, so current button labels and slot availability have not been re-verified. Full gate status is on the <a href="executive-summary.html">executive summary</a>.</div>
-
-<h2>Two different experiments — do not merge their results</h2>
-<div class="card">
-<table>
-<tr><th>Run</th><th>Measured proxy result</th><th>Gate</th></tr>
-<tr><td>Task-branch fixed H49-XG primary<br>σ=500 m; 37,654 mass; five buffered east–west blocks</td><td>Pooled DTI 0.10041455 vs 0.08193976 best single-layer; paired fold deltas +0.009655, +0.009084, +0.027250, −0.011802, +0.045782.</td><td><span class="pill warn">FAIL</span> One fold breaks the preregistered −0.01 floor. No TIFF was generated by this run.</td></tr>
-<tr><td>Separate PR #1 candidate<br>σ=300 m; 40,000 dots; four catalogue-component folds</td><td>Final artifact DTI 0.02026648; folds 0.03650436 / 0.01260255 / 0.01601234 / 0.01594669. Reproduced from committed code and local mirrors.</td><td><span class="pill warn">NOT CLEARED</span> Folds are not whole held-out geographic blocks; full catalogue mask suppresses held-out cells; 300 m gravity smoothing is below the associated official regional product's 1 km cell size; all-priors audit is incomplete.</td></tr>
-</table>
-<p class="small">These DTI values use different protocols, scales, operators, and denominators. Neither is a public/private leaderboard score and the values must not be compared as if they measured the same test.</p>
-</div>
-
-<h2>What is known about the reported 0.2778</h2>
-<div class="card">
-<p>The public leaderboard snapshot checked on 2026-10-06 showed <b>extradr19 at 0.2778</b> (rank 13, 10 submissions), while <b>xiaofanhu led at 0.3774</b>. The leaderboard does not expose a submission filename or method.</p>
-<p>The pinned GEMSDOE32 README marks <code>h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros.tif</code> <b>UNSCORED</b> and calls <code>0.27467315976932155</code> a project projection. No portal receipt maps that TIFF to the 0.2778 row. Therefore <b>why that particular board entry scored 0.2778 is unresolved</b>; attributing it to the H33-2-B2 raster or explaining a 0.2708→0.2778 jump as measured fact would be unsupported. See the <a href="reports/source_audit_20261006.md">source and score-attribution audit</a>.</p>
-</div>
-
-<h2>Audit receipts and next gates</h2>
-<table>
-<tr><th>Item</th><th>Independent finding</th></tr>
-<tr><td>Official output contract</td><td>NaN-outside twin passes: float32, single band, EPSG:32611, 100 m, same grid, `[0,1]` inside, NaN outside. The zeros twin is not the compliant primary under the official null/NaN-outside wording.</td></tr>
-<tr><td>H33-2-B2 uniqueness pair</td><td>Directly rechecked against the pinned raster: 792 shared pixels, 2.10% overlap of the smaller emission, union Jaccard 0.01030, Spearman −0.97958. This pair is distinct; it does not complete the audit against all prior submissions.</td></tr>
-<tr><td>All-priors audit</td><td>PR #1 receipt lists 57 files, but the corpus and manifest are absent from Git, and three original artifacts were unavailable. <span class="pill warn">INCOMPLETE</span></td></tr>
-<tr><td>Gravity support</td><td>USGS regional `GB_iso_grav_anom.tif` README says 1 km cells. Exact mapping to competition band 13 is not authenticated. PR #1 used σ=300 m; scale justification is unresolved.</td></tr>
-<tr><td>Metric/mask</td><td>DrivenData DTI specification and staff's pixel-exact mask clarification are linked on the <a href="sources.html">sources page</a>; the four-fold holdout needs a spatially isolated redesign.</td></tr>
-</table>
-
-<div class="flag"><b>Provenance warning</b>
-<p class="small">The official DrivenData data tab redirects to login. Local input rasters are pinned public owner-hosted mirrors; their SHA-256 values prove mirror consistency, not authentication against organizer downloads. No result in this repository is an organizer score. The complete review and reproducible checks are in <a href="reports/pr1_candidate_audit_20261006.md">the PR #1 candidate audit</a>, <a href="reports/h49_xg_result_20261006.md">the fixed H49-XG result memo</a>, and the <a href="receipts/pr1_candidate_audit_20261006.json">audit receipt</a>.</p>
-</div>
-
-<footer>GEMSDOE49 · 2026-10-06 · Maximize P(Win) · Own the Outcome · no upload authorized</footer>
+<p style="margin-top:14px">The claim that matters is a <b>measured comparison</b>, not an absolute
+number: on a spatially blocked cross-validation in which entire fault segments are removed and
+recovered, the released detector beats every single-layer gradient baseline supplied in the
+competition data. Absolute values here are <em>not</em> leaderboard scores — see
+<a href="evidence.html#instrument">the instrument warning</a>.</p>
+<h2>How it works in one paragraph</h2>
+<p>The supplied feature stack is mostly smooth at the multi-kilometre scale; measured integral scales
+are 2.7–10.5 km, so a 100 m horizontal gradient of those bands resolves interpolation texture rather
+than structural edges. The released detector therefore anchors on the one field that does carry
+grid-scale power — the detrended-elevation slope — turns it into a multi-scale ridge/edge response,
+weights it by local coherence, and then uses cross-gradient products of the independent geophysical
+layers as <em>confounder gates</em>: a candidate pixel survives only where the independent layers
+agree that a structure is there, and is down-weighted where their gradients are orthogonal. Emission
+is binary and sparse, placed by a greedy shadowed-coverage rule under the exact metric algebra.</p>
+<h2>Why not the cross-gradient itself?</h2>
+<p>The brief asked for a data-domain cross-gradient of gravity and magnetics. It was implemented,
+measured and <em>rejected as a detector</em>: at matched emission geometry it scores inside the
+no-information control range (cross-gradient 0.0715
+vs random 0.0718, uniform lattice
+0.0693). The measured reason is
+in <a href="evidence.html#native">native resolution</a>: both fields have integral scales of
+2.7–8.1 km. Its defensible role is the multiplicative gate it now plays.</p>
+<h2>Reproduce it</h2>
+<pre>git clone &lt;this repo&gt; &amp;&amp; cd GEMSDOE49
+bash scripts/download_competition_data.sh     # fetch + sha256-verify the official data
+python3 scripts/prepare_data.py               # audit grid, CRS, dtype, footprint, band tags
+python3 -m pytest tests -q                    # 39 tests: metric, gate, cross-gradient, holdout
+python3 scripts/build_submission.py           # writes the two GeoTIFFs + docs/data/submission.json
+python3 scripts/validate_submission.py docs/downloads/&lt;file&gt;.tif
+python3 scripts/uniqueness_check.py --prior-dir &lt;priors&gt;
+python3 scripts/build_site.py                 # this site</pre>
 </main>
-</body>
-</html>
+<footer class="wrap">
+<p>Everything on this site is generated by <code>scripts/build_site.py</code> from
+<code>docs/data/*.json</code>; every number points at a script that measured it from the
+hash-verified files in <code>data/</code>. Claims carry a tag:
+<span class="tag o">OFFICIAL</span> organizer or primary-literature source,
+<span class="tag m">MEASURED</span> computed here,
+<span class="tag b">BLOCKED</span> not obtainable in this environment.</p>
+<p>Not affiliated with DrivenData, the U.S. Department of Energy, or the U.S. Geological Survey.</p>
+</footer></body></html>

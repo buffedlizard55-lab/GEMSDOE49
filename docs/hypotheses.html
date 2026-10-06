@@ -1,87 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Hypotheses — GEMSDOE49</title>
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
-<header class="site">
-  <a class="brand" href="index.html">GEMSDOE49</a>
-  <nav>
-    <a href="index.html">Overview</a>
-    <a href="executive-summary.html">Executive summary</a>
-    <a href="holdout.html">Holdout &amp; metric</a>
-    <a href="sources.html">Sources</a>
-  </nav>
-</header>
-<main>
-<h1>Hypothesis backlog and evidence status</h1>
-<p class="lead">The ranks below are qualitative priors for expected gain per implementation cost, not score predictions. Every geological explanation is a falsifiable hypothesis. No listed candidate is currently cleared for a DrivenData slot.</p>
-
-<div class="note small"><b>Evidence boundary.</b> Official competition text says the public catalogue is incomplete and the test contains newly identified faults; staff confirms the catalogue mask is pixel-exact. The local label raster is not the private expert truth. A leaderboard/proxy score cannot prove that a geological hypothesis identifies a new fault.</div>
-
-<h2>1. H49-XG — scale-matched gravity × RTP × topography gradient alignment</h2>
-<div class="card">
-<ul>
-<li><b>Layers:</b> owner-mirror band 13 `iso_grav_anom`, band 2 `rtp`, and band 12 `det_elev`; tags were read from the local 19-band mirror.</li>
-<li><b>Physical hypothesis:</b> a structure that juxtaposes density and susceptibility contrasts may express co-located gradient directions in gravity and magnetics, with topography as corroboration. Lithologic contacts, interpolation artifacts, and unrelated edges are competing explanations.</li>
-<li><b>Operator actually implemented in the separate PR #1 code:</b> pairwise axial `cos²` alignment, median across the three pairs, multiplied by the minimum robustly scaled gradient magnitude. It is not a direct score from the standard cross-product magnitude. The separate orthogonality diagnostic currently computes `sin²(theta)` without a magnitude weight; it is excluded from evidence and needs correction.</li>
-<li><b>Scale caveat:</b> the PR #1 artifact uses Gaussian σ=300 m. The official associated USGS regional grid README describes `GB_iso_grav_anom.tif` at 1 km, but the exact mapping to competition band 13 is unverified. Do not treat 300 m as supported native gravity resolution.</li>
-<li><b>Measured status:</b> PR #1's final artifact reproduces four component-sampled catalogue-proxy folds at DTI 0.02026648, higher than its three single-layer baselines on that protocol. The protocol is not a true spatially held-out block test and masks held-out truth cells during NMS. Separately, the task-branch five-block primary at σ=500 m and mass 37,654 failed its preregistered gate because one paired fold was −0.01180243 (limit −0.01). <span class="pill warn">NO SUBMISSION CLEARANCE</span></li>
-</ul>
-</div>
-
-<h2>2. H49-B — radiometric alteration halo × coupled edge</h2>
-<div class="card">
-<ul>
-<li><b>Layers proposed:</b> GeoDAWN radiometric K/Th channels and a gravity/magnetic/topographic edge score. Public USGS metadata links the GeoDAWN survey; the local external raster payload is not present in this checkout.</li>
-<li><b>Physical hypothesis:</b> hydrothermal alteration may change K/Th response and be spatially associated with fluid pathways. Mineralogy, lithology, survey footprint, weathering and calibration are strong confounders; K mobility/Th immobility is not a universal diagnostic.</li>
-<li><b>Prior receipt:</b> PR #1's `h49b_validation.json` reports gated scores below its coupled-only baseline on its own component-sampled folds. The input payload and method have not been independently rerun in this audit; do not treat those figures as a validated spatial-block result.</li>
-<li><b>Status:</b> <span class="pill warn">EXPLORATORY / NOT CLEARED</span>. A future run needs locally verified inputs, a preregistered block test, and an alteration/lithology control.</li>
-</ul>
-</div>
-
-<h2>3. H49-D — en-echelon scarp-pair stepovers</h2>
-<div class="card">
-<ul>
-<li><b>Layers proposed:</b> 1 m lidar-derived scarp evidence plus independently constructed local orientation/structure measurements.</li>
-<li><b>Physical hypothesis:</b> paired subparallel scarps may bound transfer structures in stepovers; the connector may be unmapped. A morphology-only detector can also confuse drainage, lithologic boundaries, roads, or erosional scarps with faults.</li>
-<li><b>Status:</b> <span class="pill info">UNTESTED</span>. The lidar product is not restored in this checkout and no pair detector or blocked holdout has been run. Prior project summaries are not a substitute for source/coverage verification.</li>
-</ul>
-</div>
-
-<h2>4. H49-E — MT conductance corridors across basin floors</h2>
-<div class="card">
-<ul>
-<li><b>Layers proposed:</b> band 17 surface conductivity, band 15 depth to basement, band 2 RTP as a possible veto.</li>
-<li><b>Physical hypothesis:</b> a conductive lineament beneath basin fill might trace a blind fluid-bearing structure. Conductive clays, basin geometry and data smoothing are major alternative explanations.</li>
-<li><b>Status:</b> <span class="pill info">UNTESTED</span>. The band descriptions exist in the local feature mirror, but no detector, source-resolution audit or spatial holdout has been run.</li>
-</ul>
-</div>
-
-<h2>5. H49-C — strain-rate ridge coherence</h2>
-<div class="card">
-<ul>
-<li><b>Layers proposed:</b> band 4 second strain invariant and band 7 geodetic shear rate.</li>
-<li><b>Physical hypothesis:</b> coherent geodetic gradients offset from mapped traces may indicate deformation on unmapped strands. The supplied strain fields may be too smooth to localize individual faults.</li>
-<li><b>Status:</b> <span class="pill info">UNTESTED / HIGH RISK</span>. The input tags can be checked locally; exact native support and localization have not been validated here.</li>
-</ul>
-</div>
-
-<h2>Qualitative ranking (not measured uplift)</h2>
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Hypotheses — DOE GEMS Prize</title>
+<meta name="description" content="Independently built, format-verified fault-potential submission for the
+DrivenData DOE GEMS Prize (competition 306).">
+<link rel="stylesheet" href="assets/site.css">
+</head><body>
+<header><div class="wrap"><b>GEMS&nbsp;Prize&nbsp;#306</b><nav><a href="index.html">Overview</a><a href="executive-summary.html">How to submit</a><a href="hypotheses.html" aria-current=page>Hypotheses</a><a href="evidence.html">Evidence</a><a href="research.html">Research</a></nav>
+<span class="small" style="margin-left:auto">built 2026-10-06 21:37Z</span></div></header>
+<main class="wrap">
+<h1>Candidate hypotheses, ranked</h1>
+<p class="sub">Generated before implementation, as the brief requires: each names the exact bands
+used, the physical signature it targets, why it could catch a fault the public catalogue is missing
+rather than redraw one that is already in it, and how it differs from everything already built.
+Priority = expected metric improvement per unit of implementation cost.</p>
 <table>
-<tr><th>Rank</th><th>Hypothesis</th><th>Prior upside / cost</th><th>Next evidence needed</th></tr>
-<tr><td>1</td><td>H49-XG scale-matched alignment</td><td>Medium / medium; high uncertainty</td><td>Resolve gravity-band lineage; new spatial blocks; fixed budget and stable NMS tie-break</td></tr>
-<tr><td>2</td><td>H49-D stepovers</td><td>Medium / medium</td><td>Restore official/traceable lidar product; verify footprint; implement detector and holdout</td></tr>
-<tr><td>3</td><td>H49-E basin conductance</td><td>Low–medium / low–medium</td><td>Verify layer resolution/coverage; control for basin/lithology; test on blocked folds</td></tr>
-<tr><td>4</td><td>H49-B alteration</td><td>Low–medium / high</td><td>Restore radiometry; validate the K/Th interpretation against lithology and independent blocks</td></tr>
-<tr><td>5</td><td>H49-C strain ridges</td><td>Low / low–medium</td><td>Measure support/smoothness and show spatial localization above nulls</td></tr>
+<tr><th>#</th><th>hypothesis</th><th>physical signature</th><th>why it is not a relabel</th>
+<th class="n">cost</th><th class="n">priority</th><th>status and measured result</th></tr>
+<tr><td class="n">1</td><td><b>H1 - topographic-edge carrier with cross-gradient confounder gating</b><div class="small">12 det_elev, 19 det_elev_slope (carrier); 13 iso_grav_anom, 2 rtp (independent gates)</div></td><td>Multi-scale gradient/curvature ridge response of the detrended-elevation slope, multiplied by local orientation coherence and then by a gate built from the horizontal-gradient cross products of the independent geophysical layers.</td><td>The catalogue is a fault-trace map. Faults are expressed topographically as aligned linear slope breaks; the public catalogue does not include every such ridge in the region, because it was compiled from published mapping rather than from a systematic slope-break search. The independent layers are used only to reject ridges that no gravity or magnetic structure supports - the opposite of using them as the score, which the controls show carries no information.</td><td class="n">low - uses only competition bands, one 2 s Gaussian pyramid and two smoothed cross products</td><td class="n">5</td><td><span class="tag o">verified - shipped</span><div class="small">screen collared 0.1074 at N=40,000/sep 3, leave-one-fold-out 0.1074 vs best single-layer baseline 0.0991; the same construction without the gate (topo_ms_coh1, coherence only) scores 0.1004, so the gate is worth +0.0070.</div></td></tr><tr><td class="n">2</td><td><b>H2 - pure gravity x magnetics cross-gradient as the score</b><div class="small">13 iso_grav_anom and 2 rtp (data-domain cross product, ASEG 2012 construction)</div></td><td>Magnitude-weighted alignment of the two horizontal-gradient vectors; the cross product is zero where the fields share a strike, non-zero at unmapped structural breaks.</td><td>The brief&#x27;s own headline construction, and grep shows no sibling repository in this cohort has implemented a cross-gradient at all, so it cannot be a relabel of what those artifacts do either.</td><td class="n">low - the operator is ~40 lines and needs no new data</td><td class="n">4 before measurement, 1 after</td><td><span class="tag m">rejected by measurement</span><div class="small">cg_gxm 0.0715 collared sits inside the no-information control band (random 0.0718, uniform lattice 0.0693); alignment-only variants are worse (0.0357 in the earlier probe). The measured cause is integral scale: both fields have along-axis autocorrelation length 2.7-8.1 km, so their 100 m gradients are interpolation texture (see field_screen.json and native_resolution.json).</div></td></tr><tr><td class="n">3</td><td><b>H3 - resume the cross-gradient at the fields&#x27; own scale</b><div class="small">13 iso_grav_anom, 2 rtp, 12 det_elev upsampled to 1-3 km before differentiation</div></td><td>Same coupling operator, but the gradients are taken at the fields&#x27; integral scale so they describe real structural gradients rather than interpolation noise; the coupling mask is then relaxed back to 100 m as a confidence layer.</td><td>Distinguishes &#x27;the coupling is wrong&#x27; from &#x27;the coupling was measured at the wrong scale&#x27;, which is the actual failure mode established for H2. The mask is a truth-free structural prior, so it cannot be a relabel.</td><td class="n">low - smoothing pyramids already exist in screen_util</td><td class="n">3</td><td><span class="tag m">tested in the multi-scale form, no gain</span><div class="small">the multi-scale variants triple_s1 / triple_s4 score 0.0859 and 0.0846 collared, below the topographic carrier with the same operator (0.1074) and below the plain single-layer baseline 0.0991. Coarse coupling does describe real structure, but a 300 m scoring kernel cannot exploit a structure resolved at 1-3 km.</div></td></tr><tr><td class="n">4</td><td><b>H4 - scarplet / ridge-perpendicular chains from 1 m lidar elevation</b><div class="small">external: USGS 3DEP best-available DEM (1 m) over the region; 19 det_elev_slope as the low-resolution prior</div></td><td>Tectonic geomorphology: fault scarps are metre-scale slope breaks whose strike is far more continuous than anything the 100 m detrended elevation can show. Detect scarplets, link them into chains, emit chain pixels.</td><td>A fault that is missing from the published catalogue but has a fresh scarp would appear only in lidar. Nothing in this repository or in the sibling artifacts reviewed uses sub-100 m elevation.</td><td class="n">high - ~100 MB tiles x the region, mosaicking, and the 1 m detrending is a separate pipeline</td><td class="n">3</td><td><span class="tag b">blocked on data</span><div class="small">named source: USGS 3DEP staged products, https://prd-tnm.s3.amazonaws.com/ (free, public domain, official). Not reachable from this environment: the endpoint returns HTTP 000 through the available transport, and the region is terabytes at 1 m. The competition grid is 100 m, so the whole advantage rests on the DEM being genuinely fresher than band 19 - testable only with the data in hand.</div></td></tr><tr><td class="n">5</td><td><b>H5 - valley-axis chains in the detrended elevation</b><div class="small">12 det_elev, 19 det_elev_slope, gated by 13 iso_grav_anom and 2 rtp</div></td><td>Fault-controlled drainage: alluvial valleys in the Great Basin are frequently fault-bounded on one side, so valley axes and their abrupt margins trace structures that ridge detection misses because the topographic expression is a trough, not a ridge.</td><td>A different edge polarisation from H1 (valley margin instead of ridge crest). The catalogue is biased toward mapped surface traces; basin-margin faults are systematically under-mapped in the Great Basin because they are buried at the range front.</td><td class="n">medium - skeletonise the smoothed detrended elevation, keep the margins, chain them</td><td class="n">2</td><td><span class="tag m">proposed, not yet validated on holdout</span><div class="small">not measured; the brief&#x27;s rule forbids spending a submission slot before the holdout gate is cleared, so this stays a proposal.</div></td></tr>
 </table>
-<p class="small">The ordering is an engineering triage, not evidence that the first-ranked idea improves public or private DTI. See the <a href="reports/hypotheses.md">text hypothesis register</a> and <a href="reports/pr1_candidate_audit_20261006.md">candidate review</a>.</p>
+<h2>Ranking rule</h2>
+<p>A hypothesis was only allowed to consume a submission slot if it cleared two gates, in order:</p>
+<ol>
+<li><b>Hide-and-recover.</b> On a spatially blocked holdout — four folds, contiguous catalogue
+segments removed whole, 3,118 segments, 40,000 target pixels — the
+candidate must beat the best single-layer gradient baseline by a positive margin in the collared
+regime, where truth pixels within 2 px of retained structure are dropped.</li>
+<li><b>Not a relabel.</b> Support Jaccard, top-k Jaccard at k = 5k/10k/25k and Spearman rank
+correlation against every prior submission raster obtainable must not exceed the rejection
+thresholds in <code>scripts/uniqueness_check.py</code>.</li>
+</ol>
+<p>A holdout win is a screen, not proof of a leaderboard gain: no available local instrument ranks
+candidates in the same order as the live leaderboard (see <a href="evidence.html#instrument">the
+instrument warning</a>). This is recorded as a limitation, not hidden.</p>
 
-<footer>GEMSDOE49 · 2026-10-06 · hypotheses are not results · no candidate cleared</footer>
 </main>
-</body>
-</html>
+<footer class="wrap">
+<p>Everything on this site is generated by <code>scripts/build_site.py</code> from
+<code>docs/data/*.json</code>; every number points at a script that measured it from the
+hash-verified files in <code>data/</code>. Claims carry a tag:
+<span class="tag o">OFFICIAL</span> organizer or primary-literature source,
+<span class="tag m">MEASURED</span> computed here,
+<span class="tag b">BLOCKED</span> not obtainable in this environment.</p>
+<p>Not affiliated with DrivenData, the U.S. Department of Energy, or the U.S. Geological Survey.</p>
+</footer></body></html>

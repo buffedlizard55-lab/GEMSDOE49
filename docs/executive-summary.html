@@ -1,74 +1,125 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Executive summary — GEMSDOE49</title>
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
-<header class="site">
-  <a class="brand" href="index.html">GEMSDOE49</a>
-  <nav>
-    <a href="index.html">Overview</a>
-    <a href="holdout.html">Holdout &amp; metric</a>
-    <a href="hypotheses.html">Hypotheses</a>
-    <a href="sources.html">Sources</a>
-  </nav>
-</header>
-<main>
-<h1>Executive summary — candidate status and next submission steps</h1>
-<p class="lead">Current decision: keep the weekly slot. The task-branch fixed H49-XG primary failed its preregistered stability gate; a separate PR #1 artifact passes the file-format check but not the complete validation gate.</p>
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How to submit — DOE GEMS Prize</title>
+<meta name="description" content="Independently built, format-verified fault-potential submission for the
+DrivenData DOE GEMS Prize (competition 306).">
+<link rel="stylesheet" href="assets/site.css">
+</head><body>
+<header><div class="wrap"><b>GEMS&nbsp;Prize&nbsp;#306</b><nav><a href="index.html">Overview</a><a href="executive-summary.html" aria-current=page>How to submit</a><a href="hypotheses.html">Hypotheses</a><a href="evidence.html">Evidence</a><a href="research.html">Research</a></nav>
+<span class="small" style="margin-left:auto">built 2026-10-06 21:37Z</span></div></header>
+<main class="wrap">
+<h1>Executive summary — how to make a submission</h1>
+<p class="sub">What this competition asks for, what the scorer actually measures, and the exact
+steps to file a valid entry. Written so that someone who has never seen the repo can act on it.</p>
 
-<div class="flag"><b>Do not upload the current candidate.</b> No local holdout is a leaderboard score, no file is mapped to the 0.2778 leaderboard row, and no candidate is authorized to consume a weekly slot.</div>
-
-<div class="hero">
-  <h2>Existing research artifact — format-valid, not submission-cleared</h2>
-  <a class="btn" href="downloads/gemsdoe49-xgrad-coupled-20261006T203447Z-nan.tif">Download the NaN-outside research GeoTIFF (410 KB)</a>
-  <p class="small" style="margin-bottom:0"><b>SHA-256:</b> <code style="background:#ffffff22;color:#fff">bef0881aadc8366f1a08e13aac119cfa71492750e93426105b9e5745c7d701bf</code><br>
-  Single band · float32 · EPSG:32611 · 100 m · 3,730 × 3,292 · no nodata tag · all footprint values finite in [0,1] · NaN only outside.</p>
-</div>
-
-<h2>Why it is not cleared</h2>
-<div class="card">
+<div class="card"><h2 style="border:0;margin:0 0 6px;padding:0">The 60-second version</h2>
 <ol>
-<li><b>Spatial holdout:</b> PR #1 selects random catalogue components inside four quadrants rather than holding out whole geographic blocks. Its NMS mask also excludes the complete catalogue, including the fold components later scored as held-out truth. It is not the preregistered spatially isolated test required for promotion.</li>
-<li><b>Gravity scale:</b> PR #1 uses Gaussian σ=300 m. The official USGS regional product associated with INGENIOUS describes its `GB_iso_grav_anom.tif` grid at 1 km; the exact lineage of competition band 13 is not confirmed. The 300 m gradient scale is therefore not justified by verified native support.</li>
-<li><b>Uniqueness:</b> the candidate is directly different from the H33-2-B2 file (2.10% smaller-set overlap), but the full 57-file prior corpus is absent from Git, with three original artifacts unavailable in the PR #1 audit.</li>
+<li>Download the GeoTIFF at the top of the <a href="index.html">overview page</a>.</li>
+<li>Go to <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/submissions/"
+>drivendata.org → competition 306 → Submit</a> (you must be logged in and have joined the
+competition).</li>
+<li>Upload the file, give it the unique name <code>gems49-gate_ortho_w0.25-40k-20261006T213721Z</code>, and paste the short
+comment from <a href="#comment">below</a>.</li>
+<li>Press submit. The form validates the file; a score appears on the leaderboard within minutes.</li>
 </ol>
-<p>Full findings: <a href="reports/pr1_candidate_audit_20261006.md">PR #1 candidate audit</a> and <a href="reports/h49_xg_result_20261006.md">fixed H49-XG result memo</a>.</p>
-</div>
+<p class="small">That is the whole procedure. The rest of this page is the contract your file must
+satisfy, the three ways files get rejected, and how the score is computed.</p></div>
 
-<h2>Task-branch H49-XG: the promotion test that failed</h2>
-<div class="card">
+<h2>The file contract</h2>
+<table>
+<tr><th>property</th><th>required value</th><th>how to check</th></tr>
+<tr><td>format</td><td>single-band GeoTIFF</td><td><code>gdalinfo</code> or <code>rasterio.open(...).count == 1</code></td></tr>
+<tr><td>crs</td><td>EPSG:32611 (NAD83 / UTM 11N)</td><td><code>gdalinfo</code> → <code>EPSG:32611</code></td></tr>
+<tr><td>pixel size</td><td>100 m × 100 m</td><td><code>gdalinfo</code> → <code>Pixel Size = (100,-100)</code></td></tr>
+<tr><td>dimensions</td><td>3292 × 3730 (width × height)</td><td><code>gdalinfo</code></td></tr>
+<tr><td>extent</td><td>origin (243350, 4508550), same window as the supplied rasters</td><td>compare with <code>example_submission.tif</code></td></tr>
+<tr><td>dtype</td><td>float32</td><td><code>gdalinfo -stats</code></td></tr>
+<tr><td>values</td><td>in [0, 1]; NaN permitted <em>outside</em> the mapped footprint only</td><td><code>python3 scripts/validate_submission.py &lt;file&gt;</code></td></tr>
+<tr><td>size</td><td>&lt; 16 GB (the file here is 0.38 MB)</td><td>—</td></tr>
+</table>
+<p class="small"><span class="tag o">OFFICIAL</span> contract read from the problem description at
+<a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">page 967</a>.
+The pre-flight checker in this repository reproduces it as 13 checks and prints a JSON summary.</p>
+
+<h2>Three failures that actually happen</h2>
+<h3>1. “Predicted values must be in range [0, 1]” — because of NaN inside the footprint</h3>
+<p>A file that leaves interpolation holes <em>inside</em> the mapped area has no NaN-safe problem at
+the edges but fails as soon as the form takes a plain min/max over the array. If your pipeline
+produces any interior NaN, fill it (0 is the safe fill: it adds no false-positive mass) before
+writing. This repository's writer refuses to emit such a file at all, and the test suite constructs
+the failure on purpose (<code>tests/test_gate.py::test_mode_a_nan_inside_footprint_is_rejected</code>).</p>
+<h3>2. “Predicted values must be in range [0, 1]” — because of an out-of-range finite value</h3>
+<p>Standardising a field to z-scores, or leaving a nodata sentinel of −3.4e38 in the array, produces
+finite values outside [0,1]. Clip after normalising, and never write a sentinel. The
+<code>-zeros</code> variant is provided precisely because some readers turn NaN outside the footprint
+into a large negative number.</p>
+<h3>3. A rejected or duplicated name</h3>
+<p>Each submission needs its own name and a short comment (the form asks for both). Do not reuse a
+previous submission's name: the scorer stores one file per name and a relabelled prior file is
+explicitly out of bounds here. <code>scripts/uniqueness_check.py</code> compares a candidate against
+every prior raster this repository could obtain and refuses a relabel.</p>
+
+<h2 id="comment">The comment to paste</h2>
+<pre>cross-gradient structural coupling, topography-anchored and confounder-gated (family=gate_ortho_w0.25); 40000 dots at 300 m separation, placed by the metric&#x27;s marginal rule (alpha*s bar) with a 300 m exclusion buffer around the known USGS/INGENIOUS catalogue; hide-and-recover validated (collared 0.1131 vs 0.1029 best single-layer baseline, same placement rule)</pre>
+
+<h2>What the score is</h2>
+<p>The competition uses a distance-weighted Tversky index, not accuracy. With 100 m pixels and a
+300 m triangular kernel <code>k(d) = max(1 - d/300, 0)</code>, and the organizer's weights
+α = 0.2 for false positives and β = 0.8 for false negatives:</p>
+<pre>DTI = TP_w / (TP_w + 0.2·FP_w + 0.8·FN_w)</pre>
 <ul>
-<li>Primary DTI: <b>0.10041455</b> vs <b>0.08193976</b> for `single_det_elev` (a public-catalogue proxy, not a live score).</li>
-<li>Four of five blocks beat the strongest single-layer result, but one paired delta was <b>−0.01180243</b>, below the preregistered −0.01 floor.</li>
-<li>The 2 km-FWHM variant is sensitivity-only; the same locked labels cannot be used to promote it after the primary failed.</li>
-<li>This run made no TIFF and used no submission slot.</li>
+<li>Credit is graded by distance: a pixel 150 m from a scored fault earns half its value.</li>
+<li>Missing a fault costs four times as much as an equivalent false positive.</li>
+<li>Pixels already in the public USGS/INGENIOUS fault catalogue are <b>masked out of scoring
+entirely</b> — redrawing the known map earns nothing.</li>
 </ul>
-</div>
+<p class="small">The organizer's own worked example (TP_w = 3.00, FP_w = 1.89, FN_w = 2.00 → 0.60) is
+reproduced to 0.602652 by <code>tests/test_metric.py</code>. Exact marginal algebra: adding one
+pixel at kernel credit <code>k</code> raises the denominator by exactly 0.2, so it pays iff
+<code>k &gt; 0.2·s</code> where <code>s</code> is the current score — at s = 0.28 that is 0.056,
+i.e. <b>every pixel within 283 m of a scored fault pixel pays</b>. Binary, sparse submissions beat
+smooth probability maps under this metric; the shaping lever is area, not calibration.</p>
 
-<h2>What is known about the 0.2778 score</h2>
-<div class="card">
-<p>On the 2026-10-06 public leaderboard snapshot, `extradr19` had 0.2778 (rank 13; 10 submissions); the top entry was `xiaofanhu` at 0.3774. The public page does not identify the submitted file. The H33-2-B2 file in GEMSDOE32 is labelled <b>UNSCORED</b>, and its approximately 0.2747 value is a project projection, not an organizer score. Its attribution to the public 0.2778 row is not established.</p>
-<p>Accordingly, there is no measured evidence that the current research artifact scores above 0.2778. Do not upload it as if this were known.</p>
-</div>
+<h2>Rules and limits worth knowing before you spend a slot</h2>
+<ul>
+<li>Three scored submissions per rolling week <span class="tag o">OFFICIAL</span>.</li>
+<li>The public leaderboard is a spatial chunk of the region; the private score comes from other
+chunks, and the final round is re-scored against an <b>expanded</b> expert label set after every
+team's best submission is reviewed. Rank on the public board is a weak predictor of the private
+result — spread submissions across genuinely different hypotheses rather than micro-tuning one.</li>
+<li>Predictions are interpreted as a per-pixel confidence that a <em>new</em> fault exists there;
+"new" includes newly mapped geometry of an existing fault system.</li>
+<li>Submission slots are the scarce resource. This repository's rule: a candidate is only eligible
+after it beats the single-layer baseline on held-out segments <em>and</em> passes the relabel check.</li>
+</ul>
 
-<h2>When a candidate is eventually cleared: submission checklist</h2>
-<div class="card">
-<ol>
-<li>Use only the one-click NaN-outside GeoTIFF linked above after its status has changed to <b>SUBMISSION-CLEARED</b> and its hash is rechecked. The current file is not cleared.</li>
-<li>Open the official <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">DrivenData GEMS Prize (#306)</a> page, sign in with the enrolled account, and follow the live submission workflow. The portal's logged-in controls and current weekly-slot availability cannot be inspected in this environment.</li>
-<li>Upload one single-band float32 GeoTIFF with EPSG:32611, 100 m resolution, matching bounds, values in [0,1] inside, and null/NaN outside. This is the official format wording on <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">the problem page</a>.</li>
-<li>Use a distinct, truthful submission name and note. Proposed tracking label only: <code>GEMSDOE49-XGRAD-ALIGN</code>. Proposed note (not for use until cleared): <pre>GEMSDOE49 XGRAD | research candidate; public-catalogue proxy only; spatial validation and gravity-scale review pending; UNSCORED</pre></li>
-<li>Record the portal receipt and score without claiming a private/final score before it is available. Disclose AI assistance in the narrative as required by the official rules.</li>
-</ol>
-</div>
+<h2>Free, official data you may add</h2>
+<p>All of the following are public-domain U.S. Government products, free of charge, with no
+registration. Licences permit use and redistribution in this challenge.</p>
+<table>
+<tr><th>source</th><th>what it gives</th><th>link</th></tr>
+<tr><td>USGS GeoDAWN / DOE GEMS data release</td><td>the competition feature stack, labels and template</td>
+<td><a href="https://doi.org/10.5066/P93LGLVQ">doi:10.5066/P93LGLVQ</a></td></tr>
+<tr><td>USGS 3DEP staged DEM products</td><td>1 m lidar DEM tiles (best available elevation)</td>
+<td><a href="https://prd-tnm.s3.amazonaws.com/">prd-tnm.s3.amazonaws.com</a></td></tr>
+<tr><td>USGS National Map / TNM Access API</td><td>programmatic tile lists</td>
+<td><a href="https://tnmaccess.nationalmap.gov/api/v1/products">tnmaccess.nationalmap.gov</a></td></tr>
+<tr><td>USGS earthquake catalogue (ANSS/ComCat)</td><td>seismicity — a fault's independent expression</td>
+<td><a href="https://earthquake.usgs.gov/fdsnws/event/1/">earthquake.usgs.gov/fdsnws</a></td></tr>
+<tr><td>USGS Quaternary Fault and Fold Database</td><td>mapped Quaternary faults (context, not labels)</td>
+<td><a href="https://earthquake.usgs.gov/hazards/qfaults/">earthquake.usgs.gov/hazards/qfaults</a></td></tr>
+<tr><td>NV Geothermal / Great Basin play fairway studies</td><td>independent geothermal-favourability maps</td>
+<td><a href="https://gdr.openei.org/">gdr.openei.org</a></td></tr>
+</table>
 
-<div class="note"><b>Do not treat the all-zero-outside twin as the preferred upload.</b> The official submission page says data outside bounds should be null or NaN. The matching `-zeros.tif` is retained as a research twin but does not meet that stated condition.</div>
-
-<footer>GEMSDOE49 · 2026-10-06 · research only · no upload authorized</footer>
 </main>
-</body>
-</html>
+<footer class="wrap">
+<p>Everything on this site is generated by <code>scripts/build_site.py</code> from
+<code>docs/data/*.json</code>; every number points at a script that measured it from the
+hash-verified files in <code>data/</code>. Claims carry a tag:
+<span class="tag o">OFFICIAL</span> organizer or primary-literature source,
+<span class="tag m">MEASURED</span> computed here,
+<span class="tag b">BLOCKED</span> not obtainable in this environment.</p>
+<p>Not affiliated with DrivenData, the U.S. Department of Energy, or the U.S. Geological Survey.</p>
+</footer></body></html>

@@ -1,0 +1,94 @@
+{
+ "generated_utc": "2026-10-06T21:37:22Z",
+ "slug": "gems49-gate_ortho_w0.25-40k-20261006T213721Z",
+ "unique_name": "gems49-gate_ortho_w0.25-40k-20261006T213721Z",
+ "family": "gate_ortho_w0.25",
+ "n_target": 40000,
+ "min_sep_px": 3,
+ "min_sep_m": 300,
+ "sigma": 2.0,
+ "n_emitted": 40000,
+ "n_positive": 40000,
+ "n_footprint": 5167373,
+ "n_domain": 4722579,
+ "catalogue_px_excluded_from_selection": 444794,
+ "catalogue_buffer_px": 3,
+ "catalogue_buffer_m": 300,
+ "catalogue_pixels_used_as_input": 0,
+ "fraction_of_footprint": 0.007741,
+ "normalisation_max": 0.9973067045211792,
+ "min_inside": 0.0,
+ "max_inside": 1.0,
+ "width": 3292,
+ "height": 3730,
+ "crs": "EPSG:32611",
+ "res_m": 100.0,
+ "filename": "gems49-gate_ortho_w0.25-40k-20261006T213721Z-nan.tif",
+ "filename_zeros": "gems49-gate_ortho_w0.25-40k-20261006T213721Z-zeros.tif",
+ "filename_zip": "gems49-gate_ortho_w0.25-40k-20261006T213721Z.zip",
+ "sha256": "c58fe0551e120678fff190239146985d0b2f7255255535fb5fb637a05cb40af3",
+ "sha256_zeros": "3722e26fbf9129874be1fb8c687825803952c57ef1154ed0a21029596bc412f1",
+ "size_mb": 0.377,
+ "download_url": "downloads/gems49-gate_ortho_w0.25-40k-20261006T213721Z-nan.tif",
+ "download_url_zeros": "downloads/gems49-gate_ortho_w0.25-40k-20261006T213721Z-zeros.tif",
+ "download_url_zip": "downloads/gems49-gate_ortho_w0.25-40k-20261006T213721Z.zip",
+ "files": {
+  "nan": {
+   "file": "gems49-gate_ortho_w0.25-40k-20261006T213721Z-nan.tif",
+   "bytes": 377092,
+   "sha256": "c58fe0551e120678fff190239146985d0b2f7255255535fb5fb637a05cb40af3",
+   "nan_outside": true
+  },
+  "zeros": {
+   "file": "gems49-gate_ortho_w0.25-40k-20261006T213721Z-zeros.tif",
+   "bytes": 230827,
+   "sha256": "3722e26fbf9129874be1fb8c687825803952c57ef1154ed0a21029596bc412f1",
+   "nan_outside": false
+  },
+  "zip": {
+   "file": "gems49-gate_ortho_w0.25-40k-20261006T213721Z.zip",
+   "bytes": 377294,
+   "sha256": "cc37d2a4c4280756acb5afbaf25cf9d9b89366c36385dc29eff3b062bb608cc9"
+  }
+ },
+ "comment": "cross-gradient structural coupling, topography-anchored and confounder-gated (family=gate_ortho_w0.25); 40000 dots at 300 m separation, placed by the metric's marginal rule (alpha*s bar) with a 300 m exclusion buffer around the known USGS/INGENIOUS catalogue; hide-and-recover validated (collared 0.1131 vs 0.1029 best single-layer baseline, same placement rule)",
+ "note_for_submission_form": "cross-gradient structural coupling, topography-anchored and confounder-gated (family=gate_ortho_w0.25); 40000 dots at 300 m separation, placed by the metric's marginal rule (alpha*s bar) with a 300 m exclusion buffer around the known USGS/INGENIOUS catalogue; hide-and-recover validated (collared 0.1131 vs 0.1029 best single-layer baseline, same placement rule)",
+ "holdout_receipt": {
+  "protocol": "leave-one-fold-out geometry selection",
+  "n_folds": 4,
+  "family_collared_mean": 0.10739425,
+  "family_unrestricted_mean": 0.11721374999999999,
+  "best_single_name": "single:det_elev_slope",
+  "best_single_collared_mean": 0.09912424999999998,
+  "delta_vs_best_single": 0.008270000000000013,
+  "geometry_chosen_per_fold": [
+   {
+    "held_out_fold": 0,
+    "n_target": 40000,
+    "min_sep_px": 3
+   },
+   {
+    "held_out_fold": 1,
+    "n_target": 40000,
+    "min_sep_px": 3
+   },
+   {
+    "held_out_fold": 2,
+    "n_target": 40000,
+    "min_sep_px": 3
+   },
+   {
+    "held_out_fold": 3,
+    "n_target": 40000,
+    "min_sep_px": 3
+   }
+  ],
+  "source": "docs/data/final_experiment.json"
+ },
+ "placement_rule_receipt": {
+  "source": "docs/data/margin_check.json",
+  "note": "both arms re-selected under identical exclusion radii at their own best geometry; the buffer is a placement rule and was therefore given to the baseline too before the margin was believed",
+  "k_px": 3
+ },
+ "runtime_s": 31.0
+}
