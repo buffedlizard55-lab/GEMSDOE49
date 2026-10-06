@@ -1,0 +1,5 @@
+{
+ "frac_emitted_on_basin_edge_p90": 0.05605,
+ "frac_catalogue_on_basin_edge_p90": 0.09077195513871582,
+ "note": "depth_to_base_surf band 15 gradient > p90 defines 'basin margin'"
+}

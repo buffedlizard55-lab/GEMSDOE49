@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Official sources · GEMSDOE49</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site">
+  <a class="brand" href="index.html">GEMSDOE49</a>
+  <nav>
+    <a href="index.html">Overview</a>
+    <a href="executive-summary.html">Executive summary</a>
+    <a href="holdout.html">Holdout &amp; metric</a>
+    <a href="hypotheses.html">Hypotheses</a>
+  </nav>
+</header>
+<main>
+<h1>Official, verified sources (manual-review links)</h1>
+<p class="lead">Every external claim in this repository traces to one of these. Status marks:
+<span class="pill ok">VERIFIED</span> fetched and read this session (2026-10-06) ·
+<span class="pill info">LEDGER</span> verified by the GEMSDOE1–47 family knowledge base ·
+<span class="pill warn">MANUAL CHECK</span> sandbox egress blocked; link provided for manual review.</p>
+
+<h2>Competition</h2>
+<table>
+<tr><td>Competition hub</td><td><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">drivendata.org/competitions/306/competition-doe-gems</a></td><td><span class="pill ok">VERIFIED</span></td></tr>
+<tr><td>Problem description (metric, submission format)</td><td><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">page/967</a></td><td><span class="pill ok">VERIFIED</span></td></tr>
+<tr><td>About page (GeoDAWN, Hermant et al. reference)</td><td><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/968/">page/968</a></td><td><span class="pill info">LEDGER</span></td></tr>
+<tr><td>Leaderboard</td><td><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">leaderboard</a></td><td><span class="pill info">LEDGER</span> (login-gated)</td></tr>
+<tr><td>Official rules (NLR)</td><td><a href="https://docs.nlr.gov/docs/fy26osti/96647.pdf">docs.nlr.gov/docs/fy26osti/96647.pdf</a></td><td><span class="pill ok">VERIFIED</span> (§3.2: single GeoTIFF, 3/week)</td></tr>
+<tr><td>Reference solution (U-Net + Monte-Carlo CV)</td><td><a href="https://github.com/drivendataorg/gems-prize-reference-solution">github.com/drivendataorg/gems-prize-reference-solution</a></td><td><span class="pill ok">VERIFIED</span></td></tr>
+<tr><td>Forum (staff clarifications incl. pixel-exact mask)</td><td><a href="https://community.drivendata.org/c/gems-prize-challenge/111">community.drivendata.org/c/gems-prize-challenge/111</a> — thread <a href="https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516">11516</a></td><td><span class="pill info">LEDGER</span></td></tr>
+</table>
+
+<h2>Cross-gradient method</h2>
+<table>
+<tr><td>Gallardo &amp; Meju (2004), JGR — cross-gradient function</td><td><a href="https://doi.org/10.1029/2003JB002716">doi:10.1029/2003JB002716</a></td><td><span class="pill info">LEDGER</span></td></tr>
+<tr><td>Fregoso &amp; Gallardo (2009), Geophysics 74(4) L31–L42 — gravity+magnetics</td><td><a href="https://doi.org/10.1190/1.3119263">doi:10.1190/1.3119263</a></td><td><span class="pill info">LEDGER</span></td></tr>
+<tr><td>ASEG 2012 extended abstract — data-domain horizontal-gradient angle/cross product</td><td><a href="https://doi.org/10.1071/ASEG2012ab273">doi:10.1071/ASEG2012ab273</a></td><td><span class="pill info">LEDGER</span></td></tr>
+</table>
+
+<h2>Data provenance</h2>
+<table>
+<tr><td>INGENIOUS Great Basin compilation (source of the 19-band stack)</td><td><a href="https://gdr.openei.org/submissions/1391">gdr.openei.org/submissions/1391</a> · <a href="https://doi.org/10.15121/1881483">doi:10.15121/1881483</a></td><td><span class="pill warn">MANUAL CHECK</span> for gravity station inventory</td></tr>
+<tr><td>GeoDAWN airborne survey (magnetics/radiometrics, CC0)</td><td><a href="https://doi.org/10.5066/P93LGLVQ">doi:10.5066/P93LGLVQ</a> · <a href="https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and">USGS data page</a> · <a href="https://www.sciencebase.gov/catalog/item/657e1d85d34e23d3533209f7">ScienceBase item</a></td><td><span class="pill info">LEDGER</span></td></tr>
+<tr><td>USGS Quaternary Fault &amp; Fold Database (catalogue definition)</td><td><a href="https://www.usgs.gov/programs/earthquake-hazards/faults">usgs.gov fault page</a> · <a href="https://doi.org/10.5066/P9BCVRCK">doi:10.5066/P9BCVRCK</a></td><td><span class="pill info">LEDGER</span></td></tr>
+<tr><td>Competition rasters in this repo</td><td>recovered byte-exact via sha256 pins in <code>data/bridge/manifest.json</code> from the family's bridge of the official Dropbox mirrors (listed in that manifest)</td><td><span class="pill ok">VERIFIED</span> (hashes match)</td></tr>
+<tr><td>Radiometric / topo u8 bridges</td><td><code>data/bridge/radiometric_manifest.json</code>, <code>data/bridge/topo_manifest.json</code> (sha256-pinned)</td><td><span class="pill ok">VERIFIED</span></td></tr>
+</table>
+
+<h2>Science context</h2>
+<table>
+<tr><td>Hermant, Kiersnowski &amp; Bellanger (2025) — DL fault mapping, NC Nevada; up to 400 m catalogue misfit</td><td><a href="https://pangea.stanford.edu/ERE/pdf/IGAstandard/SGW/2025/Hermant.pdf">Stanford SGW 2025 PDF</a></td><td><span class="pill info">LEDGER</span></td></tr>
+<tr><td>Faulds, Coolbaugh &amp; Hinz (2021) — geothermal structural settings, NBMG Report 58</td><td><span class="pill info">LEDGER</span> (citation verified in family KB)</td></tr>
+<tr><td>Giddens &amp; Faulds (2025) — step-overs across the Great Basin (91.9 % on range fronts)</td><td><span class="pill info">LEDGER</span> (abstract)</td></tr>
+<tr><td>Blewitt et al. — strain-rate targeting of geothermal resources (GRC/NBMG)</td><td><a href="https://nbmg.unr.edu/staff/pdfs/blewitt%20grc%20paper.pdf">nbmg.unr.edu PDF</a></td><td><span class="pill info">LEDGER</span></td></tr>
+<tr><td>Seismica — distributed strands on Basin-and-Range faults (basis of braid damage zones)</td><td><a href="https://seismica.library.mcgill.ca/article/view/2648">seismica.library.mcgill.ca/article/view/2648</a></td><td><span class="pill info">LEDGER</span></td></tr>
+<tr><td>Split conformal prediction (Lei et al. 2018, JASA)</td><td><a href="https://doi.org/10.1080/01621459.2017.1322365">doi:10.1080/01621459.2017.1322365</a></td><td><span class="pill info">LEDGER</span></td></tr>
+</table>
+
+<h2>Family score history (the dataset this project optimizes against)</h2>
+<p class="small">Sites <a href="https://buffedlizard55-lab.github.io/GEMSDOE/docs/index.html">GEMSDOE</a> …
+<a href="https://buffedlizard55-lab.github.io/GEMSDOE47/">GEMSDOE47</a> hold every prior
+submission's file, score and write-up. Anchors used here: 0.2708 (h27-4, scored), 0.2778
+(h33-2-b2, family best), 0.3195 (current leaderboard top at session start). Repo trees and
+rasters were fetched read-only through the GitHub Contents API.</p>
+
+<footer>GEMSDOE49 · 2026-10-06</footer>
+</main>
+</body>
+</html>

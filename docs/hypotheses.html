@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hypotheses — ranked candidates · GEMSDOE49</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site">
+  <a class="brand" href="index.html">GEMSDOE49</a>
+  <nav>
+    <a href="index.html">Overview</a>
+    <a href="executive-summary.html">Executive summary</a>
+    <a href="holdout.html">Holdout &amp; metric</a>
+    <a href="sources.html">Sources</a>
+  </nav>
+</header>
+<main>
+<h1>Hypothesis backlog — five candidates not previously implemented in GEMSDOE1–48</h1>
+<p class="lead">Each card names the layers, the physical signature, why it targets a
+<i>catalogue gap</i> rather than a known fault, and how it differs from everything already
+implemented in the family. Ranked by expected DTI improvement ÷ implementation cost.
+Negative results stay in the table.</p>
+
+<div class="note small"><b>Gap logic used by every card.</b> The QFFD/INGENIOUS catalogue is
+defined by demonstrable coseismic <i>surface</i> deformation in the past 1.6 Ma, compiled from
+published detailed-scale studies (CG-1, CG-2 in the family knowledge base). Anything that
+leaves no surface rupture, or whose evidence post-dates the compilation literature, or whose
+evidence lives in a channel the compilers never consulted, is structurally incapable of being
+in the catalogue. The scorer masks the catalogue, so those gaps are the only place credit
+exists.</div>
+
+<h2>1. H49-A — Cross-gradient multi-physics coupling (IMPLEMENTED, THIS SUBMISSION)</h2>
+<div class="card">
+<ul>
+<li><b>Layers:</b> band 13 isostatic gravity anomaly, band 2 RTP magnetics, band 12 detrended elevation (common 300 m scale).</li>
+<li><b>Signature:</b> pairwise cross-product of horizontal gradient vectors vanishing (Gallardo &amp; Meju 2004 operator) with large magnitudes in all three fields; 2-of-3 consensus via order statistic, not a product of scores.</li>
+<li><b>Why a gap:</b> catalogue compilation used topography and field geology; a density+susceptibility juxtaposition expressed coherently in gravity AND magnetics AND topography off-catalogue is exactly the class-3 (cover-masked) / class-1 (correction) material the compilers lacked instruments to chase.</li>
+<li><b>Difference:</b> never implemented in GEMSDOE1–48 — the family's multi-physics files (h27-4, d2.8, H32-d) combined <i>score maps</i>; this applies the coupling at the <i>operator</i> level on raw gradients.</li>
+<li><b>Status:</b> <span class="pill ok">VALIDATED</span> — holdout DTI 0.0203, +30 % over all single-layer baselines; shipped as this session's submission.</li>
+</ul>
+</div>
+
+<h2>2. H49-B — Radiometric alteration halo × coupled edge</h2>
+<div class="card">
+<ul>
+<li><b>Layers:</b> GeoDAWN radiometric K/Th (bridged <code>radiometric_u8.tif</code>, source DOI 10.5066/P93LGLVQ, CC0) × H49-A coupled score.</li>
+<li><b>Signature:</b> robust z-score of log(Th/K) deviating from the local background, locked to a coupled edge — K is mobile in hydrothermal fluids (adularia/illite addition or acid leaching), Th is comparatively immobile.</li>
+<li><b>Why a gap:</b> alteration chemically softens rock and erases scarps — altered segments are precisely the ones a geomorphology-driven compilation misses; the radioelement channel is one the compilers never consulted.</li>
+<li><b>Difference:</b> 15GEMSDOE (tso1, 0.0782) used alteration-vs-magnetic conjunction without the cross-gradient operator or Th/K z-score; GEMSDOE46 used scarp×radiometric concordance unscored. Nothing gated coupling by alteration.</li>
+<li><b>Status:</b> <span class="pill warn">TESTED, REJECTED AS GATE (2026-10-06)</span> — on the hide-and-recover holdout, gating costs DTI at every threshold: z≥1.0 → 0.0179, z≥1.5 → 0.0139, z≥2.0 → 0.0102 vs coupled-only 0.0203 (<code>evidence/h49b_validation.json</code>). Caveat: holdout truth is catalogue-shaped; if live expert labels include altered-hidden systems the channel may still matter for the Final Round. No submission slot will be spent on it until it beats 0.0203.</li>
+</ul>
+</div>
+
+<h2>3. H49-D — En-echelon scarp-pair stepovers (transfer faults)</h2>
+<div class="card">
+<ul>
+<li><b>Layers:</b> 1 m lidar scarp matched-filter field (<code>lidar_scarp_features_u8.tif</code>, already on disk) + catalogue orientation field.</li>
+<li><b>Signature:</b> pairs of overlapping sub-parallel scarp segments with ≤ ~500 m lateral offset and along-strike separation ≤ 1 km; emit on the connecting transfer structure inside the step-over, not on the segments themselves.</li>
+<li><b>Why a gap:</b> compilers map continuous traces; transfer faults inside step-overs are short, oblique and often buried — but Giddens &amp; Faulds (2025, GeoDAWN lidar, ~499,178 km²) document step-overs as fault-dense settings (91.9 % on range fronts). Published, inside this province.</li>
+<li><b>Difference:</b> GEMSDOE33's h33d (0.2632, unscored) placed dots from catalogue <i>analogs</i> of tips/step-overs on the d2.8 base; this detects scarp pairs directly from the lidar field, independent of catalogue geometry.</li>
+<li><b>Status:</b> <span class="pill info">READY TO TEST</span> — data on disk; pair-detection script is next session's first action.</li>
+</ul>
+</div>
+
+<h2>4. H49-E — MT conductance corridors across basin floors</h2>
+<div class="card">
+<ul>
+<li><b>Layers:</b> band 17 conductivity surface, band 15 depth-to-basement (basin mask), band 2 RTP (as a veto: require <i>no</i> magnetic edge, isolating blind structures).</li>
+<li><b>Signature:</b> narrow conductive lineaments (Radon/Hough on conductance at 500 m) crossing thick basin fill, with no magnetic counterpart — clay/fluid-filled blind structures.</li>
+<li><b>Why a gap:</b> blind structures with no surface rupture are out of scope of the QFFD by definition (CG-1); MT sees them. The about page itself says many targets are “hidden below the surface, requiring geophysical data to detect”.</li>
+<li><b>Difference:</b> family card H6 reserved conductivity as “corroboration only” and was never tested; this tests it as a detector with a magnetic veto, restricted to basin floors.</li>
+<li><b>Status:</b> <span class="pill info">READY TO TEST</span> — all layers already in <code>training_features.tif</code>.</li>
+</ul>
+</div>
+
+<h2>5. H49-C — Strain-rate ridge coherence (“kinematic ghost lines”)</h2>
+<div class="card">
+<ul>
+<li><b>Layers:</b> band 4 second invariant + band 7 shear rate (Hessian ridge analysis at ~1 km); catalogue distance mask ≥ 300 m.</li>
+<li><b>Signature:</b> narrow ridges of strain-rate invariant whose orientation is coherent with the local catalogue strike field, but offset from every mapped trace.</li>
+<li><b>Why a gap:</b> geodetic strain integrates deformation on all structures, including buried strands; the catalogue only contains where rupture was mapped (Blewitt et al. GRC — geothermal correlates with strain accumulation on favorably oriented faults).</li>
+<li><b>Difference:</b> family H4 used quantile bins of raw bands as a <i>prior</i>; ridge extraction with orientation coherence as a <i>detector</i> is new.</li>
+<li><b>Status:</b> <span class="pill warn">HIGH RISK</span> — the bands are 99.8 % smooth above the 300 m kernel (family measurement); localisation may be impossible. Ranked last of the viable three.</li>
+</ul>
+</div>
+
+<h2>Ranking (expected DTI improvement ÷ cost)</h2>
+<table>
+<tr><th>#</th><th>ID</th><th>Expected uplift</th><th>Cost</th><th>External data needed</th></tr>
+<tr><td>1</td><td>H49-D step-over pairs</td><td>med–high (fault-dense settings, lidar-resolved)</td><td>med (pair detector)</td><td>none — on disk</td></tr>
+<tr><td>2</td><td>H49-E MT corridors</td><td>med (blind class is large but uncertain)</td><td>low</td><td>none — in stack</td></tr>
+<tr><td>3</td><td>H49-B alteration gate v2 (strike-extended, not intersection)</td><td>low–med (v1 rejected on holdout)</td><td>med</td><td>none — on disk</td></tr>
+<tr><td>4</td><td>H49-C strain ridges</td><td>low (smoothness risk)</td><td>low</td><td>none — in stack</td></tr>
+</table>
+<p class="small">H49-A is delivered (this submission). Seismicity-asymmetry (bands 10/16) was
+considered and dropped: the bands share parameters (n=100 km, a=15°) and are too smooth to localise.</p>
+
+<footer>GEMSDOE49 · 2026-10-06 · receipts in <code>evidence/</code></footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,11 @@
+# Large competition rasters are recovered via the sha256-pinned bridge —
+# keep them out of git (repo policy: no generated artifacts / large datasets).
+data/**
+!data/bridge/
+data/bridge/**
+!data/bridge/*.json
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
