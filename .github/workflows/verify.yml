@@ -57,6 +57,9 @@ jobs:
       - name: Hash and re-contract every committed submission artifact
         run: python scripts/verify_committed_submission.py
 
+      - name: Every headline number on the site must exist in an evidence file
+        run: python scripts/check_claims.py
+
       - name: Regenerate the site from docs/data and fail if it is stale
         run: |
           cp docs/index.html /tmp/index.before
