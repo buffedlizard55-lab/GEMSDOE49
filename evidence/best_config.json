@@ -1,0 +1,11 @@
+{
+ "key": "sigma_3_n40k",
+ "sigma": 3.0,
+ "n_dots": 40000,
+ "holdout_dti_mean": 0.020302617885093063,
+ "margins_vs_baselines": {
+  "iso_grav_anom": 0.004689234067003922,
+  "rtp": 0.005816857523689255,
+  "det_elev": 0.005789342484276993
+ }
+}

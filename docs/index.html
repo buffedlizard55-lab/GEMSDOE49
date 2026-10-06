@@ -1,154 +1,70 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Evidence dashboard for the GEMSDOE49 H49-XG spatial holdout. The submission gate is closed because the preregistered stability rule failed.">
-  <meta name="theme-color" content="#f3f4ef">
-  <title>GEMSDOE49 — H49-XG evidence & decision</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GEMSDOE49 — GEMS research review</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header class="site-header">
-  <nav class="nav" aria-label="Main navigation">
-    <a class="brand" href="#top"><span class="brand-mark">G</span><span>GEMSDOE49</span></a>
-    <div class="nav-links">
-      <a href="#results">Results</a>
-      <a href="#resolution">Resolution</a>
-      <a href="#submission">Submission</a>
-      <a href="#sources">Sources</a>
-    </div>
+<header class="site">
+  <a class="brand" href="index.html">GEMSDOE49</a>
+  <nav>
+    <a href="executive-summary.html">Executive summary</a>
+    <a href="holdout.html">Holdout &amp; metric</a>
+    <a href="hypotheses.html">Hypotheses</a>
+    <a href="sources.html">Sources</a>
   </nav>
 </header>
-<main id="top">
-  <section class="hero" aria-labelledby="hero-title">
-    <div>
-      <p class="eyebrow">Evidence brief · 06 October 2026</p>
-      <h1 id="hero-title">The pooled signal improved.<br>The gate did not.</h1>
-      <p class="lede">H49-XG’s three-field gravity, magnetic and topographic gradient alignment beat the best single-layer baseline in pooled public-catalogue holdout scoring. One spatial block crossed the preregistered failure limit, so there is <strong>no submission-ready GeoTIFF</strong>.</p>
-      <div class="hero-actions">
-        <a class="button" href="receipts/h49_xg_holdout_20261006.json" download>↓ Download primary holdout receipt</a>
-        <a class="button secondary" href="reports/h49_xg_result_20261006.md">Read the full result</a>
-        <span class="button disabled" aria-disabled="true" title="No GeoTIFF was generated because the preregistered promotion gate failed">GeoTIFF download gated</span>
-      </div>
-      <p class="hero-note">The JSON receipt is experiment evidence, not a DrivenData submission. No slot has been used.</p>
-    </div>
-    <aside class="decision-card" aria-label="Promotion gate status">
-      <span class="status-chip"><span class="status-dot"></span>Submission gate · closed</span>
-      <h2>Keep the weekly submission slot in reserve.</h2>
-      <p>The primary is promising on average, but fails the precommitted stability guard. The more favorable 2 km sensitivity is not eligible for promotion from these same locked folds.</p>
-      <ul class="gate-list">
-        <li><span>Pooled DTI vs. best single layer</span><strong>Pass · +0.018475</strong></li>
-        <li><span>Positive paired fold wins</span><strong>Pass · 4 / 5</strong></li>
-        <li><span>Worst fold delta ≥ −0.01</span><strong>Fail · −0.011802</strong></li>
-        <li><span>Random + shift controls</span><strong>Pass</strong></li>
-        <li><span>Format / uniqueness receipts</span><strong>Not run</strong></li>
-      </ul>
-    </aside>
-  </section>
+<main>
+<h1>GEMS fault-mapping research — submission gate closed</h1>
+<p class="lead">Maximize P(Win) by protecting the weekly submission slot. The fixed five-block H49-XG primary failed its preregistered stability gate. A separate, previously merged candidate has a format-valid research TIFF, but its holdout and scale review are insufficient to authorize an upload.</p>
 
-  <section class="section" id="results" aria-labelledby="results-title">
-    <div class="section-head">
-      <h2 id="results-title">Primary holdout, not leaderboard scoring</h2>
-      <p>Five east–west spatial blocks; 300 m guard; identical 37,654-pixel mass and metric-aware placement across arms. Labels are the public existing-fault catalogue only.</p>
-    </div>
-    <div class="metrics">
-      <article class="metric-card"><p class="metric-label">H49-XG pooled DTI</p><p class="metric-value">0.100415</p><p class="metric-detail">Primary σ 500 m · FWHM 1.177 km</p></article>
-      <article class="metric-card"><p class="metric-label">Best single-layer DTI</p><p class="metric-value">0.081940</p><p class="metric-detail">Detrended-elevation gradient</p></article>
-      <article class="metric-card"><p class="metric-label">Pooled difference</p><p class="metric-value positive">+0.018475</p><p class="metric-detail">Public known-fault proxy</p></article>
-      <article class="metric-card"><p class="metric-label">Promotion outcome</p><p class="metric-value caution">FAIL</p><p class="metric-detail">One fold misses stability limit</p></article>
-    </div>
-    <div class="callout"><span class="callout-icon">!</span><p><strong>Do not compare 0.1004 with the public 0.2778 as if they were the same evaluation.</strong> The 0.1004 is a local known-fault holdout proxy. The live public board listed xiaofanhu #1 at 0.3774 and extradr19 #13 at 0.2778 on 2026-10-06, but does not identify the submitted raster. The H33-2-B2 project README calls its file unscored and calls 0.2747 a projection. Attribution remains unresolved.</p></div>
-  </section>
+<div class="flag">
+  <b>Decision: DO NOT SUBMIT EITHER RESULT.</b> No DrivenData slot has been used and no organizer score exists for either H49-XG artifact. The file below is an existing PR #1 research artifact, not a cleared submission and not a measured improvement over the public 0.2778 row.
+</div>
 
-  <section class="section" aria-labelledby="fold-title">
-    <div class="section-head">
-      <h2 id="fold-title">Spatial stability decides it</h2>
-      <p>Delta for H49-XG minus the strongest single-layer result within each fold. Four positive blocks do not erase the preregistered −0.01 guard.</p>
-    </div>
-    <div class="fold-grid">
-      <article class="fold-card"><div class="fold-title"><span>West · 1</span><span>7,868 labels</span></div><div class="fold-delta up">+0.009655</div><p>Positive paired delta</p></article>
-      <article class="fold-card"><div class="fold-title"><span>West · 2</span><span>16,657 labels</span></div><div class="fold-delta up">+0.009084</div><p>Positive paired delta</p></article>
-      <article class="fold-card"><div class="fold-title"><span>Center</span><span>23,150 labels</span></div><div class="fold-delta up">+0.027250</div><p>Positive paired delta</p></article>
-      <article class="fold-card"><div class="fold-title"><span>East · 1</span><span>8,543 labels</span></div><div class="fold-delta down">−0.011802</div><p>Fails −0.01 guard · promotion stops</p></article>
-      <article class="fold-card"><div class="fold-title"><span>East · 2</span><span>4,179 labels</span></div><div class="fold-delta up">+0.045782</div><p>Positive paired delta</p></article>
-    </div>
-    <p style="margin:12px 0 0;color:var(--muted);font-size:11px">Fold audit: the preregistration asked for whole-segment folds; the available label raster has no segment IDs, so the implementation used buffered map blocks. 21 eight-connected raster components (850 positive pixels) cross two scored block cores. Raster connectivity is not verified geological segment identity. <a href="receipts/label_fold_component_audit_20261006.json" download>Download component audit</a>.</p>
-  </section>
+<div class="hero">
+  <h2>Research artifact (NaN outside; not cleared for upload)</h2>
+  <p>This pre-existing 40,000-dot file independently passes the official GeoTIFF geometry/range/outside-footprint checks. It does <b>not</b> pass the required spatial-holdout, gravity-scale, or exhaustive uniqueness review.</p>
+  <a class="btn" href="downloads/gemsdoe49-xgrad-coupled-20261006T203447Z-nan.tif">Download research GeoTIFF — NaN outside (410 KB)</a>
+  <p class="small" style="margin-bottom:0"><b>SHA-256:</b> <code style="background:#ffffff22;color:#fff">bef0881aadc8366f1a08e13aac119cfa71492750e93426105b9e5745c7d701bf</code><br>
+  <b>Proposed tracking label only:</b> <code style="background:#ffffff22;color:#fff">GEMSDOE49-XGRAD-ALIGN</code>. Do not paste an upload note or consume a weekly slot until a new validation clears the gate.</p>
+</div>
 
-  <section class="section" id="resolution" aria-labelledby="resolution-title">
-    <div class="section-head">
-      <h2 id="resolution-title">100 m pixels ≠ 100 m gravity observations</h2>
-      <p>Resolution was checked before interpreting the gradients. The observed grid is smooth at short lags, but autocorrelation is not native station spacing.</p>
-    </div>
-    <div class="two-col">
-      <article class="info-card">
-        <h3>What the official source says</h3>
-        <p>USGS DS 234 describes the Nevada isostatic grid as derived from the complete Bouguer gravity grid. The companion Bouguer page states that product used <strong>71,055 station measurements</strong> and was gridded at <strong>1 km</strong>. The competition mirror does not identify its exact source/version or expose station coordinates, so this is a caution, not proof of a direct source match.</p>
-        <p><a href="https://pubs.usgs.gov/ds/2006/234/nv_iso.htm">USGS isostatic gravity</a> · <a href="https://pubs.usgs.gov/ds/2006/234/nv_boug.htm">USGS Bouguer grid</a></p>
-      </article>
-      <article class="info-card">
-        <h3>What was measured locally</h3>
-        <ul>
-          <li>At 100 m lag, gravity Pearson r = <strong>0.999794 east–west</strong> / <strong>0.999862 north–south</strong>.</li>
-          <li>At 1 km lag, r = <strong>0.980458</strong> / <strong>0.987034</strong>.</li>
-          <li>Primary smoothing: σ=500 m, FWHM=1.177 km; orthogonality remains a separate confounder flag.</li>
-        </ul>
-        <p><a href="receipts/input_spacing_audit_20261006.json" download>Download band / lag audit JSON</a></p>
-      </article>
-    </div>
-  </section>
+<div class="note"><b>Submission steps (only after a future candidate is cleared):</b> open the official <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">GEMS Prize (#306)</a> page, use its submission workflow, upload the validated single-band float32 GeoTIFF, and use a distinct name/comment that accurately identifies that file. The portal is login-gated here, so current button labels and slot availability have not been re-verified. Full gate status is on the <a href="executive-summary.html">executive summary</a>.</div>
 
-  <section class="section" aria-labelledby="sensitivity-title">
-    <div class="section-head">
-      <h2 id="sensitivity-title">Scale sensitivity is diagnostic, not a free retry</h2>
-      <p>The 0.5/1/2 km-class scale ladder was preregistered. Only the 1 km-class arm is the fixed primary. Sensitivities use the same locked blocks and cannot select the submission.</p>
-    </div>
-    <div class="table-wrap">
-      <table>
-        <thead><tr><th>Run role</th><th>Gaussian σ / FWHM</th><th>Cross-gradient DTI</th><th>Best single DTI</th><th>Fold wins</th><th>Decision</th></tr></thead>
-        <tbody>
-          <tr><td>Sensitivity</td><td>250 m / 0.589 km</td><td>0.100531</td><td>0.075029</td><td>3/5</td><td class="fail">Fail</td></tr>
-          <tr class="highlight"><td><strong>Fixed primary</strong></td><td><strong>500 m / 1.177 km</strong></td><td><strong>0.100415</strong></td><td><strong>0.081940</strong></td><td><strong>4/5</strong></td><td class="fail">Fail · one fold −0.011802</td></tr>
-          <tr><td>Sensitivity</td><td>1,000 m / 2.355 km</td><td>0.095154</td><td>0.078849</td><td>5/5</td><td class="sensitivity">Numeric screen passes; not promotion-eligible</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <p style="margin:12px 0 0;color:var(--muted);font-size:11px">Sensitivity receipts: <a href="receipts/h49_xg_sensitivity_500m_20261006.json" download>0.5 km-class JSON</a> · <a href="receipts/h49_xg_sensitivity_2000m_20261006.json" download>2 km-class JSON</a>. Their numerical threshold status does not alter the fixed-primary decision.</p>
-  </section>
+<h2>Two different experiments — do not merge their results</h2>
+<div class="card">
+<table>
+<tr><th>Run</th><th>Measured proxy result</th><th>Gate</th></tr>
+<tr><td>Task-branch fixed H49-XG primary<br>σ=500 m; 37,654 mass; five buffered east–west blocks</td><td>Pooled DTI 0.10041455 vs 0.08193976 best single-layer; paired fold deltas +0.009655, +0.009084, +0.027250, −0.011802, +0.045782.</td><td><span class="pill warn">FAIL</span> One fold breaks the preregistered −0.01 floor. No TIFF was generated by this run.</td></tr>
+<tr><td>Separate PR #1 candidate<br>σ=300 m; 40,000 dots; four catalogue-component folds</td><td>Final artifact DTI 0.02026648; folds 0.03650436 / 0.01260255 / 0.01601234 / 0.01594669. Reproduced from committed code and local mirrors.</td><td><span class="pill warn">NOT CLEARED</span> Folds are not whole held-out geographic blocks; full catalogue mask suppresses held-out cells; 300 m gravity smoothing is below the associated official regional product's 1 km cell size; all-priors audit is incomplete.</td></tr>
+</table>
+<p class="small">These DTI values use different protocols, scales, operators, and denominators. Neither is a public/private leaderboard score and the values must not be compared as if they measured the same test.</p>
+</div>
 
-  <section class="section" id="submission" aria-labelledby="submission-title">
-    <div class="section-head">
-      <h2 id="submission-title">Submission instructions — only after a future pass</h2>
-      <p>No portal credentials are available here, and no upload was made. The official rules allow feedback submissions, but require a single final choice across both prize rounds.</p>
-    </div>
-    <div class="callout"><span class="callout-icon">×</span><p><strong>Current action: do not use a weekly slot.</strong> There is no cleared raster, so a final DrivenData upload name and comment are intentionally not assigned. The H33 filename/comment must not be reused or relabelled.</p></div>
-    <div class="steps" style="margin-top:14px">
-      <article class="step"><h3>Enroll on DrivenData</h3><p><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">Open the GEMS challenge</a>, sign in and click <strong>Compete!</strong> to enroll. On the competition home page, use the sidebar <strong>Submit</strong> action, then <strong>Make new submission</strong>.</p></article>
-      <article class="step"><h3>Upload only a cleared TIFF</h3><p>After a new frozen holdout passes, attach one single-band float32 GeoTIFF in EPSG:32611 at 100 m, with values in [0,1] and NaN only outside the template footprint.</p></article>
-      <article class="step"><h3>Name and document distinctly</h3><p>For a future eligible candidate, generate a new unique portal name and a concise, truthful comment from its final method/receipt. Confirm any field-length limit in the live form. Do not use placeholder metadata now.</p></article>
-    </div>
-    <p style="margin:15px 0 0;color:var(--muted);font-size:11px">Official rules state up to three automated-scoring submissions per week and one final submission across both prize rounds. The rules also require a narrative disclosure of generative-AI use. This project used AI assistance for code scaffolding, test drafting and source-review notes; the deterministic predictions came from the documented numerical operator. The submitting competitor remains responsible for final verification and disclosure.</p>
-  </section>
+<h2>What is known about the reported 0.2778</h2>
+<div class="card">
+<p>The public leaderboard snapshot checked on 2026-10-06 showed <b>extradr19 at 0.2778</b> (rank 13, 10 submissions), while <b>xiaofanhu led at 0.3774</b>. The leaderboard does not expose a submission filename or method.</p>
+<p>The pinned GEMSDOE32 README marks <code>h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros.tif</code> <b>UNSCORED</b> and calls <code>0.27467315976932155</code> a project projection. No portal receipt maps that TIFF to the 0.2778 row. Therefore <b>why that particular board entry scored 0.2778 is unresolved</b>; attributing it to the H33-2-B2 raster or explaining a 0.2708→0.2778 jump as measured fact would be unsupported. See the <a href="reports/source_audit_20261006.md">source and score-attribution audit</a>.</p>
+</div>
 
-  <section class="section" id="sources" aria-labelledby="sources-title">
-    <div class="section-head">
-      <h2 id="sources-title">Sources & audit trail</h2>
-      <p>Official sources are separated from owner-hosted mirrors and local measurements. Critical attribution and resolution gaps are explicit.</p>
-    </div>
-    <div class="source-list">
-      <article class="source"><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">DrivenData problem, metric & format</a><p>Official challenge description and scoring rules.</p></article>
-      <article class="source"><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">DrivenData public leaderboard</a><p>Current public board; no artifact filename on the extradr19 row.</p></article>
-      <article class="source"><a href="https://docs.nlr.gov/docs/fy26osti/96647.pdf">GEMS Prize Official Rules (September 2026)</a><p>Submission limits, final selection, AI disclosure and prize terms.</p></article>
-      <article class="source"><a href="reports/source_audit_20261006.md">Prior-result & source audit</a><p>Line-by-line notes on H33 attribution, score semantics and provenance.</p></article>
-      <article class="source"><a href="reports/hypotheses.md">Frozen hypothesis / promotion protocol</a><p>H49-XG preregistration; primary scale and gates.</p></article>
-      <article class="source"><a href="https://github.com/buffedlizard55-lab/GEMSDOE/blob/c0c06ac82178f26b94fce3397036ef8f12a2f3a0/data/bridge">Pinned feature mirror</a><p>Owner-hosted mirror only; not organizer-authenticated.</p></article>
-    </div>
-  </section>
+<h2>Audit receipts and next gates</h2>
+<table>
+<tr><th>Item</th><th>Independent finding</th></tr>
+<tr><td>Official output contract</td><td>NaN-outside twin passes: float32, single band, EPSG:32611, 100 m, same grid, `[0,1]` inside, NaN outside. The zeros twin is not the compliant primary under the official null/NaN-outside wording.</td></tr>
+<tr><td>H33-2-B2 uniqueness pair</td><td>Directly rechecked against the pinned raster: 792 shared pixels, 2.10% overlap of the smaller emission, union Jaccard 0.01030, Spearman −0.97958. This pair is distinct; it does not complete the audit against all prior submissions.</td></tr>
+<tr><td>All-priors audit</td><td>PR #1 receipt lists 57 files, but the corpus and manifest are absent from Git, and three original artifacts were unavailable. <span class="pill warn">INCOMPLETE</span></td></tr>
+<tr><td>Gravity support</td><td>USGS regional `GB_iso_grav_anom.tif` README says 1 km cells. Exact mapping to competition band 13 is not authenticated. PR #1 used σ=300 m; scale justification is unresolved.</td></tr>
+<tr><td>Metric/mask</td><td>DrivenData DTI specification and staff's pixel-exact mask clarification are linked on the <a href="sources.html">sources page</a>; the four-fold holdout needs a spatially isolated redesign.</td></tr>
+</table>
 
-  <footer>
-    <div class="footer-row"><div><strong>GEMSDOE49</strong><br>Research-only result · No candidate GeoTIFF generated · No slot used</div><div>Repository code, preregistration, tests and result memo are available in the project checkout.<br><a href="reports/h49_xg_result_20261006.md">Full result memo</a> · <a href="receipts/h49_xg_holdout_20261006.json">Primary JSON receipt</a></div></div>
-  </footer>
+<div class="flag"><b>Provenance warning</b>
+<p class="small">The official DrivenData data tab redirects to login. Local input rasters are pinned public owner-hosted mirrors; their SHA-256 values prove mirror consistency, not authentication against organizer downloads. No result in this repository is an organizer score. The complete review and reproducible checks are in <a href="reports/pr1_candidate_audit_20261006.md">the PR #1 candidate audit</a>, <a href="reports/h49_xg_result_20261006.md">the fixed H49-XG result memo</a>, and the <a href="receipts/pr1_candidate_audit_20261006.json">audit receipt</a>.</p>
+</div>
+
+<footer>GEMSDOE49 · 2026-10-06 · Maximize P(Win) · Own the Outcome · no upload authorized</footer>
 </main>
 </body>
 </html>

@@ -1,0 +1,23 @@
+name: verify
+
+on:
+  push:
+    branches: [ "**" ]
+  pull_request:
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install numpy scipy rasterio pytest
+      - name: Run metric and emission tests
+        run: python -m pytest tests -q
+      - name: Check the format-compliant research download is linked
+        run: |
+          test -f docs/downloads/gemsdoe49-xgrad-coupled-20261006T203447Z-nan.tif
+          grep -q "gemsdoe49-xgrad-coupled-20261006T203447Z-nan.tif" docs/index.html
