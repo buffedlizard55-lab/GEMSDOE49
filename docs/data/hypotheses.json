@@ -10,7 +10,7 @@
    "cost": "low - uses only competition bands, one 2 s Gaussian pyramid and two smoothed cross products",
    "priority": "5",
    "status": "verified - shipped",
-   "result": "screen collared 0.1074 at N=40,000/sep 3, leave-one-fold-out 0.1074 vs best single-layer baseline 0.0991; the same construction without the gate (topo_ms_coh1, coherence only) scores 0.1004, so the gate is worth +0.0070."
+   "result": "screen collared 0.1074 at N=40,000/sep 3, leave-one-fold-out 0.1074 vs best single-layer baseline 0.0991; with a 300 m catalogue buffer both arms re-measured 0.1131 vs 0.1029 collared and 0.1181 vs 0.1111 unrestricted, winning 4/4 blocks. The coherence weighting is what lifts the carrier (topo_ms 0.0940 -> topo_ms_coh 0.1074); the cross-gradient gate itself is a measured no-op (+0.00003, support Jaccard 0.8434) and is reported as such."
   },
   {
    "name": "H2 - pure gravity x magnetics cross-gradient as the score",
