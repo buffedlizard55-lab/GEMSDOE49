@@ -20,6 +20,8 @@ ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "docs" / "data"
 OUT = ROOT / "docs"
 
+RAW_BASE = "https://github.com/buffedlizard55-lab/GEMSDOE49/raw/main/docs/downloads/"
+
 REQUIRED = (
     "submission",
     "validation",
@@ -199,13 +201,14 @@ def artifacts_section() -> str:
         rows.append((p.name, len(b), hashlib.sha256(b).hexdigest()))
     body = "".join(
         f'<tr><td><a href="downloads/{esc(n)}"><code>{esc(n)}</code></a></td>'
-        f'<td class="n">{sz/1e6:.2f} MB</td><td class="small"><code>{h[:24]}…</code></td></tr>'
+        f'<td class="n">{sz/1e6:.2f} MB</td><td class="small"><code>{h[:24]}…</code></td>'
+        f'<td class="small"><a href="{RAW_BASE}{esc(n)}">GitHub raw</a></td></tr>'
         for n, sz, h in rows)
     return f"""<h2>Every submission raster in this repository</h2>
 <p class="sub">Auto-listed from <code>docs/downloads/</code> at build time. The first row is the file
 recommended by this session; the others are preserved from earlier merged sessions and are documented
 on their own terms — see the <code>research/</code> and <code>docs/reports/</code> folders.</p>
-<table><tr><th>file</th><th class="n">size</th><th>sha256</th></tr>{body}</table>"""
+<table><tr><th>file</th><th class="n">size</th><th>sha256</th><th>direct link</th></tr>{body}</table>"""
 
 
 def kpi(v: str, k: str) -> str:
@@ -236,6 +239,7 @@ the cross-validation protocol that gates the release.</p>""",
 values in [0,1], NaN only outside the mapped footprint.</p>
 <a class="btn" href="{esc(dl)}" download>Download {esc(sub['filename'])}</a>
 <a class="btn sec" href="{esc(zeros)}" download>zero-filled variant (same predictions)</a>
+<a class="btn sec" href="{RAW_BASE}{esc(sub['filename'])}">same file from GitHub (mirror)</a>
 <p class="small" style="margin-top:10px">sha256 of the primary file:
 <code>{esc(sub['sha256'])}</code><br>{esc(sub['slug'])} — submit this file as-is. The second file
 carries identical predictions and differs only outside the mapped area, for forms that reject NaN.</p>
@@ -262,10 +266,13 @@ competition data. Absolute values here are <em>not</em> leaderboard scores — s
 are 2.7–10.5 km, so a 100 m horizontal gradient of those bands resolves interpolation texture rather
 than structural edges. The released detector therefore anchors on the one field that does carry
 grid-scale power — the detrended-elevation slope — turns it into a multi-scale ridge/edge response,
-weights it by local coherence, and then uses cross-gradient products of the independent geophysical
-layers as <em>confounder gates</em>: a candidate pixel survives only where the independent layers
-agree that a structure is there, and is down-weighted where their gradients are orthogonal. Emission
-is binary and sparse, placed by a greedy shadowed-coverage rule under the exact metric algebra.</p>""",
+weights it by local coherence, and then multiplies it by a <em>confounder gate</em> built from the
+cross-gradient geometry between that topographic edge and the gravity and reduced-to-pole magnetic
+gradients — a pixel is down-weighted where the topographic edge is strongly orthogonal to the
+potential-field gradients while both are large. The gate is measured to be score-neutral (it changes
+8.5 % of the dots and the score by +0.00003) and is reported that way; the coherence weighting is
+what actually lifts the carrier. Emission is binary and sparse, placed by a greedy
+shadowed-coverage rule under the exact metric algebra, with a 300 m buffer around the catalogue.</p>""",
         f"""<h2>Why not the cross-gradient itself?</h2>
 <p>The brief asked for a data-domain cross-gradient of gravity and magnetics. It was implemented,
 measured and <em>rejected as a detector</em>: at matched emission geometry it scores inside the
@@ -273,15 +280,19 @@ no-information control range (cross-gradient {scr['results']['cg_gxm']['best']['
 vs random {scr['results']['control:random']['best']['collared_mean']:.4f}, uniform lattice
 {scr['results']['control:uniform_lattice4']['best']['collared_mean']:.4f}). The measured reason is
 in <a href="evidence.html#native">native resolution</a>: both fields have integral scales of
-2.7–8.1 km. Its defensible role is the multiplicative gate it now plays.</p>""",
+2.7–8.1 km. Its role in the shipped file is the multiplicative gate described above, which is
+measured to be a no-op (+0.00003). What actually earns the score is the topographic carrier and the
+placement rule; both are measured on their own.</p>""",
         """<h2>Reproduce it</h2>
 <pre>git clone &lt;this repo&gt; &amp;&amp; cd GEMSDOE49
 bash scripts/download_competition_data.sh     # fetch + sha256-verify the official data
 python3 scripts/prepare_data.py               # audit grid, CRS, dtype, footprint, band tags
-python3 -m pytest tests -q                    # 39 tests: metric, gate, cross-gradient, holdout
-python3 scripts/build_submission.py           # writes the two GeoTIFFs + docs/data/submission.json
+python3 -m pytest tests -q                    # 72 tests: metric(s), gate, cross-gradient, holdout, placement
+python3 scripts/build_submission.py --family gate_ortho_w0.25 --n-target 40000 --min-sep 3 \
+    --exclude-catalogue-px 3 --out-dir docs/downloads
 python3 scripts/validate_submission.py docs/downloads/&lt;file&gt;.tif
-python3 scripts/uniqueness_check.py --prior-dir &lt;priors&gt;
+python3 scripts/uniqueness_check.py docs/downloads/&lt;file&gt;.tif --prior-dir &lt;priors&gt;
+python3 scripts/verify_committed_submission.py
 python3 scripts/build_site.py                 # this site</pre>""",
     ]
     return "\n".join(b)
